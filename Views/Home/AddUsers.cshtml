@@ -1,0 +1,60 @@
+﻿@model test_Data.Models.UserModel
+@{
+    ViewData["Title"] = "Add Users";
+}
+
+    <form action="/home/addusers" method="post">
+        <div class="form-group">
+            <label>Email address</label>
+            <input type="email" placeholder="Enter email" asp-for="Email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" asp-for="UserName"/>
+        <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="text" asp-for="Password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+    <div class="container">
+    @if(ViewBag.users != null && ViewBag.users.Count>=1)
+    {
+
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    ##- header
+                    <th scope="col">Name</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">UserName</th>
+                </tr>
+            </thead>
+            <tbody>
+             @foreach (var user in ViewBag.users)
+                {
+                    <tr>
+                        <td>@user.Name</td>
+                        <td>@user.Password</td>
+                        <td>@user.UserName</td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+        
+    }
+
+    </div>
