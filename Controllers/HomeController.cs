@@ -36,22 +36,34 @@ namespace test_Data.Controllers
 
             return View("AddUsers");
         }
-
-        public IActionResult UpdateUser()
+        [HttpPost]
+        public IActionResult UpdateUser(UserModel user)
         {
             using (var db = new DemoContext())
             {
-                var user= db.Users.Where(u=> u.Id ==1).FirstOrDefault();
-
-                user.Name = "Kumeren";
-
-                db.SaveChanges();
+                var userTemp= db.Users.Where(u=> u.Id == user.Id).FirstOrDefault();
+                TempData["userTemp"] = userTemp;
             }
 
 
-            return View("AddUsers");
+            return View();
         }
 
+        public IActionResult UpdateUserFinal(UserModel user)
+        {
+            using(var db = new DemoContext())
+            {
+                var UpdateUser = db.Users.Where(u => u.Id == user.Id).FirstOrDefault();
+
+                UpdateUser.Name = user.Name;
+                UpdateUser.UserName = user.UserName;
+                UpdateUser.Password = user.Password; 
+                UpdateUser.Email = user.Email;
+
+                db.SaveChanges();
+            }
+            return View("AddUsers");
+        }
         public IActionResult AddUsers()
         {
             List<UserModel> users = new List<UserModel>();
