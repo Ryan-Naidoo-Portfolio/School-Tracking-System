@@ -7,7 +7,8 @@ namespace test_Data.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         
-          =>options.UseSqlite(@"Data Source=C:\Users\naido\Desktop\TELIG TEK\Demo.db");
-        
+          =>options.UseSqlite(@"Data Source=C:\Users\User\source\repos\Teli_Boys\Demo.db");
+
+
     }
 }

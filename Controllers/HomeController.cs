@@ -23,6 +23,35 @@ namespace test_Data.Controllers
             return View();
         }
 
+        public IActionResult SearchUser(string searchTerm)
+        {
+            List<UserModel> users = new List<UserModel>();
+
+            using (var db = new DemoContext())
+            {
+                users = db.Users.Where(u => u.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
+            }
+
+            TempData["users"] = users;
+
+            return View("AddUsers");
+        }
+
+        public IActionResult UpdateUser()
+        {
+            using (var db = new DemoContext())
+            {
+                var user= db.Users.Where(u=> u.Id ==1).FirstOrDefault();
+
+                user.Name = "Kumeren";
+
+                db.SaveChanges();
+            }
+
+
+            return View("AddUsers");
+        }
+
         public IActionResult AddUsers()
         {
             List<UserModel> users = new List<UserModel>();
@@ -32,10 +61,12 @@ namespace test_Data.Controllers
                 users = db.Users.ToList();
             }
 
-            ViewBag.users = users;
+            TempData["users"] = users;
 
             return View();
         }
+
+
 
         [HttpPost]
         public IActionResult AddUsers(UserModel user)
@@ -44,10 +75,10 @@ namespace test_Data.Controllers
             if(ModelState.IsValid)
             {
              using (var db = new DemoContext())
-            {
+             {
                 db.Add(user);
                 db.SaveChanges();
-            }
+             }
 
 
             }
