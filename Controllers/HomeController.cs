@@ -49,6 +49,17 @@ namespace test_Data.Controllers
             return View();
         }
 
+        public IActionResult DeleteUser(UserModel user)
+        {
+            using (var db = new DemoContext())
+            {
+                var DeleteUser = db.Users.Where(u => u.Id == user.Id).FirstOrDefault();
+                db.Attach(DeleteUser);
+                db.Remove(DeleteUser);
+                db.SaveChanges();
+            }
+            return View("Index");
+        }
         public IActionResult UpdateUserFinal(UserModel user)
         {
             using(var db = new DemoContext())
@@ -64,6 +75,8 @@ namespace test_Data.Controllers
             }
             return View("AddUsers");
         }
+
+
         public IActionResult AddUsers()
         {
             List<UserModel> users = new List<UserModel>();
@@ -78,7 +91,10 @@ namespace test_Data.Controllers
             return View();
         }
 
-
+        public IActionResult RouteAddUsers()
+        {
+            return View("AddUsers");
+        }
 
         [HttpPost]
         public IActionResult AddUsers(UserModel user)
