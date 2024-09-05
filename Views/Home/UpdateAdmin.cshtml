@@ -1,0 +1,20 @@
+﻿@model test_Data.Models.AdminModel
+@{
+    ViewData["Title"] = "UpdateAdmin";
+    AdminModel user = TempData["userTemp"] as AdminModel;
+}
+<h1>Update Admin</h1>
+<div class="container">
+    <form action="/home/UpdateAdminFinal" method="post">
+        <input type="hidden" asp-for="Id" value="@user.Id"/>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" asp-for="Name" value="@user.Name">        
+        </div>
+        <div class="form-group">
+            <label>Surname</label>
+            <input type="text" asp-for="Surname" value="@user.Surname">        
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

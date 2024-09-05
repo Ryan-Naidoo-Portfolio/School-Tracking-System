@@ -1,0 +1,31 @@
+﻿@model test_Data.Models.AttendanceModel
+@{
+    ViewData["Title"] = "UpdateAttendance";
+    AttendanceModel user = TempData["userTemp"] as AttendanceModel;
+}
+<h1>Update Attendance</h1>
+<div class="container">
+    <form action="/home/UpdateAttendanceFinal" method="post">
+        <input type="hidden" asp-for="Id" value="@user.Id"/>
+        <div class="form-group">
+            <label>TimeIn</label>
+            <input type="text" placeholder="Enter TimeIn" asp-for="TimeIn" value = "@user.TimeIn">
+            
+        </div>
+        <div class="form-group">
+            <label>TimeOut</label>
+            <input type="text" asp-for="TimeOut" value="@user.TimeOut">
+            
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <input type="text" asp-for="Date" value="@user.Date" />
+            
+        </div>
+        <div class="form-group">
+            <label>Present</label>
+            <input type="text" asp-for="Present" value="@user.Present" />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

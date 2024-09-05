@@ -1,0 +1,72 @@
+﻿@model test_Data.Models.TeacherModel
+@{
+    ViewData["Title"] = "Teacher";
+
+}
+
+<form action="/home/teacher" method="post">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" placeholder="Enter email" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Surname</label>
+        <input type="text" asp-for="Surname">
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>FormClass</label>
+        <input type="text" asp-for="FormClass">
+        <span asp-validation-for="FormClass" class="text-danger"></span>
+    </div>
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="container">
+    @if (ViewBag.users != null && ViewBag.users.Count >= 1)
+    {
+
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    ##- header
+                    <th scope="col">Name</th>
+                    <th scope="col">Surname</th>
+                    <th scope="col">FormClass</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var teacher in ViewBag.users)
+                {
+                    <tr>
+                        <td>@teacher.Name</td>
+                        <td>@teacher.Surname</td>
+                        <td>@teacher.FormClass</td>
+                        <td>
+                            <form asp-action="UpdateTeacher" asp-controller="Home" method="post">
+                                <input type="hidden" asp-for="Id" value="@teacher.Id"/>
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="DeleteTeacher" asp-controller="Home" method="post">
+                                <input type="hidden" asp-for="Id" value="@teacher.Id" />
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    }
+
+
+</div>
+
+

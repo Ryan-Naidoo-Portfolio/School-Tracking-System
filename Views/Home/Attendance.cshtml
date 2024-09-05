@@ -1,0 +1,80 @@
+﻿@model test_Data.Models.AttendanceModel
+@{
+    ViewData["Title"] = "Attendance";
+
+}
+
+<form action="/home/attendance" method="post">
+    <div class="form-group">
+        <label>TimeIn</label>
+        <input type="text" placeholder="Enter TimeIn" asp-for="TimeIn">
+        <span asp-validation-for="TimeIn" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>TimeOut</label>
+        <input type="text" asp-for="TimeOut">
+        <span asp-validation-for="TimeOut" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Date</label>
+        <input type="text" asp-for="Date">
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Present</label>
+        <input type="text" asp-for="Present">
+        <span asp-validation-for="Present" class="text-danger"></span>
+    </div>
+
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="container">
+    @if (ViewBag.users != null && ViewBag.users.Count >= 1)
+    {
+
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    ##- header
+                    <th scope="col">TimeIn</th>
+                    <th scope="col">TimeOut</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Present</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var attendance in ViewBag.users)
+                {
+                    <tr>
+                        <td>@attendance.TimeIn</td>
+                        <td>@attendance.TimeOut</td>
+                        <td>@attendance.Date</td>
+                        <td>@attendance.Present</td>
+                        <td>
+                            <form asp-action="UpdateAttendance" asp-controller="Home" method="post">
+                                <input type="hidden" asp-for="Id" value="@attendance.Id"/>
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="DeleteAttendance" asp-controller="Home" method="post">
+                                <input type="hidden" asp-for="Id" value="@attendance.Id" />
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    }
+
+
+</div>
+
+

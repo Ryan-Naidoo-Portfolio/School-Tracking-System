@@ -1,0 +1,73 @@
+﻿@model test_Data.Models.AccountModel
+@{
+    ViewData["Title"] = "Account";
+
+}
+
+<form action="/home/account" method="post">
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" placeholder="Enter Username" asp-for="Username">
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="text" asp-for="Password">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Position</label>
+        <input type="text" asp-for="Position">
+        <span asp-validation-for="Position" class="text-danger"></span>
+    </div>
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="container">
+    @if (ViewBag.users != null && ViewBag.users.Count >= 1)
+    {
+
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    ##- header
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Position</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var account in ViewBag.users)
+                {
+                    <tr>
+                        <td>@account.Username</td>
+                        <td>@account.Password</td>
+                        <td>@account.Position</td>
+                        <td>
+                            <form asp-action="UpdateAccount" asp-controller="Home" method="post">
+                                <input type="hidden" asp-for="Id" value="@account.Id"/>
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="DeleteAccount" asp-controller="Home" method="post">
+                                <input type="hidden" asp-for="Id" value="@account.Id" />
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    }
+
+
+</div>
+
+
