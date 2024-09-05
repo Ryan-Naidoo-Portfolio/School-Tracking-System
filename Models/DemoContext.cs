@@ -4,6 +4,7 @@ namespace test_Data.Models
     public class DemoContext : DbContext
     {
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<ParentModel> Parents { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         

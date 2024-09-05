@@ -1,7 +1,12 @@
+using test_Data.Helper.QRCodeGeneratorHelper;
+using S = test_Data.Helper.QRCodeGeneratorHelper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IQRCodeGeneratorHelper, S.QRCodeGeneratorHelper>();
 
 var app = builder.Build();
 

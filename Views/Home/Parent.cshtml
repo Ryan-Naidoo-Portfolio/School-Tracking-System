@@ -1,0 +1,80 @@
+﻿@model test_Data.Models.ParentModel
+@{
+    ViewData["Title"] = "Parent";
+
+}
+
+<form action="/home/parent" method="post">
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" placeholder="Enter email" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Surname</label>
+        <input type="text" asp-for="Surname">
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>PhoneNumber</label>
+        <input type="number" asp-for="PhoneNumber" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>SpouseName</label>
+        <input type="text" asp-for="SpouseName" />
+    </div>
+    <div class="form-group">
+        <label>SpousePhoneNumber</label>
+        <input type="tel" asp-for="SpousePhoneNumber" />
+    </div>
+    <div class="form-group">
+        <label>EmergencyContactName</label>
+        <input type="text" asp-for="EmergencyContactName">
+        <span asp-validation-for="EmergencyContactName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>EmergencyContactPhoneNumber</label>
+        <input type="tel" asp-for="EmergencyContactPhoneNumber">
+        <span asp-validation-for="EmergencyContactPhoneNumber" class="text-danger"></span>
+    </div>
+ <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="container">
+    @if (ViewBag.users != null && ViewBag.users.Count >= 1)
+    {
+
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    ##- header
+                    <th scope="col">Name</th>
+                    <th scope="col">PhoneNumber</th>
+                    <th scope="col">SpouseName</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var parent in ViewBag.users)
+                {
+                    <tr>
+                        <td>@parent.Name</td>
+                        <td>@parent.PhoneNumber</td>
+                        <td>@parent.SpouseName</td>
+
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    }
+
+
+</div>
+
+
