@@ -47,6 +47,12 @@ namespace test_Data.Controllers
             return View();
         }
 
+        //Login Page
+        public IActionResult Authenticate()
+        {
+            return View();
+        }
+
         public IActionResult SearchUser(string searchTerm)
         {
             List<UserModel> users = new List<UserModel>();
@@ -59,6 +65,29 @@ namespace test_Data.Controllers
             TempData["users"] = users;
 
             return View("AddUsers");
+        }
+
+        //Login
+        public IActionResult Login(string username, string password, string position)
+        {
+            List<AccountModel> users = new List<AccountModel>();
+
+            using (var db = new DemoContext())
+            {
+                users = db.Account.Where(u => u.Username.Contains(username) && u.Password.Contains(password) && u.Position.Contains(position)).ToList();
+
+            }
+
+            if (users.Count==0)
+            {
+                return View("Authenticate");
+            }
+            else 
+            { 
+                return View("AddUsers");
+            }
+
+            
         }
 
         //Update user 1
