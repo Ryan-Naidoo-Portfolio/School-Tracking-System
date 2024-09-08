@@ -1,80 +1,149 @@
 ﻿@model test_Data.Models.AttendanceModel
 @{
     ViewData["Title"] = "Attendance";
-
 }
-
-<form action="/home/attendance" method="post">
-    <div class="form-group">
-        <label>TimeIn</label>
-        <input type="text" placeholder="Enter TimeIn" asp-for="TimeIn">
-        <span asp-validation-for="TimeIn" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label>TimeOut</label>
-        <input type="text" asp-for="TimeOut">
-        <span asp-validation-for="TimeOut" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label>Date</label>
-        <input type="text" asp-for="Date">
-        <span asp-validation-for="Date" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label>Present</label>
-        <input type="text" asp-for="Present">
-        <span asp-validation-for="Present" class="text-danger"></span>
-    </div>
-
- <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<div class="container">
-    @if (ViewBag.users != null && ViewBag.users.Count >= 1)
-    {
-
-        <table class="table table-dark">
-            <thead>
-                <tr>
-                    ##- header
-                    <th scope="col">TimeIn</th>
-                    <th scope="col">TimeOut</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Present</th>
-
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var attendance in ViewBag.users)
-                {
-                    <tr>
-                        <td>@attendance.TimeIn</td>
-                        <td>@attendance.TimeOut</td>
-                        <td>@attendance.Date</td>
-                        <td>@attendance.Present</td>
-                        <td>
-                            <form asp-action="UpdateAttendance" asp-controller="Home" method="post">
-                                <input type="hidden" asp-for="Id" value="@attendance.Id"/>
-                                <button type="submit" class="btn btn-success">Update</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form asp-action="DeleteAttendance" asp-controller="Home" method="post">
-                                <input type="hidden" asp-for="Id" value="@attendance.Id" />
-                                <button type="submit" class="btn btn-outline-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-
-        </table>
-
+<style>
+    body {
+        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
     }
 
+    .Form {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    }
 
-</div>
+    .form-group {
+        margin-bottom: 20px;
+    }
 
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
 
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+    .btn-primary {
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1rem;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .table-dark {
+        margin-top: 20px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: white;
+    }
+
+        .table-dark th,
+        .table-dark td {
+            text-align: center;
+        }
+
+    .btn-outline-danger {
+        border: 1px solid #dc3545;
+        color: #dc3545;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+</style>
+
+<body>
+    <div class="Form">
+        <form action="/home/attendance" method="post">
+            <div class="form-group">
+                <label for="timeIn">TimeIn</label>
+                <input type="text" id="timeIn" class="form-control" placeholder="Enter TimeIn" asp-for="TimeIn">
+                <span asp-validation-for="TimeIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="timeOut">TimeOut</label>
+                <input type="text" id="timeOut" class="form-control" placeholder="Enter TimeOut" asp-for="TimeOut">
+                <span asp-validation-for="TimeOut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" class="form-control" asp-for="Date">
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="present">Present</label>
+                <select id="present" class="form-control" asp-for="Present">
+                    <option value="" disabled selected>Select status</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                <span asp-validation-for="Present" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <div class="container">
+        @if (ViewBag.users != null && ViewBag.users.Count >= 1)
+        {
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">TimeIn</th>
+                        <th scope="col">TimeOut</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Present</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var attendance in ViewBag.users)
+                    {
+                        <tr>
+                            <td>@attendance.TimeIn</td>
+                            <td>@attendance.TimeOut</td>
+                            <td>@attendance.Date</td>
+                            <td>@attendance.Present</td>
+                            <td>
+                                <form asp-action="UpdateAttendance" asp-controller="Home" method="post">
+                                    <input type="hidden" asp-for="Id" value="@attendance.Id" />
+                                    <button type="submit" class="btn btn-success">Update</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form asp-action="DeleteAttendance" asp-controller="Home" method="post">
+                                    <input type="hidden" asp-for="Id" value="@attendance.Id" />
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</body>

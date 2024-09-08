@@ -1,20 +1,94 @@
 ﻿@model test_Data.Models.AdminModel
 @{
-    ViewData["Title"] = "UpdateAdmin";
+    ViewData["Title"] = "Update Admin";
     AdminModel user = TempData["userTemp"] as AdminModel;
 }
-<h1>Update Admin</h1>
-<div class="container">
-    <form action="/home/UpdateAdminFinal" method="post">
-        <input type="hidden" asp-for="Id" value="@user.Id"/>
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" asp-for="Name" value="@user.Name">        
-        </div>
-        <div class="form-group">
-            <label>Surname</label>
-            <input type="text" asp-for="Surname" value="@user.Surname">        
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
+
+<style>
+    body {
+        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .form-container {
+        max-width: 500px;
+        width: 100%;
+        padding: 30px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        margin: 20px auto;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .btn-primary {
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1rem;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    label {
+        font-weight: bold;
+        font-size: 1rem;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .text-danger {
+        font-size: 12px;
+        color: #dc3545;
+        margin-top: 5px;
+        display: block;
+    }
+</style>
+
+<body>
+    <div class="form-container">
+        <h1>Update Admin</h1>
+        <form action="/home/UpdateAdminFinal" method="post">
+            <input type="hidden" asp-for="Id" value="@user.Id" />
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control" asp-for="Name" value="@user.Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" class="form-control" asp-for="Surname" value="@user.Surname">
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
