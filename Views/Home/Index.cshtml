@@ -1,23 +1,117 @@
 ﻿@model test_Data.Models.GenerateQRCodeViewModel
 
-
 @{
     ViewData["Title"] = "Home Page";
     string QRCodeImageUrl = Model != null ? Model.QRCodeImageUrl : "";
 }
 
-<div class="row">
-    <div class="col-lg-6 m-auto">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+            .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            }
+
+        .btn-primary {
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .download-btn {
+            display: block;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+            .download-btn:hover {
+                background-color: #0056b3;
+            }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>@ViewData["Title"]</h1>
+        <p class="description">
+            Welcome to our Attendance Recording System! This platform helps track student attendance and provides parents with real-time updates about their child's presence at school.
+        </p>
         <form asp-action="Index" method="post">
-<textarea name="text" class="form-control mb-3" rows="5" placeholder="Enter text here"></textarea>
-            <button type="submit" class="btn btn-primary">Generate</button>
+            <div class="form-group">
+                <textarea name="text" class="form-control mb-3" rows="5" placeholder="Enter text here"></textarea>
+                <button type="submit" class="btn btn-primary w-100">Generate</button>
+            </div>
         </form>
-        @if (QRCodeImageUrl != "")
+
+        @if (!string.IsNullOrEmpty(QRCodeImageUrl))
         {
-            <div class="w-50 m-auto">
-                <img src="@QRCodeImageUrl" class="img-fluid w-100 h-100 mb-3" />
-                <a href="@QRCodeImageUrl" class="btn btn-primary w-100" download="QRCode.png"></a>
+            <div class="text-center">
+                <img src="@QRCodeImageUrl" class="img-fluid mb-3" alt="Generated QR Code" />
+                <a href="@QRCodeImageUrl" class="download-btn" download="QRCode.png">Download QR Code</a>
             </div>
         }
     </div>
-</div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

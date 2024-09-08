@@ -1,37 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Authenticate Page";
 }
-<body>
-    <div class="container text-center">
-        
-        <form action="/Home/Login" method="post">
-            <h1>Please Log-In</h1>
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control" name="username" placeholder="Enter username">
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" name="password" placeholder="Enter password">
-            </div>
-            <div class="form-group">
-                <label for="position">Position:</label>
-                <input type="text" class="form-control" name="position" placeholder="Enter position">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">LOGIN</button>
-        </form>
-    </div>
-</body>
-
-
 <style>
-    body{
-        background-image: url(https://i.pinimg.com/originals/8e/f0/bb/8ef0bb37468f953b3ff0325782d894e1.jpg);
+    body {
+        background-image: url('https://media.istockphoto.com/id/1227577523/photo/school-zone-warning-sign-on-blur-traffic-road-with-colorful-bokeh-light-abstract-background.jpg?s=612x612&w=0&k=20&c=peM19VJk8zDi2gNNK_6H_FGdwFEYknAVx-Mn1wholTI=');
         background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
     }
 
+
     .container {
-        max-width:500px;
+        max-width: 500px;
         margin: 0 auto;
         padding-top: 50px;
     }
@@ -41,7 +25,7 @@
         border-radius: 15px;
         border: 2px solid #000;
         background-color: transparent;
-        backdrop-filter:blur(30px);
+        backdrop-filter: blur(30px);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
@@ -62,3 +46,30 @@
         font-weight: bold;
     }
 </style>
+
+<body>
+    <div class="container text-center">
+        
+        <form action="/Home/Login" method="post" class="AuthForm">
+            <h1>Please Log-In</h1>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" name="username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" name="password" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <label for="position">Position:</label>
+                <select class="form-control" name="position">
+                    <option value="" disabled selected>Select your position</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Teacher">Teacher</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">LOGIN</button>
+        </form>
+    </div>
+</body>
