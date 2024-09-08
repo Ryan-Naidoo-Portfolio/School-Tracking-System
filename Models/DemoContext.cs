@@ -12,7 +12,7 @@ namespace test_Data.Models
         public DbSet<AdminModel> Admin { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         
-          =>options.UseSqlite(@"Data Source=C:\Users\dylan\Documents\C#\Teli_boys\Demo.db");
+          =>options.UseSqlite(@"Data Source=C:\Users\User\source\repos\Dylan tings\Demo.db");
         
 
     }

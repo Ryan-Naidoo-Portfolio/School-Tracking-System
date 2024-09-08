@@ -68,7 +68,7 @@ namespace test_Data.Controllers
         }
 
         //Login
-        public IActionResult Login(string username, string password, string position)
+        public IActionResult Login(string username, string password, string position, AccountModel account)
         {
             List<AccountModel> users = new List<AccountModel>();
 
@@ -78,13 +78,25 @@ namespace test_Data.Controllers
 
             }
 
-            if (users.Count==0)
+            if (users.Count == 0)
             {
                 return View("Authenticate");
             }
             else 
             { 
-                return View("AddUsers");
+                if (account.Position == "Teacher")
+                {
+                    return View("Teacher");
+                }
+                else if (account.Position == "Admin")
+                {
+                    return View("Admin");
+                }
+                else if (account.Position=="Parent")
+                {
+                    return View("Parent");
+                }
+                return View("Add Users");
             }
 
             

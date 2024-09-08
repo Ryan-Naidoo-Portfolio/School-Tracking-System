@@ -123,9 +123,14 @@
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
                         <th scope="col">Phone Number</th>
                         <th scope="col">Spouse Name</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">Spouse Phone Number</th>
+                        <th scope="col">Emergency Contact name</th>
+                        <th scope="col">Emergency Contact Phone Number</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,13 +138,19 @@
                     {
                         <tr>
                             <td>@parent.Name</td>
+                            <td>@parent.Surname</td>
                             <td>@parent.PhoneNumber</td>
                             <td>@parent.SpouseName</td>
+                            <td>@parent.SpousePhoneNumber</td>
+                            <td>@parent.EmergencyContactName</td>
+                            <td>@parent.EmergencyContactPhoneNumber</td>
                             <td>
                                 <form asp-action="UpdateParent" asp-controller="Home" method="post">
                                     <input type="hidden" asp-for="Id" value="@parent.Id" />
                                     <button type="submit" class="btn btn-success">Update</button>
                                 </form>
+                            </td>
+                            <td>
                                 <form asp-action="DeleteParent" asp-controller="Home" method="post" class="mt-2">
                                     <input type="hidden" asp-for="Id" value="@parent.Id" />
                                     <button type="submit" class="btn btn-outline-danger">Delete</button>

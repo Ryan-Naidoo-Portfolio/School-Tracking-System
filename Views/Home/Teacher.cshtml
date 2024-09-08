@@ -130,7 +130,8 @@
                         <th scope="col">Name</th>
                         <th scope="col">Surname</th>
                         <th scope="col">Form Class</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -145,6 +146,8 @@
                                     <input type="hidden" asp-for="Id" value="@teacher.Id" />
                                     <button type="submit" class="btn btn-success">Update</button>
                                 </form>
+                            </td>
+                            <td>
                                 <form asp-action="DeleteTeacher" asp-controller="Home" method="post" style="display:inline;">
                                     <input type="hidden" asp-for="Id" value="@teacher.Id" />
                                     <button type="submit" class="btn btn-outline-danger">Delete</button>
