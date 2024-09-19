@@ -8,13 +8,14 @@ namespace test_Data.Models
 {
     public class AccountModel
     {
-        
+
         public int Id { get; set; }
-        [Required(ErrorMessage = "Please enter Username")]
+        [Required(ErrorMessage = "Please Enter A Username")]
+        [UniqueUsername]
         public required string Username { get; set; }
-        [Required(ErrorMessage = "Please enter Password")]
+        [Required(ErrorMessage = "Please Enter A Password")]
         public required string Password { get; set; }
-        [Required(ErrorMessage = "Please enter Position")]
+        [Required(ErrorMessage = "Please Select Your Position")]
         public required string Position { get; set; }
 
     }

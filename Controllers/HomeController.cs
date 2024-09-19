@@ -6,6 +6,9 @@ using System.IO.Enumeration;
 using test_Data.Helper.QRCodeGeneratorHelper;
 using test_Data.Models;
 using static System.Net.Mime.MediaTypeNames;
+using System;
+using System.ComponentModel.DataAnnotations;
+
 
 
 namespace test_Data.Controllers
@@ -643,7 +646,7 @@ namespace test_Data.Controllers
 
             }
 
-            return RedirectToAction("Account");
+            return RedirectToAction("Account");//CHNAGE TO VIEW
         }
 
 
