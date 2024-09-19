@@ -99,14 +99,15 @@ namespace test_Data.Controllers
                 return View("Authenticate");
             }
             else 
-            { 
+            {
                 if (account.Position == "Teacher")
                 {
                     return View("TeacherView");
                 }
                 else if (account.Position == "Admin")
                 {
-                    return View("Admin");
+                    return RedirectToAction("Admin");
+                    //return View("Admin");
                 }
                 else if (account.Position=="Parent")
                 {
@@ -356,7 +357,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
-            return View("Index");
+            return RedirectToAction("User");
         }
 
         //Account Delete
@@ -369,7 +370,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
-            return View("Index");
+            return RedirectToAction("Account");
         }
 
         //Admin Delete
@@ -382,7 +383,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
-            return View("Index");
+            return RedirectToAction("Admin");
         }
 
         //Child Delete
@@ -395,7 +396,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
-            return View("Index");
+            return RedirectToAction("Child");
         }
 
         //Teacher Delete
@@ -408,7 +409,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
-            return View("Index");
+            return RedirectToAction("Teacher");
         }
 
         //Parent Delete
@@ -421,7 +422,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
-            return View("Index");
+            return RedirectToAction("Parent");
         }
 
         //Attendance Delete
@@ -434,7 +435,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
-            return View("Index");
+            return RedirectToAction("Attendance");
         }
 
 
@@ -472,7 +473,7 @@ namespace test_Data.Controllers
 
             }
 
-                return View();
+            return RedirectToAction("AddUsers");
         }
 
         public IActionResult Parent()
@@ -506,7 +507,7 @@ namespace test_Data.Controllers
 
             }
 
-            return View();
+            return RedirectToAction("Parent");
         }
 
 
@@ -541,7 +542,7 @@ namespace test_Data.Controllers
 
             }
 
-            return View();
+            return RedirectToAction("Child");
         }
 
         public IActionResult Attendance()
@@ -575,7 +576,7 @@ namespace test_Data.Controllers
 
             }
 
-            return View();
+            return RedirectToAction("Attendance");
         }
         public IActionResult Teacher()
         {
@@ -608,7 +609,7 @@ namespace test_Data.Controllers
 
             }
 
-            return View();
+            return RedirectToAction("Teacher");
         }
 
         public IActionResult Account()
@@ -642,8 +643,9 @@ namespace test_Data.Controllers
 
             }
 
-            return View();
+            return RedirectToAction("Account");
         }
+
 
         public IActionResult Admin()
         {
