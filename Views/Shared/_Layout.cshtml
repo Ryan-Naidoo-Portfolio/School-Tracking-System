@@ -124,11 +124,9 @@
         <header>
             <nav class="sidebar navbar-dark bg-dark flex-column" id="sidebarNav">
                 <ul class="navbar-nav flex-column">
+                    
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Parent">Parent</a>
@@ -161,11 +159,43 @@
             </main>
         </div>
     }
+    else if (ViewContext.RouteData.Values["action"].ToString() == "TeacherView")
+    {
+        <!-- Sidebar Navbar for Teacher -->
+        <header>
+            <nav class="sidebar navbar-dark bg-dark flex-column" id="sidebarNav">
+                <ul class="navbar-nav flex-column">
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Parent">Parent</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Child">Child</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Attendance">Attendance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="TeacherView">TeachersView</a>
+                    </li>
+                </ul>
+            </nav>
+            <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        </header>
+        <div class="main-content" id="mainContent">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
     else
     {
-        <!-- Standard Navbar -->
-        <header>
-            <nav class="navbar navbar-expand-sm navbar-light bg-black border-bottom box-shadow mb-3">
+            <!-- Standard Navbar -->
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-light bg-black border-bottom box-shadow mb-3">
                 <div class="container-fluid">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="/images/Logo.png" alt="Brand Logo" class="img-fluid" style="height: 50px">
@@ -174,6 +204,7 @@
                             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+                    
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
@@ -184,33 +215,19 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AddUsers">Add Users</a>
-                            </li>
+                            </li>                      
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Parent">Parent</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Child">Child</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Attendance">Attendance</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Teacher">Teacher</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Authenticate">Login</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Account">Account</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Authenticate">Login</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
+        
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
