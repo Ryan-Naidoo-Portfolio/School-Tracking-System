@@ -1,9 +1,9 @@
-﻿@model test_Data.Models.AccountModel
+﻿@model test_Data.Models.AttendanceModel
 @{
-    ViewData["Title"] = "TeacherView";
+    ViewData["Title"] = "Attendance";
+
 
 }
-
 <style>
     body {
     background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
@@ -12,15 +12,14 @@
     background-repeat: no-repeat;
     height: 100vh;
     margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
     }
 
-    .form-container {
-    max-width: 500px;
-    width: 100%;
+    .Form {
+        max-width: 600px;
+        margin: 50px auto;
     padding: 30px;
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
     backdrop-filter: blur(10px); /* Frosted glass effect */
@@ -58,30 +57,72 @@
     background-color: #0056b3;
     }
 
-    label {
-    font-weight: bold;
-    font-size: 1rem;
-    margin-bottom: 5px;
-    display: block;
+    .table-dark {
+        margin-top: 20px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: white;
     }
 
-    .text-danger {
-    font-size: 12px;
+        .table-dark th,
+        .table-dark td {
+            text-align: center;
+        }
+
+    .btn-outline-danger {
+        border: 1px solid #dc3545;
     color: #dc3545;
     margin-top: 5px;
     display: block;
     }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
 </style>
 
 <body>
-    @foreach (var user in ViewBag.users)
-    {
-        <div class="form-container">
-            <h1>Update Account</h1>
+   
+
+    <div class="container">
+      
+        <form action="/Home/SearchAttendance" method="post" class="SearchBox">
             <div class="form-group">
-                <label for="position">Position</label>
-                <input type="text" id="position" class="form-control" asp-for="Position" value=@user.Username>
-            </div>
+                <label for="search">Search</label>
+                <input type="text" id="search" name="searchattendance" class="form-control" />
     </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+       
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Form Class</th>
+                        <th scope="col">TimeIn</th>
+                        <th scope="col">TimeOut</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Present</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var attendance in ViewBag.users)
+                    {
+                        <tr>
+                            <td>@attendance.Name</td>
+                            <td>@attendance.Surname</td>
+                            <td>@attendance.FormClass</td>
+                            <td>@attendance.TimeIn</td>
+                            <td>@attendance.TimeOut</td>
+                            <td>@attendance.Date</td>
+                            <td>@attendance.Present</td>
+                        </tr>
     }
+                </tbody>
+            </table>
+        
+        
+    </div>
 </body>
