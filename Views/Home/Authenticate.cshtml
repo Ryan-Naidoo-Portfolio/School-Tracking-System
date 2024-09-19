@@ -1,6 +1,9 @@
-﻿@{
+﻿@model test_Data.Models.AccountModel
+@{
     ViewData["Title"] = "Authenticate Page";
+    List<AccountModel> users = TempData["users"] as List<AccountModel>;
 }
+
 <style>
     body {
         background-image: url('https://media.istockphoto.com/id/1227577523/photo/school-zone-warning-sign-on-blur-traffic-road-with-colorful-bokeh-light-abstract-background.jpg?s=612x612&w=0&k=20&c=peM19VJk8zDi2gNNK_6H_FGdwFEYknAVx-Mn1wholTI=');
@@ -48,26 +51,29 @@
 </style>
 
 <body>
-    <div class="container text-center">
+    <div class="form-container">
         
         <form action="/Home/Login" method="post" class="AuthForm">
             <h1>Please Log-In</h1>
             <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control" name="username" placeholder="Enter username">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter Username" class="form-control" asp-for="Username">
+                <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" class="form-control" name="password" placeholder="Enter password">
+                <input type="password" id="password" name="password" placeholder="Enter Password" class="form-control" asp-for="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="position">Position:</label>
-                <select class="form-control" name="position">
+                <select class="form-control" name="position" asp-for="Position">
                     <option value="" disabled selected>Select your position</option>
                     <option value="Parent">Parent</option>
                     <option value="Teacher">Teacher</option>
                     <option value="Admin">Admin</option>
                 </select>
+                <span asp-validation-for="Position" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary btn-block">LOGIN</button>
         </form>

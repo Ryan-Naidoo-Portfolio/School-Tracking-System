@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore; 
+﻿using Microsoft.EntityFrameworkCore;
+
 namespace test_Data.Models
 {
     public class DemoContext : DbContext
@@ -10,10 +11,18 @@ namespace test_Data.Models
         public DbSet<TeacherModel> Teacher { get; set; }
         public DbSet<AccountModel> Account { get; set; }
         public DbSet<AdminModel> Admin { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)//dont know if we need for unique constraint, dont delete yet
+        {
+            modelBuilder.Entity<AccountModel>()
+                .HasIndex(u => u.Username)
+                .IsUnique(); // Apply unique constraint
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         
-          =>options.UseSqlite(@"Data Source=C:\Users\naido\Desktop\Mr Teli project from GIT\Ryan\Demo.db");
-        
+          =>options.UseSqlite(@"Data Source=C:\Users\Caldon\Documents\EmptyFolder\Demo.db");
 
     }
 }
