@@ -53,6 +53,7 @@ namespace test_Data.Controllers
             return View();
         }
 
+        //searchuser
         public IActionResult SearchUser(string searchTerm)
         {
             List<UserModel> users = new List<UserModel>();
@@ -65,6 +66,21 @@ namespace test_Data.Controllers
             TempData["users"] = users;
 
             return View("AddUsers");
+        }
+
+        //search user in teacher
+        public IActionResult SearchAttendance(string searchattendance)
+        {
+            List<AttendanceModel> attendance = new List<AttendanceModel>();
+
+            using (var db = new DemoContext())
+            {
+                attendance = db.Attendance.Where(u => u.Surname.ToLower().Contains(searchattendance.ToLower())).ToList();
+            }
+
+            TempData["attendance"] = attendance;
+
+            return View("TeacherView");
         }
 
         //Login
@@ -86,7 +102,7 @@ namespace test_Data.Controllers
             { 
                 if (account.Position == "Teacher")
                 {
-                    return View("Teacher");
+                    return View("TeacherView");
                 }
                 else if (account.Position == "Admin")
                 {
@@ -94,7 +110,7 @@ namespace test_Data.Controllers
                 }
                 else if (account.Position=="Parent")
                 {
-                    return View("Parent");
+                    return View("ParentView");
                 }
                 return View("Add Users");
             }
@@ -284,6 +300,10 @@ namespace test_Data.Controllers
             {
                 var UpdateTeacher = db.Attendance.Where(u => u.Id == attendance.Id).FirstOrDefault();
 
+
+                UpdateTeacher.Name = attendance.Name;
+                UpdateTeacher.Surname = attendance.Surname;
+                UpdateTeacher.FormClass = attendance.FormClass;
                 UpdateTeacher.TimeIn = attendance.TimeIn;
                 UpdateTeacher.TimeOut = attendance.TimeOut;
                 UpdateTeacher.Date = attendance.Date;
@@ -658,6 +678,28 @@ namespace test_Data.Controllers
 
             return View();
         }
+
+
+        public IActionResult ParentView()
+        {
+            return View();
+        }
+
+       
+        public IActionResult TeacherView()
+        {
+            List<AttendanceModel> attendance = new List<AttendanceModel>();
+
+            using (var db = new DemoContext())
+            {
+                attendance = db.Attendance.ToList();
+            }
+
+            ViewBag.users = attendance;
+
+            return View();
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

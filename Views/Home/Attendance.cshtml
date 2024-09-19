@@ -79,6 +79,21 @@
     <div class="Form">
         <form action="/home/attendance" method="post">
             <div class="form-group">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="Name">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="surname">Surname</label>
+                    <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="Surname">
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="formClass">Form Class</label>
+                    <input type="text" id="formClass" class="form-control" placeholder="Enter Form Class" asp-for="FormClass">
+                    <span asp-validation-for="FormClass" class="text-danger"></span>
+                </div>
                 <label for="timeIn">TimeIn</label>
                 <input type="text" id="timeIn" class="form-control" placeholder="Enter TimeIn" asp-for="TimeIn">
                 <span asp-validation-for="TimeIn" class="text-danger"></span>
@@ -112,6 +127,9 @@
             <table class="table table-dark">
                 <thead>
                     <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
+                        <th scope="col">Form Class</th>
                         <th scope="col">TimeIn</th>
                         <th scope="col">TimeOut</th>
                         <th scope="col">Date</th>
@@ -124,6 +142,9 @@
                     @foreach (var attendance in ViewBag.users)
                     {
                         <tr>
+                            <td>@attendance.Name</td>
+                            <td>@attendance.Surname</td>
+                            <td>@attendance.FormClass</td>
                             <td>@attendance.TimeIn</td>
                             <td>@attendance.TimeOut</td>
                             <td>@attendance.Date</td>
