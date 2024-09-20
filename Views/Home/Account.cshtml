@@ -110,23 +110,23 @@
         <form action="Account" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" class="form-control" placeholder="Enter Username" asp-for="Username">
-                <span asp-validation-for="Username" class="text-danger"></span>
+                <input type="text" id="acusername" class="form-control" placeholder="Enter Username" asp-for="acUsername">
+                <span asp-validation-for="acUsername" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" class="form-control" placeholder="Enter Password" asp-for="Password">
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <input type="password" id="acpassword" class="form-control" placeholder="Enter Password" asp-for="acPassword">
+                <span asp-validation-for="acPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="position">Position</label>
-                <select id="position" class="form-control" asp-for="Position">
+                <select id="acposition" class="form-control" asp-for="acPosition">
                     <option value="" disabled selected>Select your position</option>
                     <option value="Parent">Parent</option>
                     <option value="Teacher">Teacher</option>
                     <option value="Admin">Admin</option>
                 </select>
-                <span asp-validation-for="Position" class="text-danger"></span>
+                <span asp-validation-for="acPosition" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -149,18 +149,18 @@
                     @foreach (var account in ViewBag.users)
                     {
                         <tr>
-                            <td>@account.Username</td>
-                            <td>@account.Password</td>
-                            <td>@account.Position</td>
+                            <td>@account.acUsername</td>
+                            <td>@account.acPassword</td>
+                            <td>@account.acPosition</td>
                             <td>
                                 <form asp-action="UpdateAccount" asp-controller="Home" method="post" style="display:inline;">
-                                    <input type="hidden" asp-for="Id" value="@account.Id" />
+                                    <input type="hidden" asp-for="acID" value="@account.acID" />
                                     <button type="submit" class="btn btn-success">Update</button>
                                 </form>
                             </td>
                             <td>
                                 <form asp-action="DeleteAccount" asp-controller="Home" method="post" style="display:inline;">
-                                    <input type="hidden" asp-for="Id" value="@account.Id" />
+                                    <input type="hidden" asp-for="acID" value="@account.acID" />
                                     <button type="submit" class="btn btn-outline-danger">Delete</button>
                                 </form>
                             </td>

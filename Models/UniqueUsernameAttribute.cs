@@ -13,7 +13,7 @@ namespace test_Data.Models
             var db = new DemoContext();
             var username = value as string;
 
-            if (db.Account.Any(u => u.Username == username))
+            if (db.Account.Any(u => u.acUsername == username))
             {
                 return new ValidationResult("Username is already taken.");
             }

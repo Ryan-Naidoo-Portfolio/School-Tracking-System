@@ -77,21 +77,21 @@
     <div class="form-container">
         <h1>Update Account</h1>
         <form action="/home/UpdateAccountFinal" method="post">
-            <input type="hidden" asp-for="Id" value="@user.Id" />
+            <input type="hidden" asp-for="acID" value="@user.acID" />
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" class="form-control" asp-for="Username" value="@user.Username">
-                <span asp-validation-for="Username" class="text-danger"></span>
+                <input type="text" id="username" class="form-control" asp-for="acUsername" value="@user.acUsername">
+                <span asp-validation-for="acUsername" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="text" id="password" class="form-control" asp-for="Password" value="@user.Password">
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <input type="text" id="password" class="form-control" asp-for="acPassword" value="@user.acPassword">
+                <span asp-validation-for="acPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="position">Position</label>
-                <input type="text" id="position" class="form-control" asp-for="Position" value="@user.Position">
-                <span asp-validation-for="Position" class="text-danger"></span>
+                <input type="text" id="position" class="form-control" asp-for="acPosition" value="@user.acPosition">
+                <span asp-validation-for="acPosition" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

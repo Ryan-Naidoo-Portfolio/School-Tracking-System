@@ -104,18 +104,18 @@
         <form action="/home/teacher" method="post">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="Name">
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="tName">
+                <span asp-validation-for="tName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" asp-for="Surname">
-                <span asp-validation-for="Surname" class="text-danger"></span>
+                <input type="text" id="surname" class="form-control" asp-for="tSurname">
+                <span asp-validation-for="tSurname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="formClass">Form Class</label>
-                <input type="text" id="formClass" class="form-control" asp-for="FormClass">
-                <span asp-validation-for="FormClass" class="text-danger"></span>
+                <input type="text" id="formClass" class="form-control" asp-for="tFormClass">
+                <span asp-validation-for="tFormClass" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -138,18 +138,18 @@
                     @foreach (var teacher in ViewBag.users)
                     {
                         <tr>
-                            <td>@teacher.Name</td>
-                            <td>@teacher.Surname</td>
-                            <td>@teacher.FormClass</td>
+                            <td>@teacher.tName</td>
+                            <td>@teacher.tSurname</td>
+                            <td>@teacher.tFormClass</td>
                             <td>
                                 <form asp-action="UpdateTeacher" asp-controller="Home" method="post" style="display:inline;">
-                                    <input type="hidden" asp-for="Id" value="@teacher.Id" />
+                                    <input type="hidden" asp-for="tID" value="@teacher.tID" />
                                     <button type="submit" class="btn btn-success">Update</button>
                                 </form>
                             </td>
                             <td>
                                 <form asp-action="DeleteTeacher" asp-controller="Home" method="post" style="display:inline;">
-                                    <input type="hidden" asp-for="Id" value="@teacher.Id" />
+                                    <input type="hidden" asp-for="tID" value="@teacher.tID" />
                                     <button type="submit" class="btn btn-outline-danger">Delete</button>
                                 </form>
                             </td>

@@ -97,9 +97,6 @@
             <table class="table table-dark">
                 <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">Form Class</th>
                         <th scope="col">TimeIn</th>
                         <th scope="col">TimeOut</th>
                         <th scope="col">Date</th>
@@ -111,13 +108,10 @@
                     @foreach (var attendance in ViewBag.users)
                     {
                         <tr>
-                            <td>@attendance.Name</td>
-                            <td>@attendance.Surname</td>
-                            <td>@attendance.FormClass</td>
-                            <td>@attendance.TimeIn</td>
-                            <td>@attendance.TimeOut</td>
-                            <td>@attendance.Date</td>
-                            <td>@attendance.Present</td>
+                            <td>@attendance.atTimeIn</td>
+                            <td>@attendance.atTimeOut</td>
+                            <td>@attendance.atDate</td>
+                            <td>@attendance.atPresent</td>
                         </tr>
     }
                 </tbody>

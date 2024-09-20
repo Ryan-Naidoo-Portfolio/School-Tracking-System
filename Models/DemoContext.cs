@@ -14,7 +14,7 @@ namespace test_Data.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)//dont know if we need for unique constraint, dont delete yet
         {
             modelBuilder.Entity<AccountModel>()
-                .HasIndex(u => u.Username)
+                .HasIndex(u => u.acUsername)
                 .IsUnique(); // Apply unique constraint
 
             base.OnModelCreating(modelBuilder);
@@ -22,7 +22,7 @@ namespace test_Data.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         
-          =>options.UseSqlite(@"Data Source=C:\Users\Caldon\Documents\EmptyFolder\Demo.db");
+          =>options.UseSqlite(@"Data Source=C:\Users\User\source\repos\RuhRohRaggy\Demo.db");
 
     }
 }

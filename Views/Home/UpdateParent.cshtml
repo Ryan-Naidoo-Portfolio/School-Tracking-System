@@ -64,41 +64,41 @@
     <div class="form-container">
         <h1>Update Parent</h1>
         <form action="/home/UpdateParentFinal" method="post">
-            <input type="hidden" asp-for="Id" value="@user.Id" />
+            <input type="hidden" asp-for="pID" value="@user.pID" />
 
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="Name" value="@user.Name" />
+                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="pName" value="@user.pName" />
             </div>
 
             <div class="form-group">
                 <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="Surname" value="@user.Surname" />
+                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="pSurname" value="@user.pSurname" />
             </div>
 
             <div class="form-group">
                 <label for="phoneNumber">Phone Number</label>
-                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter Phone Number" asp-for="PhoneNumber" value="@user.PhoneNumber" />
+                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter Phone Number" asp-for="pPhoneNumber" value="@user.pPhoneNumber" />
             </div>
 
             <div class="form-group">
                 <label for="spouseName">Spouse Name</label>
-                <input type="text" id="spouseName" class="form-control" placeholder="Enter Spouse Name" asp-for="SpouseName" value="@user.SpouseName" />
+                <input type="text" id="spouseName" class="form-control" placeholder="Enter Spouse Name" asp-for="pSpouseName" value="@user.pSpouseName" />
             </div>
 
             <div class="form-group">
                 <label for="spousePhoneNumber">Spouse Phone Number</label>
-                <input type="tel" id="spousePhoneNumber" class="form-control" placeholder="Enter Spouse Phone Number" asp-for="SpousePhoneNumber" value="@user.SpousePhoneNumber" />
+                <input type="tel" id="spousePhoneNumber" class="form-control" placeholder="Enter Spouse Phone Number" asp-for="pSpousePhoneNumber" value="@user.pSpousePhoneNumber" />
             </div>
 
             <div class="form-group">
                 <label for="emergencyContactName">Emergency Contact Name</label>
-                <input type="text" id="emergencyContactName" class="form-control" placeholder="Enter Emergency Contact Name" asp-for="EmergencyContactName" value="@user.EmergencyContactName" />
+                <input type="text" id="emergencyContactName" class="form-control" placeholder="Enter Emergency Contact Name" asp-for="pEmergencyContactName" value="@user.pEmergencyContactName" />
             </div>
 
             <div class="form-group">
                 <label for="emergencyContactPhoneNumber">Emergency Contact Phone Number</label>
-                <input type="tel" id="emergencyContactPhoneNumber" class="form-control" placeholder="Enter Emergency Contact Phone Number" asp-for="EmergencyContactPhoneNumber" value="@user.EmergencyContactPhoneNumber" />
+                <input type="tel" id="emergencyPhoneNumber" class="form-control" placeholder="Enter Emergency Phone Number" asp-for="pEmergencyPhoneNumber" value="@user.pEmergencyPhoneNumber" />
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

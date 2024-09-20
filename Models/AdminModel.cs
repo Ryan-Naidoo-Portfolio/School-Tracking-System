@@ -7,11 +7,13 @@ namespace test_Data.Models
 {
     public class AdminModel
     {
-        public int Id { get; set; }
+        [Key]
+        public int aID { get; set; }
         [Required(ErrorMessage = "Please Enter Admin Name")]
-        public required string Name { get; set; }
+        public required string aName { get; set; }
         [Required(ErrorMessage = "Please Enter Admin Surname")]
-        public required string Surname { get; set; }
+        public required string aSurname { get; set; }
+        public string? acID { get; set; }
 
 
     }

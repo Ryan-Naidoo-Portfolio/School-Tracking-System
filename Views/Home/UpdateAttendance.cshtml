@@ -77,26 +77,26 @@
     <div class="form-container">
         <h1>Update Attendance</h1>
         <form action="/home/UpdateAttendanceFinal" method="post">
-            <input type="hidden" asp-for="Id" value="@user.Id" />
+            <input type="hidden" asp-for="atID" value="@user.atID" />
             <div class="form-group">
                 <label for="timeIn">TimeIn</label>
-                <input type="text" id="timeIn" class="form-control" placeholder="Enter TimeIn" asp-for="TimeIn" value="@user.TimeIn">
-                <span asp-validation-for="TimeIn" class="text-danger"></span>
+                <input type="text" id="timeIn" class="form-control" placeholder="Enter TimeIn" asp-for="atTimeIn" value="@user.atTimeIn">
+                <span asp-validation-for="atTimeIn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="timeOut">TimeOut</label>
-                <input type="text" id="timeOut" class="form-control" asp-for="TimeOut" value="@user.TimeOut">
-                <span asp-validation-for="TimeOut" class="text-danger"></span>
+                <input type="text" id="timeOut" class="form-control" asp-for="atTimeOut" value="@user.atTimeOut">
+                <span asp-validation-for="atTimeOut" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="date">Date</label>
-                <input type="text" id="date" class="form-control" asp-for="Date" value="@user.Date">
-                <span asp-validation-for="Date" class="text-danger"></span>
+                <input type="text" id="date" class="form-control" asp-for="atDate" value="@user.atDate">
+                <span asp-validation-for="atDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="present">Present</label>
-                <input type="text" id="present" class="form-control" asp-for="Present" value="@user.Present">
-                <span asp-validation-for="Present" class="text-danger"></span>
+                <input type="text" id="present" class="form-control" asp-for="atPresent" value="@user.atPresent">
+                <span asp-validation-for="atPresent" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

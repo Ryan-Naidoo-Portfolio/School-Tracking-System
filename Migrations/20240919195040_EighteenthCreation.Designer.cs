@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using test_Data.Models;
 
@@ -10,9 +11,11 @@ using test_Data.Models;
 namespace test_Data.Migrations
 {
     [DbContext(typeof(DemoContext))]
-    partial class DemoContextModelSnapshot : ModelSnapshot
+    [Migration("20240919195040_EighteenthCreation")]
+    partial class EighteenthCreation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -24,6 +27,7 @@ namespace test_Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("aID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("acPassword")
@@ -39,9 +43,11 @@ namespace test_Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("pID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("tID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("acID");
@@ -67,6 +73,7 @@ namespace test_Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("acID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("aID");
@@ -97,6 +104,7 @@ namespace test_Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("sID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("atID");
@@ -111,9 +119,11 @@ namespace test_Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("atID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("pID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("sFormClass")
@@ -125,6 +135,7 @@ namespace test_Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("sQrcode")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("sSurname")
@@ -143,6 +154,7 @@ namespace test_Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("acID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("pEmergencyContactName")
@@ -174,6 +186,7 @@ namespace test_Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("sID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("pID");
@@ -188,6 +201,7 @@ namespace test_Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("acID")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("tFormClass")

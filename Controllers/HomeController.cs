@@ -78,7 +78,7 @@ namespace test_Data.Controllers
 
             using (var db = new DemoContext())
             {
-                attendance = db.Attendance.Where(u => u.Surname.ToLower().Contains(searchattendance.ToLower())).ToList();
+                attendance = db.Attendance.Where(u => u.atTimeIn.ToLower().Contains(searchattendance.ToLower())).ToList();
             }
 
             TempData["attendance"] = attendance;
@@ -93,7 +93,7 @@ namespace test_Data.Controllers
 
             using (var db = new DemoContext())
             {
-                users = db.Account.Where(u => u.Username.Contains(username) && u.Password.Contains(password) && u.Position.Contains(position)).ToList();
+                users = db.Account.Where(u => u.acUsername.Contains(username) && u.acPassword.Contains(password) && u.acPosition.Contains(position)).ToList();
 
             }
 
@@ -103,20 +103,24 @@ namespace test_Data.Controllers
             }
             else 
             {
-                if (account.Position == "Teacher")
+                if (position == "Teacher")
                 {
                     return View("TeacherView");
                 }
-                else if (account.Position == "Admin")
+                else if (position == "Admin")
                 {
                     return RedirectToAction("Admin");
                     //return View("Admin");
                 }
-                else if (account.Position=="Parent")
+                else if (position=="Parent")
                 {
                     return View("ParentView");
                 }
-                return View("Add Users");
+                else
+                {
+                    return View("Index");
+                }
+                
             }
 
             
@@ -159,7 +163,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var userTemp = db.Teacher.Where(u => u.Id == teacher.Id).FirstOrDefault();
+                var userTemp = db.Teacher.Where(u => u.tID == teacher.tID).FirstOrDefault();
                 TempData["userTemp"] = userTemp;
             }
 
@@ -173,11 +177,11 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var UpdateTeacher = db.Teacher.Where(u => u.Id == teacher.Id).FirstOrDefault();
+                var UpdateTeacher = db.Teacher.Where(u => u.tID == teacher.tID).FirstOrDefault();
 
-                UpdateTeacher.Name = teacher.Name;
-                UpdateTeacher.Surname = teacher.Surname;
-                UpdateTeacher.FormClass = teacher.FormClass;
+                UpdateTeacher.tName = teacher.tName;
+                UpdateTeacher.tSurname = teacher.tSurname;
+                UpdateTeacher.tFormClass = teacher.tFormClass;
 
                 db.SaveChanges();
             }
@@ -190,7 +194,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var userTemp = db.Parents.Where(u => u.Id == parent.Id).FirstOrDefault();
+                var userTemp = db.Parents.Where(u => u.pID == parent.pID).FirstOrDefault();
                 TempData["userTemp"] = userTemp;
             }
 
@@ -204,15 +208,15 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var UpdateTeacher = db.Parents.Where(u => u.Id == parent.Id).FirstOrDefault();
+                var UpdateTeacher = db.Parents.Where(u => u.pID == parent.pID).FirstOrDefault();
 
-                UpdateTeacher.Name = parent.Name;
-                UpdateTeacher.Surname = parent.Surname;
-                UpdateTeacher.PhoneNumber = parent.PhoneNumber;
-                UpdateTeacher.SpouseName = parent.SpouseName;
-                UpdateTeacher.SpousePhoneNumber = parent.SpousePhoneNumber;
-                UpdateTeacher.EmergencyContactName = parent.EmergencyContactName;
-                UpdateTeacher.EmergencyContactPhoneNumber = parent.EmergencyContactPhoneNumber;
+                UpdateTeacher.pName = parent.pName;
+                UpdateTeacher.pSurname = parent.pSurname;
+                UpdateTeacher.pPhoneNumber = parent.pPhoneNumber;
+                UpdateTeacher.pSpouseName = parent.pSpouseName;
+                UpdateTeacher.pSpousePhoneNumber = parent.pSpousePhoneNumber;
+                UpdateTeacher.pEmergencyContactName = parent.pEmergencyContactName;
+                UpdateTeacher.pEmergencyPhoneNumber = parent.pEmergencyPhoneNumber;
                 db.SaveChanges();
             }
             return View("Parent");
@@ -225,7 +229,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var userTemp = db.Child.Where(u => u.Id == child.Id).FirstOrDefault();
+                var userTemp = db.Child.Where(u => u.sID == child.sID).FirstOrDefault();
                 TempData["userTemp"] = userTemp;
             }
 
@@ -239,11 +243,11 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var UpdateTeacher = db.Child.Where(u => u.Id == child.Id).FirstOrDefault();
+                var UpdateTeacher = db.Child.Where(u => u.sID == child.sID).FirstOrDefault();
 
-                UpdateTeacher.Name = child.Name;
-                UpdateTeacher.Surname = child.Surname;
-                UpdateTeacher.FormClass = child.FormClass;
+                UpdateTeacher.sName = child.sName;
+                UpdateTeacher.sSurname = child.sSurname;
+                UpdateTeacher.sFormClass = child.sFormClass;
 
                 db.SaveChanges();
             }
@@ -257,7 +261,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var userTemp = db.Account.Where(u => u.Id == account.Id).FirstOrDefault();
+                var userTemp = db.Account.Where(u => u.acID == account.acID).FirstOrDefault();
                 TempData["userTemp"] = userTemp;
             }
 
@@ -271,11 +275,11 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var UpdateTeacher = db.Account.Where(u => u.Id == account.Id).FirstOrDefault();
+                var UpdateTeacher = db.Account.Where(u => u.acID == account.acID).FirstOrDefault();
 
-                UpdateTeacher.Username = account.Username;
-                UpdateTeacher.Password = account.Password;
-                UpdateTeacher.Position = account.Position;
+                UpdateTeacher.acUsername = account.acUsername;
+                UpdateTeacher.acPassword = account.acPassword;
+                UpdateTeacher.acPosition = account.acPosition;
 
                 db.SaveChanges();
             }
@@ -288,7 +292,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var userTemp = db.Attendance.Where(u => u.Id == attendance.Id).FirstOrDefault();
+                var userTemp = db.Attendance.Where(u => u.atID == attendance.atID).FirstOrDefault();
                 TempData["userTemp"] = userTemp;
             }
 
@@ -302,16 +306,12 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var UpdateTeacher = db.Attendance.Where(u => u.Id == attendance.Id).FirstOrDefault();
+                var UpdateTeacher = db.Attendance.Where(u => u.atID == attendance.atID).FirstOrDefault();
 
-
-                UpdateTeacher.Name = attendance.Name;
-                UpdateTeacher.Surname = attendance.Surname;
-                UpdateTeacher.FormClass = attendance.FormClass;
-                UpdateTeacher.TimeIn = attendance.TimeIn;
-                UpdateTeacher.TimeOut = attendance.TimeOut;
-                UpdateTeacher.Date = attendance.Date;
-                UpdateTeacher.Present = attendance.Present;
+                UpdateTeacher.atTimeIn = attendance.atTimeIn;
+                UpdateTeacher.atTimeOut = attendance.atTimeOut;
+                UpdateTeacher.atDate = attendance.atDate;
+                UpdateTeacher.atPresent = attendance.atPresent;
 
                 db.SaveChanges();
             }
@@ -325,7 +325,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var userTemp = db.Admin.Where(u => u.Id == admin.Id).FirstOrDefault();
+                var userTemp = db.Admin.Where(u => u.aID == admin.aID).FirstOrDefault();
                 TempData["userTemp"] = userTemp;
             }
 
@@ -339,10 +339,10 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var UpdateTeacher = db.Admin.Where(u => u.Id == admin.Id).FirstOrDefault();
+                var UpdateTeacher = db.Admin.Where(u => u.aID == admin.aID).FirstOrDefault();
 
-                UpdateTeacher.Name = admin.Name;
-                UpdateTeacher.Surname = admin.Surname;
+                UpdateTeacher.aName = admin.aName;
+                UpdateTeacher.aSurname = admin.aSurname;
 
 
                 db.SaveChanges();
@@ -368,7 +368,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var DeleteUser = db.Account.Where(u => u.Id == account.Id).FirstOrDefault();
+                var DeleteUser = db.Account.Where(u => u.acID == account.acID).FirstOrDefault();
                 db.Attach(DeleteUser);
                 db.Remove(DeleteUser);
                 db.SaveChanges();
@@ -381,7 +381,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var DeleteUser = db.Admin.Where(u => u.Id == admin.Id).FirstOrDefault();
+                var DeleteUser = db.Admin.Where(u => u.aID == admin.aID).FirstOrDefault();
                 db.Attach(DeleteUser);
                 db.Remove(DeleteUser);
                 db.SaveChanges();
@@ -394,7 +394,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var DeleteUser = db.Child.Where(u => u.Id == child.Id).FirstOrDefault();
+                var DeleteUser = db.Child.Where(u => u.sID == child.sID).FirstOrDefault();
                 db.Attach(DeleteUser);
                 db.Remove(DeleteUser);
                 db.SaveChanges();
@@ -407,7 +407,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var DeleteUser = db.Teacher.Where(u => u.Id == teacher.Id).FirstOrDefault();
+                var DeleteUser = db.Teacher.Where(u => u.tID == teacher.tID).FirstOrDefault();
                 db.Attach(DeleteUser);
                 db.Remove(DeleteUser);
                 db.SaveChanges();
@@ -420,7 +420,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var DeleteUser = db.Parents.Where(u => u.Id == parent.Id).FirstOrDefault();
+                var DeleteUser = db.Parents.Where(u => u.pID == parent.pID).FirstOrDefault();
                 db.Attach(DeleteUser);
                 db.Remove(DeleteUser);
                 db.SaveChanges();
@@ -433,7 +433,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var DeleteUser = db.Attendance.Where(u => u.Id == attendance.Id).FirstOrDefault();
+                var DeleteUser = db.Attendance.Where(u => u.atID == attendance.atID).FirstOrDefault();
                 db.Attach(DeleteUser);
                 db.Remove(DeleteUser);
                 db.SaveChanges();

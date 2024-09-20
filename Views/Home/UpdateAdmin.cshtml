@@ -77,16 +77,16 @@
     <div class="form-container">
         <h1>Update Admin</h1>
         <form action="/home/UpdateAdminFinal" method="post">
-            <input type="hidden" asp-for="Id" value="@user.Id" />
+            <input type="hidden" asp-for="aID" value="@user.aID" />
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" asp-for="Name" value="@user.Name">
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input type="text" id="name" class="form-control" asp-for="aName" value="@user.aName">
+                <span asp-validation-for="aName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" asp-for="Surname" value="@user.Surname">
-                <span asp-validation-for="Surname" class="text-danger"></span>
+                <input type="text" id="surname" class="form-control" asp-for="aSurname" value="@user.aSurname">
+                <span asp-validation-for="aSurname" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

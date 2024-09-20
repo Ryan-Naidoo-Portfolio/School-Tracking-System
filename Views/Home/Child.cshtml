@@ -85,18 +85,18 @@
         <form action="/home/child" method="post">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="Name">
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="sName">
+                <span asp-validation-for="sName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="Surname">
-                <span asp-validation-for="Surname" class="text-danger"></span>
+                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="sSurname">
+                <span asp-validation-for="sSurname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="formClass">Form Class</label>
-                <input type="text" id="formClass" class="form-control" placeholder="Enter Form Class" asp-for="FormClass">
-                <span asp-validation-for="FormClass" class="text-danger"></span>
+                <input type="text" id="formClass" class="form-control" placeholder="Enter Form Class" asp-for="sFormClass">
+                <span asp-validation-for="sFormClass" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
@@ -119,18 +119,18 @@
                     @foreach (var child in ViewBag.users)
                     {
                         <tr>
-                            <td>@child.Name</td>
-                            <td>@child.Surname</td>
-                            <td>@child.FormClass</td>
+                            <td>@child.sName</td>
+                            <td>@child.sSurname</td>
+                            <td>@child.sFormClass</td>
                             <td>
                                 <form asp-action="UpdateChild" asp-controller="Home" method="post">
-                                    <input type="hidden" asp-for="Id" value="@child.Id" />
+                                    <input type="hidden" asp-for="sID" value="@child.sID" />
                                     <button type="submit" class="btn btn-success">Update</button>
                                 </form>
                             </td>
                             <td>
                                 <form asp-action="DeleteChild" asp-controller="Home" method="post" class="mt-2">
-                                    <input type="hidden" asp-for="Id" value="@child.Id" />
+                                    <input type="hidden" asp-for="sID" value="@child.sID" />
                                     <button type="submit" class="btn btn-outline-danger">Delete</button>
                                 </form>
                             </td>

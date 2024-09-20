@@ -7,21 +7,17 @@ namespace test_Data.Models
 {
     public class AttendanceModel
     {
-        public int Id { get; set; }
-        [Required(ErrorMessage = "Please Enter Student Name")]
-        public required string Name { get; set; }
+        [Key]
+        public int atID { get; set; }
         [Required(ErrorMessage = "Please Enter Student TimeIn")]
-        public required string TimeIn { get; set; }
+        public required string atTimeIn { get; set; }
         [Required(ErrorMessage = "Please Enter Student TimeOut")]
-        public required string TimeOut { get; set; }
+        public required string atTimeOut { get; set; }
         [Required(ErrorMessage = "Please Enter Date")]
-        public required string Date { get; set; }
+        public required string atDate { get; set; }
         [Required(ErrorMessage = "Please Enter Attendance Status")]
-        public required string Present { get; set; }
-        [Required(ErrorMessage = "Please Enter Students Surname")]
-        public required string Surname { get; set; }
-        [Required(ErrorMessage = "Please Enter Student Form Class")]
-        public required string FormClass { get; set; }
+        public required string atPresent { get; set; }
+        public string? sID { get; set; }
 
     }
 
