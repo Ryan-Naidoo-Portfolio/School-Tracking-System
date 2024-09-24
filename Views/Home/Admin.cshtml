@@ -45,7 +45,7 @@
         }
 
     .btn-primary {
-        width: 100%;
+        width: 10%;
         border-radius: 10px;
         padding: 10px;
         font-size: 1rem;
@@ -117,30 +117,17 @@
 </style>
 
 <body>
-    <div class="form-container">
-        <form action="/home/admin" method="post">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="aName">
-                <span asp-validation-for="aName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" asp-for="aSurname">
-                <span asp-validation-for="aSurname" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-
+ 
     <div class="container">
         @if (ViewBag.users != null && ViewBag.users.Count >= 1)
         {
             <table class="table table-dark">
                 <thead>
                     <tr>
+                        <th scope="col">aID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Surname</th>
+                        <th scope="col">acID</th>
                         <th scope="col">Update</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -149,8 +136,10 @@
                     @foreach (var admin in ViewBag.users)
                     {
                         <tr>
+                            <td>@admin.aID</td>
                             <td>@admin.aName</td>
                             <td>@admin.aSurname</td>
+                            <td>@admin.acID</td>
                             <td>
                                 <form asp-action="UpdateAdmin" asp-controller="Home" method="post" style="display:inline;">
                                     <input type="hidden" asp-for="aID" value="@admin.aID" />
@@ -169,4 +158,8 @@
             </table>
         }
     </div>
+    <form asp-action="AdminsAddDetails" asp-controller="Home" method="post">
+        <button type="submit" class="btn btn-primary">Add Admin Details</button>
+    </form>
+
 </body>

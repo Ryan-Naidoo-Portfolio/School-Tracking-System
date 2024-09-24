@@ -8,6 +8,7 @@ using test_Data.Models;
 using static System.Net.Mime.MediaTypeNames;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 
 
@@ -492,12 +493,31 @@ namespace test_Data.Controllers
 
             return View();
         }
+        public IActionResult AddParentsDetails(AccountModel account, ChildModel child)
+        {
+            using (var db = new DemoContext())
+            {
+                var lastRecord3 = db.Account.OrderByDescending(x => x.acID).FirstOrDefault();
+                int numParent = lastRecord3.acID;
+                int numParent2 = numParent + 1;
+
+                ViewBag.file4 = numParent2.ToString();
+            }
+            using (var db = new DemoContext())
+            {
+                var lastRecord4 = db.Child.OrderByDescending(x => x.sID).FirstOrDefault();
+                int numChild = lastRecord4.sID;
+                int numChild2 = numChild + 1;
+
+                ViewBag.file5 = numChild2.ToString();
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public IActionResult Parent(ParentModel parent)
         {
-
-
 
             if (ModelState.IsValid)
             {
@@ -506,11 +526,14 @@ namespace test_Data.Controllers
                     db.Add(parent);
                     db.SaveChanges();
                 }
-
-
+            return RedirectToAction("AddChildDetails");
+            }
+            else
+            {
+                return View("AddParentsDetails");
             }
 
-            return RedirectToAction("Parent");
+            
         }
 
 
@@ -527,12 +550,22 @@ namespace test_Data.Controllers
 
             return View();
         }
+        public IActionResult AddChildDetails(ParentModel parent)
+        {
+            using (var db = new DemoContext())
+            {
+                var lastRecord = db.Parents.OrderByDescending(x => x.pID).FirstOrDefault();
+                int num = lastRecord.pID;
+
+                ViewBag.file5 = num.ToString();
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public IActionResult Child(ChildModel child)
         {
-
-
 
             if (ModelState.IsValid)
             {
@@ -541,11 +574,14 @@ namespace test_Data.Controllers
                     db.Add(child);
                     db.SaveChanges();
                 }
-
-
+            return RedirectToAction("AddAccountDetails");
+            }
+            else
+            {
+                return View("AddChildDetails");
             }
 
-            return RedirectToAction("Child");
+            
         }
 
         public IActionResult Attendance()
@@ -581,6 +617,7 @@ namespace test_Data.Controllers
 
             return RedirectToAction("Attendance");
         }
+        
         public IActionResult Teacher()
         {
             List<TeacherModel> teacher = new List<TeacherModel>();
@@ -594,12 +631,24 @@ namespace test_Data.Controllers
 
             return View();
         }
+        
+        public IActionResult TeachersAddDetails(AccountModel account)
+        {
+            using (var db = new DemoContext())
+            {
+                var lastRecord = db.Account.OrderByDescending(x => x.acID).FirstOrDefault();
+                int num = lastRecord.acID;
+                int num2 = num + 1;
+                
+                ViewBag.file2 = num2.ToString();
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public IActionResult Teacher(TeacherModel teacher)
         {
-
-
 
             if (ModelState.IsValid)
             {
@@ -609,10 +658,13 @@ namespace test_Data.Controllers
                     db.SaveChanges();
                 }
 
-
+            return RedirectToAction("AddAccountDetails");
             }
-
-            return RedirectToAction("Teacher");
+            else
+            {
+                return View("TeachersAddDetails");
+            }
+            
         }
 
         public IActionResult Account()
@@ -625,31 +677,35 @@ namespace test_Data.Controllers
             }
 
             ViewBag.users = account;
+            
+            return View();
+        }
+        public IActionResult AddAccountDetails()
+        {   
+            
+            
+            
 
             return View();
         }
-
         [HttpPost]
         public IActionResult Account(AccountModel account)
-        {
-
-
-
+        {      
             if (ModelState.IsValid)
             {
                 using (var db = new DemoContext())
                 {
                     db.Add(account);
-                    db.SaveChanges();
-                }
-
-
+                    db.SaveChanges();                 
+                }         
+            return RedirectToAction("Account");
             }
-
-            return RedirectToAction("Account");//CHNAGE TO VIEW
+            else
+            {
+                return View("AddAccountDetails");
+            }
+ 
         }
-
-
         public IActionResult Admin()
         {
             List<AdminModel> admin = new List<AdminModel>();
@@ -663,12 +719,22 @@ namespace test_Data.Controllers
 
             return View();
         }
+        public IActionResult AdminsAddDetails(AccountModel account)
+        {
+            using (var db = new DemoContext())
+            {
+                var lastRecord2 = db.Account.OrderByDescending(x => x.acID).FirstOrDefault();
+                int numAdmin = lastRecord2.acID;
+                int numAdmin2 = numAdmin + 1;
 
+                ViewBag.file3 = numAdmin2.ToString();
+            }
+
+            return View();
+        }
         [HttpPost]
         public IActionResult Admin(AdminModel admin)
         {
-
-
 
             if (ModelState.IsValid)
             {
@@ -678,10 +744,14 @@ namespace test_Data.Controllers
                     db.SaveChanges();
                 }
 
-
+            return RedirectToAction("AddAccountDetails");
+            }
+            else
+            {
+                return View("AdminsAddDetails");
             }
 
-            return View();
+            
         }
 
 

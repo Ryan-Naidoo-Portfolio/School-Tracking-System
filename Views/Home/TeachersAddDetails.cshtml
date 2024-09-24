@@ -1,6 +1,6 @@
 ﻿@model test_Data.Models.TeacherModel
 @{
-    ViewData["Title"] = "Teacher";
+    ViewData["Title"] = "TeachersAddDetails";
 }
 
 <style>
@@ -100,50 +100,28 @@
 </style>
 
 <body>
-    
-    <div class="container">
-        @if (ViewBag.users != null && ViewBag.users.Count >= 1)
-        {
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">tID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">Form Class</th>
-                        <th scope="col">acID</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var teacher in ViewBag.users)
-                    {
-                        <tr>
-                            <td>@teacher.tID</td>
-                            <td>@teacher.tName</td>
-                            <td>@teacher.tSurname</td>
-                            <td>@teacher.tFormClass</td>
-                            <td>@teacher.acID</td>
-                            <td>
-                                <form asp-action="UpdateTeacher" asp-controller="Home" method="post" style="display:inline;">
-                                    <input type="hidden" asp-for="tID" value="@teacher.tID" />
-                                    <button type="submit" class="btn btn-success">Update</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form asp-action="DeleteTeacher" asp-controller="Home" method="post" style="display:inline;">
-                                    <input type="hidden" asp-for="tID" value="@teacher.tID" />
-                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        }
+    <div class="form-container">
+        <form action="/home/teacher" method="post">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="tName">
+                <span asp-validation-for="tName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="tSurname">
+                <span asp-validation-for="tSurname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="formClass">Form Class</label>
+                <input type="text" id="formClass" class="form-control" placeholder="Enter Form Class" asp-for="tFormClass">
+                <span asp-validation-for="tFormClass" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="hidden" value=@ViewBag.file2 asp-for="acID" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit and go to next page</button>
+        </form>
     </div>
-    <form asp-action="TeachersAddDetails" asp-controller="Home" method="post">
-        <button type="submit" class="btn btn-primary">Add Teacher Details</button>
-    </form>
+    
 </body>
