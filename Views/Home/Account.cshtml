@@ -106,31 +106,8 @@
 </style>
 
 <body>
-    <div class="form-container">
-        <form action="Account" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="acusername" class="form-control" placeholder="Enter Username" asp-for="acUsername">
-                <span asp-validation-for="acUsername" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="acpassword" class="form-control" placeholder="Enter Password" asp-for="acPassword">
-                <span asp-validation-for="acPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="position">Position</label>
-                <select id="acposition" class="form-control" asp-for="acPosition">
-                    <option value="" disabled selected>Select your position</option>
-                    <option value="Parent">Parent</option>
-                    <option value="Teacher">Teacher</option>
-                    <option value="Admin">Admin</option>
-                </select>
-                <span asp-validation-for="acPosition" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+   
+    
 
     <div class="container">
         @if (ViewBag.users != null && ViewBag.users.Count >= 1)
@@ -138,6 +115,7 @@
             <table class="table table-dark">
                 <thead>
                     <tr>
+                        <th scope="col">ID</th>
                         <th scope="col">Username</th>
                         <th scope="col">Password</th>
                         <th scope="col">Position</th>
@@ -149,6 +127,7 @@
                     @foreach (var account in ViewBag.users)
                     {
                         <tr>
+                            <td>@account.acID</td>
                             <td>@account.acUsername</td>
                             <td>@account.acPassword</td>
                             <td>@account.acPosition</td>
@@ -170,4 +149,6 @@
             </table>
         }
     </div>
+    
+
 </body>

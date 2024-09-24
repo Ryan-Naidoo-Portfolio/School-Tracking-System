@@ -1,18 +1,14 @@
-﻿@model test_Data.Models.AdminModel
+﻿@model test_Data.Models.AccountModel
 @{
-    ViewData["Title"] = "Admin";
+    ViewData["Title"] = "AddAccountDetails";
 }
-
 
 <style>
     body {
         background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
         background-size: cover;
-        background-position: center;
         background-repeat: no-repeat;
         height: 100vh;
-        margin: 0;
-        padding: 0;
         font-family: Arial, sans-serif;
     }
 
@@ -20,12 +16,11 @@
         max-width: 500px;
         width: 100%;
         padding: 30px;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
         border-radius: 15px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        backdrop-filter: blur(10px); /* Frosted glass effect */
         margin-bottom: 30px;
-        margin-left: 200px;
     }
 
     .form-group {
@@ -87,7 +82,7 @@
         }
 
     .table-dark {
-        background-color: rgba(0, 0, 0, 0.75);
+        background-color: rgba(0, 0, 0, 0.75); /* Dark background for table */
         color: white;
         margin-top: 20px;
     }
@@ -108,32 +103,35 @@
         margin-bottom: 5px;
         display: block;
     }
-
-    .text-danger {
-        font-size: 12px;
-        color: #dc3545;
-        margin-top: 5px;
-        display: block;
-    }
 </style>
 
 <body>
     <div class="form-container">
-        <form action="/home/admin" method="post">
-
+        <form action="/home/account" method="post">
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="aName">
-                <span asp-validation-for="aName" class="text-danger"></span>
+                <label for="username">Add Account Username</label>
+                <input type="text" id="username" class="form-control" placeholder="Enter Teachers Username" asp-for="acUsername">
+                <span asp-validation-for="acUsername" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="aSurname">
-                <span asp-validation-for="aSurname" class="text-danger"></span>
+                <label for="password">Add Account Password</label>
+                <input type="text" id="password" class="form-control" placeholder="Enter Teachers Password" asp-for="acPassword">
+                <span asp-validation-for="acPassword" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <!--AUTO FILL DIS IN-->
+                <label for="position">Add Account Position</label>
+                <select id="position" class="form-control" asp-for="acPosition">
+                    <option value="" disabled selected>Select your position</option>
+                    <option value="Parent">Parent</option>
+                    <option value="Teacher">Teacher</option>
+                    <option value="Admin">Admin</option>
+                </select>
+                <span asp-validation-for="acPosition" class="text-danger"></span>
+            </div>
+            
             <button type="submit" class="btn btn-primary">Submit</button>
-
         </form>
     </div>
+
 </body>

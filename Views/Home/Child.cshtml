@@ -81,36 +81,18 @@
 </style>
 
 <body>
-    <div class="form-container">
-        <form action="/home/child" method="post">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="sName">
-                <span asp-validation-for="sName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="sSurname">
-                <span asp-validation-for="sSurname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="formClass">Form Class</label>
-                <input type="text" id="formClass" class="form-control" placeholder="Enter Form Class" asp-for="sFormClass">
-                <span asp-validation-for="sFormClass" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-
+    
     <div class="container">
         @if (ViewBag.users != null && ViewBag.users.Count >= 1)
         {
             <table class="table table-dark">
                 <thead>
                     <tr>
+                        <th scope="col">sID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Surname</th>
                         <th scope="col">Form Class</th>
+                        <th scope="col">pID</th>
                         <th scope="col">Update</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -119,9 +101,11 @@
                     @foreach (var child in ViewBag.users)
                     {
                         <tr>
+                            <td>@child.sID</td>
                             <td>@child.sName</td>
                             <td>@child.sSurname</td>
                             <td>@child.sFormClass</td>
+                            <td>@child.pID</td>
                             <td>
                                 <form asp-action="UpdateChild" asp-controller="Home" method="post">
                                     <input type="hidden" asp-for="sID" value="@child.sID" />
