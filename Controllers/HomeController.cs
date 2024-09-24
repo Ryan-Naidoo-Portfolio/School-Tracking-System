@@ -45,6 +45,32 @@ namespace test_Data.Controllers
 
             return View(model);
         }
+        public IActionResult PreForgot()
+        {
+            return View();
+        }
+        public IActionResult ForgotPassword(AccountModel account)
+        {
+            using (var db = new DemoContext())
+            {
+                var userTemp = db.Account.Where(u => u.acUsername == account.acUsername).FirstOrDefault();
+                ViewBag.username = userTemp.acUsername;
+            }
+            return View();
+        }
+
+        public IActionResult ForgotPasswordFinal(AccountModel account)
+        {
+            using (var db = new DemoContext())
+            {
+                var UpdatePassword = db.Account.Where(u => u.acUsername == account.acUsername).FirstOrDefault();
+
+                UpdatePassword.acPassword = account.acPassword;
+
+                db.SaveChanges();
+            }
+            return View("Authenticate");
+        }
 
         public IActionResult Privacy()
         {
@@ -106,7 +132,7 @@ namespace test_Data.Controllers
             {
                 if (position == "Teacher")
                 {
-                    return View("TeacherView");
+                    return RedirectToAction("TeacherView");
                 }
                 else if (position == "Admin")
                 {
