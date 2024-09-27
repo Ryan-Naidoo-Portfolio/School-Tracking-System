@@ -31,6 +31,16 @@ namespace test_Data.Controllers
             return View();
         }
 
+        public IActionResult TeacherHome()
+        {
+            return View();
+        }
+
+        public IActionResult ParentHome()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Index(string text)
         {
@@ -141,7 +151,7 @@ namespace test_Data.Controllers
                 }
                 else if (position=="Parent")
                 {
-                    return View("ParentView");
+                    return RedirectToAction("ParentView");
                 }
                 else
                 {
@@ -800,7 +810,20 @@ namespace test_Data.Controllers
 
             return View();
         }
+        public IActionResult TeacherHelp()
+        {
+            return View();
+        }
 
+        public IActionResult AdminHelp()
+        {
+            return View();
+        }
+
+        public IActionResult ParentHelp()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

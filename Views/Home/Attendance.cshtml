@@ -4,7 +4,7 @@
 }
 <style>
     body {
-        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+        background-color: white;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -73,9 +73,25 @@
             background-color: #dc3545;
             color: white;
         }
+
+    .head-bar {
+        background-color: #2248F0;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold; /* Make text bold */
+        position: fixed; /* Fix the position */
+        top: 0; /* Position at the top */
+        left: 0; /* Align to the left */
+        right: 0; /* Align to the right */
+        z-index: 1000; /* Ensure it stays above other content */
+    }
 </style>
 
 <body>
+    <div class="head-bar">
+        Admin: Attendance Records
+    </div>
     <div class="Form">
         <form action="/home/attendance" method="post">
             <div class="form-group">                             
