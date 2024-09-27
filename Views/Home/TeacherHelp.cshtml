@@ -1,0 +1,83 @@
+﻿
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p, li {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .faq {
+            margin-top: 20px;
+        }
+        .faq h2 {
+            margin-bottom: 10px;
+        }
+        .faq p {
+            margin-bottom: 10px;
+        }
+        .faq strong {
+            color: #333;
+        }
+
+    .back-button {
+        display: block;
+        margin: 0 auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        max-width: 150px;
+    }
+
+    </style>
+<body>
+    <div class="container">
+        <h1>Teacher Help: Searching for Attendance Records</h1>
+        <p><strong>Welcome, Teachers!</strong> This guide will help you navigate the attendance record search feature in the application.</p>
+
+        <h2>How to Search for Attendance Records:</h2>
+        <ul>
+            <li><strong>Access the Attendance Page:</strong> Navigate to the main dashboard and click on the "Attendance" tab in the navigation menu.</li>
+            <li><strong>Search Options:</strong></li>
+            <ul>
+                <li><strong>By Student Name:</strong> Type the student’s name in the search bar to find their attendance records.</li>
+                <li><strong>By Date:</strong> Select a date or date range to filter attendance records.</li>
+                <li><strong>By Class:</strong> Use the class filter to view attendance for a specific class.</li>
+            </ul>
+            <li><strong>Viewing Results:</strong> After entering your search criteria, click the "Search" button to display the records in a table format, including student names, attendance status, and date of attendance.</li>
+            <li><strong>Exporting Data:</strong> Click the "Export" button on the results page to export the attendance data in CSV format.</li>
+            <li><strong>Help and Support:</strong> If you encounter any issues or need further assistance, contact the school administrator via the support email provided.</li>
+        </ul>
+
+        <div class="faq">
+            <h2>FAQs:</h2>
+            <p><strong>Can I search for multiple students at once?</strong> Yes, you can use the search bar to enter multiple student names separated by commas.</p>
+            <p><strong>What if the records I’m looking for aren’t showing up?</strong> Ensure that you have selected the correct date range or class. If records are still missing, please contact the administrator.</p>
+            <p><strong>Can I print the attendance records?</strong> Yes, there is an option to print the records from the results page.</p>
+        </div>
+
+        <a href="@Url.Action("TeacherHome", "Home")" class="back-button">Back to Home</a>
+
+    </div>
+
+</body>

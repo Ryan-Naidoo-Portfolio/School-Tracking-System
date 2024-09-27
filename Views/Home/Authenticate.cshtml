@@ -6,7 +6,7 @@
 
 <style>
     body {
-        background-image: url('https://media.istockphoto.com/id/1227577523/photo/school-zone-warning-sign-on-blur-traffic-road-with-colorful-bokeh-light-abstract-background.jpg?s=612x612&w=0&k=20&c=peM19VJk8zDi2gNNK_6H_FGdwFEYknAVx-Mn1wholTI=');
+        background-color: white;
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
@@ -23,13 +23,24 @@
         padding-top: 50px;
     }
 
+    .form-container {
+        display: flex; /* Enables Flexbox */
+        justify-content: center; /* Centers horizontally */
+        align-items: center; /* Centers vertically */
+    }
+
     .AuthForm {
         padding: 30px;
+        max-width: 500px;
+        background-color: #2189F0;
+        align-content: center;
         border-radius: 15px;
         border: 2px solid #000;
         background-color: transparent;
         backdrop-filter: blur(30px);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Make sure it adapts to smaller screens */
+        max-width: 500px;
     }
 
     .form-group {
@@ -47,6 +58,10 @@
 
     label {
         font-weight: bold;
+    }
+    .form-container{
+        justify-content: center;
+        align-items: center;
     }
 </style>
 

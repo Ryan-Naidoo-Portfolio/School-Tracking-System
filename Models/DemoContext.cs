@@ -22,7 +22,7 @@ namespace test_Data.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         
-          =>options.UseSqlite(@"Data Source=C:\Users\Caldon\Desktop\NewNewFile\Demo.db");
+          =>options.UseSqlite(@"Data Source=C:\Users\dylan\Desktop\SFEN Project\Demo.db");
 
     }
 }
