@@ -5,22 +5,41 @@
 
 <style>
     body {
-        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+        background-color: white;
         background-size: cover;
+        background-position: center center;
         background-repeat: no-repeat;
         height: 100vh;
+        margin: 0;
+        padding: 0;
         font-family: Arial, sans-serif;
     }
 
-    .form-container {
+    .container {
         max-width: 500px;
-        width: 100%;
+        margin: 0 auto;
+        padding-top: 50px;
+    }
+
+    .form-container {
+        display: flex; /* Enables Flexbox */
+        justify-content: center; /* Centers horizontally */
+        align-items: center; /* Centers vertically */
+        height: auto; /* Full height to center vertically */
+        padding-top: 60px;
+    }
+
+    .AuthForm {
         padding: 30px;
-        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        max-width: 500px;
+        background-color: #2189F0;
+        align-content: center;
         border-radius: 15px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-        backdrop-filter: blur(10px); /* Frosted glass effect */
-        margin-bottom: 30px;
+        border: 2px solid #000;
+        background-color: transparent;
+        backdrop-filter: blur(30px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%; /* Make sure it adapts to smaller screens */
     }
 
     .form-group {
@@ -28,58 +47,18 @@
     }
 
     .form-control {
-        width: 100%;
-        padding: 10px;
         border-radius: 10px;
-        border: 1px solid #ccc;
-        font-size: 1rem;
+        padding: 10px; /* Added padding for better spacing */
     }
 
-        .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-
-    .btn-primary {
+    .btn-block {
         width: 100%;
         border-radius: 10px;
-        padding: 10px;
-        font-size: 1rem;
-        background-color: #007bff;
-        border: none;
-        color: #fff;
     }
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-
-    .btn-success {
-        border-radius: 10px;
-        padding: 10px;
-        font-size: 1rem;
-        background-color: #28a745;
-        border: none;
-        color: #fff;
+    label {
+        font-weight: bold;
     }
-
-        .btn-success:hover {
-            background-color: #218838;
-        }
-
-    .btn-outline-danger {
-        border-radius: 10px;
-        padding: 10px;
-        font-size: 1rem;
-        border: 1px solid #dc3545;
-        color: #dc3545;
-        background-color: transparent;
-    }
-
-        .btn-outline-danger:hover {
-            background-color: #dc3545;
-            color: #fff;
-        }
 
     .table-dark {
         background-color: rgba(0, 0, 0, 0.75); /* Dark background for table */
@@ -97,29 +76,37 @@
             color: #fff;
         }
 
-    label {
-        font-weight: bold;
-        font-size: 1rem;
-        margin-bottom: 5px;
-        display: block;
+    .head-bar {
+        background-color: #2248F0;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold; /* Make text bold */
+        position: fixed; /* Fix the position */
+        top: 0; /* Position at the top */
+        left: 0; /* Align to the left */
+        right: 0; /* Align to the right */
+        z-index: 1000; /* Ensure it stays above other content */
     }
 </style>
 
 <body>
+    <div class="head-bar">
+        Admin: Add Additional Details
+    </div>
     <div class="form-container">
-        <form action="/home/account" method="post">
+        <form action="/home/account" method="post" class="AuthForm">
             <div class="form-group">
                 <label for="username">Add Account Username</label>
-                <input type="text" id="username" class="form-control" placeholder="Enter Teachers Username" asp-for="acUsername">
+                <input type="text" id="username" class="form-control" placeholder="Enter Teacher's Username" asp-for="acUsername">
                 <span asp-validation-for="acUsername" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="password">Add Account Password</label>
-                <input type="text" id="password" class="form-control" placeholder="Enter Teachers Password" asp-for="acPassword">
+                <input type="text" id="password" class="form-control" placeholder="Enter Teacher's Password" asp-for="acPassword">
                 <span asp-validation-for="acPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <!--AUTO FILL DIS IN-->
                 <label for="position">Add Account Position</label>
                 <select id="position" class="form-control" asp-for="acPosition">
                     <option value="" disabled selected>Select your position</option>
@@ -129,9 +116,8 @@
                 </select>
                 <span asp-validation-for="acPosition" class="text-danger"></span>
             </div>
-            
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
-
 </body>
