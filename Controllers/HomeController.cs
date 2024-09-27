@@ -9,6 +9,8 @@ using static System.Net.Mime.MediaTypeNames;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Hosting.Server;
+using System.IO;
 
 
 
@@ -54,8 +56,14 @@ namespace test_Data.Controllers
             using (var db = new DemoContext())
             {
                 var userTemp = db.Account.Where(u => u.acUsername == account.acUsername).FirstOrDefault();
-                ViewBag.username = userTemp.acUsername;
+                //ViewBag.username = userTemp.acUsername;
             }
+            //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
+            string fileContent = string.Empty;
+            string filePath = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\currentuser.txt";
+            fileContent = System.IO.File.ReadAllText(filePath);
+            ViewBag.FileContent = fileContent;
+            
             return View();
         }
 
@@ -117,14 +125,49 @@ namespace test_Data.Controllers
         public IActionResult Login(string username, string password, string position, AccountModel account)
         {
             List<AccountModel> users = new List<AccountModel>();
-
+            
             using (var db = new DemoContext())
             {
                 users = db.Account.Where(u => u.acUsername.Contains(username) && u.acPassword.Contains(password) && u.acPosition.Contains(position)).ToList();
+                ViewBag.currentuser = username;
+                var userId = db.Account.Where(u => u.acUsername == username).Select(u => u.acID).FirstOrDefault();
+                ViewBag.userid = userId;
 
-            }
+                TextWriter txt = null;
+                string filePath = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\currentuser.txt";
+                txt = new StreamWriter(filePath);
+                txt.WriteLine(ViewBag.currentuser);
+                txt.Close();
+                
+                TextWriter txt2 = null;
+                string filePath2 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\userid.txt";
+                txt2 = new StreamWriter(filePath2);
+                txt2.WriteLine(ViewBag.userid);
+                txt2.Close();
 
-            if (users.Count == 0)
+                string fileContent3 = string.Empty;
+                string filePath3 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\userid.txt";
+                fileContent3 = System.IO.File.ReadAllText(filePath3);
+                ViewBag.FileContent3 = fileContent3;
+
+                List<ParentModel> parents = new List<ParentModel>();  
+                var parent2 = db.Parents.Where(u => u.acID == userId.ToString()).Select(u => u.sID).FirstOrDefault();
+                ViewBag.childID = parent2;
+                //writing to child
+			    TextWriter txt4 = null;
+			    string filePath4 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
+			    txt4 = new StreamWriter(filePath4);
+			    txt4.WriteLine(parent2);
+			    txt4.Close();
+			    //reading form child
+			    string fileContent5 = string.Empty;
+			    string filePath5 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
+			    fileContent5 = System.IO.File.ReadAllText(filePath5);
+			    ViewBag.FileContent5 = fileContent5;
+			}
+			
+
+			if (users.Count == 0)
             {
                 return View("Authenticate");
             }
@@ -141,6 +184,14 @@ namespace test_Data.Controllers
                 }
                 else if (position=="Parent")
                 {
+                    List<ParentModel> parent = new List<ParentModel>();
+
+                    using (var db = new DemoContext())
+                    {
+                        parent = db.Parents.ToList();
+                    }
+                    ViewBag.parent1 = parent;
+
                     return View("ParentView");
                 }
                 else
@@ -528,6 +579,7 @@ namespace test_Data.Controllers
                 int numParent2 = numParent + 1;
 
                 ViewBag.file4 = numParent2.ToString();
+               
             }
             using (var db = new DemoContext())
             {
@@ -600,7 +652,9 @@ namespace test_Data.Controllers
                     db.Add(child);
                     db.SaveChanges();
                 }
-            return RedirectToAction("AddAccountDetails");
+                string parent2 = "Parent";
+                ViewBag.position=parent2;
+            return View("AddAccountDetails");
             }
             else
             {
@@ -667,6 +721,7 @@ namespace test_Data.Controllers
                 int num2 = num + 1;
                 
                 ViewBag.file2 = num2.ToString();
+                
             }
 
             return View();
@@ -683,8 +738,9 @@ namespace test_Data.Controllers
                     db.Add(teacher);
                     db.SaveChanges();
                 }
-
-            return RedirectToAction("AddAccountDetails");
+                string teacher2 = "Teacher";
+                ViewBag.position = teacher2;
+                return View("AddAccountDetails");
             }
             else
             {
@@ -754,6 +810,7 @@ namespace test_Data.Controllers
                 int numAdmin2 = numAdmin + 1;
 
                 ViewBag.file3 = numAdmin2.ToString();
+                
             }
 
             return View();
@@ -769,8 +826,9 @@ namespace test_Data.Controllers
                     db.Add(admin);
                     db.SaveChanges();
                 }
-
-            return RedirectToAction("AddAccountDetails");
+                string admin2 = "Admin";
+                ViewBag.position = admin2;
+                return View("AddAccountDetails");
             }
             else
             {
@@ -779,14 +837,51 @@ namespace test_Data.Controllers
 
             
         }
-
-
+        public IActionResult ViewChildDetails() 
+        { 
+            return View(); 
+        }
         public IActionResult ParentView()
         {
+            string fileContent3 = string.Empty;
+            string filePath3 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\userid.txt";
+            fileContent3 = System.IO.File.ReadAllText(filePath3);
+            ViewBag.FileContent3 = fileContent3;
+
+            string fileContent5 = string.Empty;
+            string filePath5 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
+            fileContent5 = System.IO.File.ReadAllText(filePath5);
+            ViewBag.FileContent5 = fileContent5;
             return View();
         }
+        public IActionResult ParentView2(string id)
+        {
 
-       
+            List<ParentModel> parent4 = new List<ParentModel>();
+            using (var db = new DemoContext())
+            {
+                parent4 = db.Parents.Where(u => u.acID.Contains(id)).ToList();
+                ViewBag.parentid=parent4;
+            }
+            
+            return View("ViewParentDetails");
+        }
+        public IActionResult ParentView3(string sid) 
+        {
+            List<ChildModel> child1 = new List<ChildModel>();
+            int child2 = Int32.Parse(sid);
+            using (var db = new DemoContext())
+            {
+                child1 = db.Child.Where(u => u.sID==child2).ToList();
+                ViewBag.childID = child1;
+            }
+            return View("ViewChildDetails");
+        }
+        public IActionResult ViewParentDetails() 
+        { 
+            return View(); 
+        }
+
         public IActionResult TeacherView()
         {
             List<AttendanceModel> attendance = new List<AttendanceModel>();
@@ -808,6 +903,6 @@ namespace test_Data.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-       
+
     }
 }

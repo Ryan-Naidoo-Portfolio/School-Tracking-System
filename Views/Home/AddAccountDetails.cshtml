@@ -118,8 +118,9 @@
                 <input type="text" id="password" class="form-control" placeholder="Enter Teachers Password" asp-for="acPassword">
                 <span asp-validation-for="acPassword" class="text-danger"></span>
             </div>
+            <!--
             <div class="form-group">
-                <!--AUTO FILL DIS IN-->
+                
                 <label for="position">Add Account Position</label>
                 <select id="position" class="form-control" asp-for="acPosition">
                     <option value="" disabled selected>Select your position</option>
@@ -129,7 +130,10 @@
                 </select>
                 <span asp-validation-for="acPosition" class="text-danger"></span>
             </div>
-            
+    -->
+            <div>
+                <input type="hidden" value=@ViewBag.position asp-for="acPosition" />
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
