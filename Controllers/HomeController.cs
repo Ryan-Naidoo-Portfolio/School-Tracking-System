@@ -8,6 +8,8 @@ using test_Data.Models;
 using static System.Net.Mime.MediaTypeNames;
 using System;
 using System.ComponentModel.DataAnnotations;
+using com.google.zxing.qrcode.encoder;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -18,17 +20,21 @@ namespace test_Data.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IQRCodeGeneratorHelper qRCodeGeneratorHelper;
+        private readonly DemoContext _context;
 
         public HomeController(ILogger<HomeController> logger, IQRCodeGeneratorHelper qRCodeGeneratorHelper)
         {
+
             _logger = logger;
             this.qRCodeGeneratorHelper = qRCodeGeneratorHelper;
+           
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        [HttpGet]
+    public IActionResult Index()
+    {
+        return View();
+    }
 
         [HttpPost]
         public IActionResult Index(string text)
@@ -292,7 +298,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var userTemp = db.Attendance.Where(u => u.atID == attendance.atID).FirstOrDefault();
+                var userTemp = db.Attendance.Where(u => u.ID == attendance.ID).FirstOrDefault();
                 TempData["userTemp"] = userTemp;
             }
 
@@ -306,7 +312,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var UpdateTeacher = db.Attendance.Where(u => u.atID == attendance.atID).FirstOrDefault();
+                var UpdateTeacher = db.Attendance.Where(u => u.ID == attendance.ID).FirstOrDefault();
 
                 UpdateTeacher.atTimeIn = attendance.atTimeIn;
                 UpdateTeacher.atTimeOut = attendance.atTimeOut;
@@ -433,7 +439,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var DeleteUser = db.Attendance.Where(u => u.atID == attendance.atID).FirstOrDefault();
+                var DeleteUser = db.Attendance.Where(u => u.ID == attendance.ID).FirstOrDefault();
                 db.Attach(DeleteUser);
                 db.Remove(DeleteUser);
                 db.SaveChanges();
@@ -693,17 +699,58 @@ namespace test_Data.Controllers
        
         public IActionResult TeacherView()
         {
-            List<AttendanceModel> attendance = new List<AttendanceModel>();
+            List<QRCodes> qr = new List<QRCodes>();
 
             using (var db = new DemoContext())
             {
-                attendance = db.Attendance.ToList();
+                qr = db.QRCodes.ToList();
             }
 
-            ViewBag.users = attendance;
+            ViewBag.users = qr;
 
             return View();
         }
+
+
+
+        public IActionResult Scannerqr()
+        {
+           
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Scannerqr(QRCodes qr)
+        {
+
+            
+
+            if (ModelState.IsValid)
+            {
+                using (var db = new DemoContext())
+                {
+
+                   
+                    db.Add(qr);
+                    db.SaveChanges();
+                }
+
+            }
+
+
+            return RedirectToAction("TeacherView"); 
+        }
+
+
+
+        public IActionResult Notification()
+        {
+            return View();
+        }
+
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

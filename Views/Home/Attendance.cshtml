@@ -118,6 +118,8 @@
                         <th scope="col">Present</th>
                         <th scope="col">Update</th>
                         <th scope="col">Delete</th>
+                        <th scope="col">Contact</th>
+                      
                     </tr>
                 </thead>
                 <tbody>
@@ -129,17 +131,24 @@
                             <td>@attendance.atDate</td>
                             <td>@attendance.atPresent</td>
                             <td>
-                                <form asp-action="UpdateAttendance" asp-controller="Home" method="post">
-                                    <input type="hidden" asp-for="atID" value="@attendance.atID" />
+                                <form asp-action="UpdateAttendance" asp-controller="Home" method="post style="display:inline;">
+                                    <input type="hidden" asp-for="ID" value="@attendance.ID" />
                                     <button type="submit" class="btn btn-success">Update</button>
                                 </form>
                             </td>
                             <td>
-                                <form asp-action="DeleteAttendance" asp-controller="Home" method="post">
-                                    <input type="hidden" asp-for="atID" value="@attendance.atID" />
+                                <form asp-action="DeleteAttendance" asp-controller="Home" method="post style="display:inline;">
+                                    <input type="hidden" asp-for="ID" value="@attendance.ID" />
                                     <button type="submit" class="btn btn-outline-danger">Delete</button>
                                 </form>
                             </td>
+                            <td>
+                                <form asp-action="Notification" asp-controller="Home" method="post style="display:inline;">
+                                    <input type="hidden" asp-for="ID" value="@attendance.ID" />
+                                    <button type="submit" class="btn btn-outline-danger">submit</button>
+                                </form>
+                            </td>
+                          
                         </tr>
                     }
                 </tbody>

@@ -4,5 +4,6 @@
     {
 
         public string QRCodeImageUrl { get; set; }
+      
     }
 }

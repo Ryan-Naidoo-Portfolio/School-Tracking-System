@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using test_Data.Models;
 
@@ -10,9 +11,11 @@ using test_Data.Models;
 namespace test_Data.Migrations
 {
     [DbContext(typeof(DemoContext))]
-    partial class DemoContextModelSnapshot : ModelSnapshot
+    [Migration("20240927095246_qrfinal")]
+    partial class qrfinal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");
@@ -76,7 +79,7 @@ namespace test_Data.Migrations
 
             modelBuilder.Entity("test_Data.Models.AttendanceModel", b =>
                 {
-                    b.Property<int?>("ID")
+                    b.Property<int>("atID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -93,13 +96,13 @@ namespace test_Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("atTimeOut")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("sID")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ID");
+                    b.Property<string>("sID")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("atID");
 
                     b.ToTable("Attendance");
                 });
@@ -187,27 +190,11 @@ namespace test_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("DateScan")
+                    b.Property<string>("Data")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FormClass")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Present")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("SId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TimeIn")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TimeOut")
+                    b.Property<string>("ScannedAt")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

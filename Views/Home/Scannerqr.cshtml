@@ -1,0 +1,171 @@
+﻿@model test_Data.Models.QRCodes
+@{
+    ViewData["Title"] = "QRCodes";
+
+
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial scale=1.0">
+    <title>QR Code scanner</title>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Scan QR Code</h1>
+        <div class="section">
+            <div id="my-qr-reader"></div>
+        </div>
+
+        <div class="form-container">
+            <form action="/home/Scannerqr" method="post">
+
+                <div class="form-group">
+                    <label for="surname">Student ID</label>
+                    <input type="text" id="qr-result" class="form-control" asp-for="SId">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="date">date</label>
+                    <input type="text" id="scan-date" class="form-control" asp-for="DateScan">
+
+                </div>
+                <div class="form-group">
+                    <label for="timein">time</label>
+                    <input type="text" id="scan-time" class="form-control" asp-for="TimeIn">
+
+                </div>
+                <div class="form-group">
+                    <label for="present">present</label>
+                    <input type="text" id="present" class="form-control" asp-for="Present">
+
+                </div>
+                <div class="form-group">
+                    <label for="timeout">time</label>
+                    <input type="text" id="scan-timeOut" class="form-control" asp-for="TimeOut">
+
+                </div>
+                <div class="form-group">
+                    <label for="formclass">formclass</label>
+                    <input type="text" id="FormClass" class="form-control" asp-for="FormClass">
+
+                </div>
+
+
+
+
+
+                <button type="submit" class="btn btn-primary">Submit Record</button>
+
+            </form>
+        </div>
+
+    </div>
+
+
+   <!--<script src="https://unpkg.com/html5-qrcode"></script>-->
+
+</body>
+</html>
+
+<html>
+<body data-rsssl=1>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            box-sizing: border-box;
+            text-align: center;
+            background: #1d9bf0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin: 5px;
+        }
+
+        .section {
+            background-color: #fff;
+            padding: 50px 30px;
+            border-radius: 0.25cm;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        #my-qr-reader img[alt="info-icon"] {
+            display: none;
+        }
+
+        #my-qr-reader img[alt="Camera based scan"] {
+            width: 100px !important;
+            height: 100px !important;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: 1px solid #b2b2b2;
+            outline: none;
+            border-radius: 0.25cm;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background-color: #83cce1;
+            transition: 0.3s background-color;
+        }
+    </style>
+
+    <script>
+        function domReady(fn) {
+            if (
+                document.readyState === "complete" ||
+                document.readyState === "interactive"
+            ) {
+                setTimeout(fn, 1000);
+            } else {
+                document.addEventListener("DOMContentLoaded", fn);
+            }
+        }
+
+
+
+       document.addEventListener("DOMContentLoaded", function() {
+    function onScanSuccess(decodedText, decodedResult) {
+        // Handle the scanned QR code result
+        document.getElementById("qr-result").value = decodedText;
+        let now = new Date();
+        let formattedDate = now.toLocaleString('en-US', { timeStyle: 'short' });
+
+        document.getElementById("scan-time").value = formattedDate;
+        document.getElementById("scan-date").value = now.toLocaleDateString('en-US');
+        document.getElementById("present").value = "Yes";
+        document.getElementById("FormClass").value = "Yes";
+
+    }
+
+    let html5QrCodeScanner = new Html5QrcodeScanner(
+        "my-qr-reader",
+        {
+            fps: 10,
+            qrbox: 250
+        },
+        /* verbose= */ false
+    );
+    html5QrCodeScanner.render(onScanSuccess);
+});
+
+    </script>
+</body>
+
+</html>

@@ -11,6 +11,9 @@ namespace test_Data.Models
         public DbSet<TeacherModel> Teacher { get; set; }
         public DbSet<AccountModel> Account { get; set; }
         public DbSet<AdminModel> Admin { get; set; }
+        public DbSet<QRCodes> QRCodes { get; set; }
+        public DateTime ScannedAt { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)//dont know if we need for unique constraint, dont delete yet
         {
             modelBuilder.Entity<AccountModel>()
@@ -22,7 +25,7 @@ namespace test_Data.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         
-          =>options.UseSqlite(@"Data Source=C:\Users\User\source\repos\RuhRohRaggy\Demo.db");
+          =>options.UseSqlite(@"Data Source=C:\Users\naido\Desktop\asssssssssssssss\teliiii (3)\teliiii\teliiii\kmsprn\kmsprn\kms\Demo.db");
 
     }
 }
