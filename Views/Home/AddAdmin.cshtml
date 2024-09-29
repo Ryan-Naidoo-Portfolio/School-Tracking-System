@@ -3,9 +3,10 @@
     ViewData["Title"] = "Admin";
 }
 
+
 <style>
     body {
-        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+        background-color: white;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -127,7 +128,7 @@
             </div>
             <div class="form-group">
                 <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" asp-for="aSurname">
+                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="aSurname">
                 <span asp-validation-for="aSurname" class="text-danger"></span>
             </div>
 

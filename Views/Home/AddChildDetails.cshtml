@@ -1,12 +1,12 @@
 ﻿@model test_Data.Models.ChildModel
 @{
-    ViewData["Title"] = "Update Child";
-    ChildModel user = TempData["userTemp"] as ChildModel;
+    ViewData["Title"] = "AddChildDetails";
 }
 
 <style>
     body {
-        background-color: white        background-size: cover;
+        background-color: white;
+        background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         height: 100vh;
@@ -18,9 +18,9 @@
         max-width: 600px;
         margin: 50px auto;
         padding: 30px;
-        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+        background-color: rgba(255, 255, 255, 0.9);
         border-radius: 15px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
 
     .form-group {
@@ -54,45 +54,55 @@
             background-color: #0056b3;
         }
 
-    label {
-        font-weight: bold;
+    .table-dark {
+        margin-top: 20px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: white;
     }
 
-    .head-bar {
-        background-color: #2248F0;
-        color: white;
-        text-align: center;
-        padding: 10px;
-        font-weight: bold; /* Make text bold */
-        position: fixed; /* Fix the position */
-        top: 0; /* Position at the top */
-        left: 0; /* Align to the left */
-        right: 0; /* Align to the right */
-        z-index: 1000; /* Ensure it stays above other content */
+        .table-dark th,
+        .table-dark td {
+            text-align: center;
+        }
+
+    .btn-outline-danger {
+        border: 1px solid #dc3545;
+        color: #dc3545;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+    label {
+        font-weight: bold;
     }
 </style>
 
 <body>
-    <div class="head-bar">
-        Admin: Update Students
-    </div>
     <div class="form-container">
-        <h1>Update Child</h1>
-        <form action="/home/UpdateChildFinal" method="post">
-            <input type="hidden" asp-for="sID" value="@user.sID" />
+        <form action="/home/child" method="post">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="sName" value="@user.sName" />
+                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="sName">
+                <span asp-validation-for="sName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="sSurname" value="@user.sSurname" />
+                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="sSurname">
+                <span asp-validation-for="sSurname" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label for="formClass">Form Class</label>
-                <input type="text" id="formClass" class="form-control" placeholder="Enter Form Class" asp-for="sFormClass" value="@user.sFormClass" />
+                <input type="text" id="formClass" class="form-control" placeholder="Enter Form Class" asp-for="sFormClass">
+                <span asp-validation-for="sFormClass" class="text-danger"></span>
+            </div>
+            <div>
+                <input type="hidden" value=@ViewBag.file5 asp-for="pID" />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+
 </body>

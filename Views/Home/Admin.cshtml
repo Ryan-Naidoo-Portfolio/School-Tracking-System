@@ -5,7 +5,7 @@
 
 <style>
     body {
-        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+        background-color: white;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -33,7 +33,7 @@
 
     .form-control {
         width: 100%;
-        padding: 10px;
+        padding: 100px;
         border-radius: 10px;
         border: 1px solid #ccc;
         font-size: 1rem;
@@ -45,13 +45,16 @@
         }
 
     .btn-primary {
-        width: 100%;
+        width: 200px;
         border-radius: 10px;
         padding: 10px;
         font-size: 1rem;
+        margin-left: 100px;
         background-color: #007bff;
         border: none;
         color: #fff;
+        margin: 20px auto; /* Center the button and add vertical margin */
+        display: block; /* Ensure it takes the block level layout */
     }
 
         .btn-primary:hover {
@@ -88,7 +91,7 @@
     .table-dark {
         background-color: rgba(0, 0, 0, 0.75);
         color: white;
-        margin-top: 20px;
+        margin-top: 50px;
     }
 
         .table-dark th,
@@ -114,33 +117,35 @@
         margin-top: 5px;
         display: block;
     }
+
+    .head-bar {
+        background-color: #2248F0;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold; /* Make text bold */
+        position: fixed; /* Fix the position */
+        top: 0; /* Position at the top */
+        left: 0; /* Align to the left */
+        right: 0; /* Align to the right */
+        z-index: 1000; /* Ensure it stays above other content */
+    }
 </style>
 
 <body>
-    <div class="form-container">
-        <form action="/home/admin" method="post">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="aName">
-                <span asp-validation-for="aName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" asp-for="aSurname">
-                <span asp-validation-for="aSurname" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <div class="head-bar">
+        Admin: Admin Accounts
     </div>
-
     <div class="container">
         @if (ViewBag.users != null && ViewBag.users.Count >= 1)
         {
             <table class="table table-dark">
                 <thead>
                     <tr>
+                        <th scope="col">aID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Surname</th>
+                        <th scope="col">acID</th>
                         <th scope="col">Update</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -149,8 +154,10 @@
                     @foreach (var admin in ViewBag.users)
                     {
                         <tr>
+                            <td>@admin.aID</td>
                             <td>@admin.aName</td>
                             <td>@admin.aSurname</td>
+                            <td>@admin.acID</td>
                             <td>
                                 <form asp-action="UpdateAdmin" asp-controller="Home" method="post" style="display:inline;">
                                     <input type="hidden" asp-for="aID" value="@admin.aID" />
@@ -169,4 +176,8 @@
             </table>
         }
     </div>
+    <form asp-action="AdminsAddDetails" asp-controller="Home" method="post">
+        <button type="submit" class="btn btn-primary">Add Admin Details</button>
+    </form>
+
 </body>

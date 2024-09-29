@@ -10,6 +10,9 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using com.google.zxing.qrcode.encoder;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Hosting.Server;
+using System.IO;
 
 
 
@@ -36,6 +39,16 @@ namespace test_Data.Controllers
         return View();
     }
 
+        public IActionResult TeacherHome()
+        {
+            return View();
+        }
+
+        public IActionResult ParentHome()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Index(string text)
         {
@@ -49,6 +62,38 @@ namespace test_Data.Controllers
 
 
             return View(model);
+        }
+        public IActionResult PreForgot()
+        {
+            return View();
+        }
+        public IActionResult ForgotPassword(AccountModel account)
+        {
+            using (var db = new DemoContext())
+            {
+                var userTemp = db.Account.Where(u => u.acUsername == account.acUsername).FirstOrDefault();
+                //ViewBag.username = userTemp.acUsername;
+            }
+            //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
+            string fileContent = string.Empty;
+            string filePath = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\currentuser.txt";
+            fileContent = System.IO.File.ReadAllText(filePath);
+            ViewBag.FileContent = fileContent;
+            
+            return View();
+        }
+
+        public IActionResult ForgotPasswordFinal(AccountModel account)
+        {
+            using (var db = new DemoContext())
+            {
+                var UpdatePassword = db.Account.Where(u => u.acUsername == account.acUsername).FirstOrDefault();
+
+                UpdatePassword.acPassword = account.acPassword;
+
+                db.SaveChanges();
+            }
+            return View("Authenticate");
         }
 
         public IActionResult Privacy()
@@ -96,14 +141,49 @@ namespace test_Data.Controllers
         public IActionResult Login(string username, string password, string position, AccountModel account)
         {
             List<AccountModel> users = new List<AccountModel>();
-
+            
             using (var db = new DemoContext())
             {
                 users = db.Account.Where(u => u.acUsername.Contains(username) && u.acPassword.Contains(password) && u.acPosition.Contains(position)).ToList();
+                ViewBag.currentuser = username;
+                var userId = db.Account.Where(u => u.acUsername == username).Select(u => u.acID).FirstOrDefault();
+                ViewBag.userid = userId;
 
-            }
+                TextWriter txt = null;
+                string filePath = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\currentuser.txt";
+                txt = new StreamWriter(filePath);
+                txt.WriteLine(ViewBag.currentuser);
+                txt.Close();
+                
+                TextWriter txt2 = null;
+                string filePath2 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\userid.txt";
+                txt2 = new StreamWriter(filePath2);
+                txt2.WriteLine(ViewBag.userid);
+                txt2.Close();
 
-            if (users.Count == 0)
+                string fileContent3 = string.Empty;
+                string filePath3 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\userid.txt";
+                fileContent3 = System.IO.File.ReadAllText(filePath3);
+                ViewBag.FileContent3 = fileContent3;
+
+                List<ParentModel> parents = new List<ParentModel>();  
+                var parent2 = db.Parents.Where(u => u.acID == userId.ToString()).Select(u => u.sID).FirstOrDefault();
+                ViewBag.childID = parent2;
+                //writing to child
+			    TextWriter txt4 = null;
+			    string filePath4 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
+			    txt4 = new StreamWriter(filePath4);
+			    txt4.WriteLine(parent2);
+			    txt4.Close();
+			    //reading form child
+			    string fileContent5 = string.Empty;
+			    string filePath5 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
+			    fileContent5 = System.IO.File.ReadAllText(filePath5);
+			    ViewBag.FileContent5 = fileContent5;
+			}
+			
+
+			if (users.Count == 0)
             {
                 return View("Authenticate");
             }
@@ -111,7 +191,7 @@ namespace test_Data.Controllers
             {
                 if (position == "Teacher")
                 {
-                    return View("TeacherView");
+                    return RedirectToAction("TeacherView");
                 }
                 else if (position == "Admin")
                 {
@@ -120,6 +200,14 @@ namespace test_Data.Controllers
                 }
                 else if (position=="Parent")
                 {
+                    List<ParentModel> parent = new List<ParentModel>();
+
+                    using (var db = new DemoContext())
+                    {
+                        parent = db.Parents.ToList();
+                    }
+                    ViewBag.parent1 = parent;
+
                     return View("ParentView");
                 }
                 else
@@ -498,12 +586,32 @@ namespace test_Data.Controllers
 
             return View();
         }
+        public IActionResult AddParentsDetails(AccountModel account, ChildModel child)
+        {
+            using (var db = new DemoContext())
+            {
+                var lastRecord3 = db.Account.OrderByDescending(x => x.acID).FirstOrDefault();
+                int numParent = lastRecord3.acID;
+                int numParent2 = numParent + 1;
+
+                ViewBag.file4 = numParent2.ToString();
+               
+            }
+            using (var db = new DemoContext())
+            {
+                var lastRecord4 = db.Child.OrderByDescending(x => x.sID).FirstOrDefault();
+                int numChild = lastRecord4.sID;
+                int numChild2 = numChild + 1;
+
+                ViewBag.file5 = numChild2.ToString();
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public IActionResult Parent(ParentModel parent)
         {
-
-
 
             if (ModelState.IsValid)
             {
@@ -512,11 +620,14 @@ namespace test_Data.Controllers
                     db.Add(parent);
                     db.SaveChanges();
                 }
-
-
+            return RedirectToAction("AddChildDetails");
+            }
+            else
+            {
+                return View("AddParentsDetails");
             }
 
-            return RedirectToAction("Parent");
+            
         }
 
 
@@ -533,12 +644,22 @@ namespace test_Data.Controllers
 
             return View();
         }
+        public IActionResult AddChildDetails(ParentModel parent)
+        {
+            using (var db = new DemoContext())
+            {
+                var lastRecord = db.Parents.OrderByDescending(x => x.pID).FirstOrDefault();
+                int num = lastRecord.pID;
+
+                ViewBag.file5 = num.ToString();
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public IActionResult Child(ChildModel child)
         {
-
-
 
             if (ModelState.IsValid)
             {
@@ -547,11 +668,16 @@ namespace test_Data.Controllers
                     db.Add(child);
                     db.SaveChanges();
                 }
-
-
+                string parent2 = "Parent";
+                ViewBag.position=parent2;
+            return View("AddAccountDetails");
+            }
+            else
+            {
+                return View("AddChildDetails");
             }
 
-            return RedirectToAction("Child");
+            
         }
 
         public IActionResult Attendance()
@@ -587,6 +713,7 @@ namespace test_Data.Controllers
 
             return RedirectToAction("Attendance");
         }
+        
         public IActionResult Teacher()
         {
             List<TeacherModel> teacher = new List<TeacherModel>();
@@ -600,12 +727,25 @@ namespace test_Data.Controllers
 
             return View();
         }
+        
+        public IActionResult TeachersAddDetails(AccountModel account)
+        {
+            using (var db = new DemoContext())
+            {
+                var lastRecord = db.Account.OrderByDescending(x => x.acID).FirstOrDefault();
+                int num = lastRecord.acID;
+                int num2 = num + 1;
+                
+                ViewBag.file2 = num2.ToString();
+                
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public IActionResult Teacher(TeacherModel teacher)
         {
-
-
 
             if (ModelState.IsValid)
             {
@@ -614,11 +754,15 @@ namespace test_Data.Controllers
                     db.Add(teacher);
                     db.SaveChanges();
                 }
-
-
+                string teacher2 = "Teacher";
+                ViewBag.position = teacher2;
+                return View("AddAccountDetails");
             }
-
-            return RedirectToAction("Teacher");
+            else
+            {
+                return View("TeachersAddDetails");
+            }
+            
         }
 
         public IActionResult Account()
@@ -631,31 +775,35 @@ namespace test_Data.Controllers
             }
 
             ViewBag.users = account;
+            
+            return View();
+        }
+        public IActionResult AddAccountDetails()
+        {   
+            
+            
+            
 
             return View();
         }
-
         [HttpPost]
         public IActionResult Account(AccountModel account)
-        {
-
-
-
+        {      
             if (ModelState.IsValid)
             {
                 using (var db = new DemoContext())
                 {
                     db.Add(account);
-                    db.SaveChanges();
-                }
-
-
+                    db.SaveChanges();                 
+                }         
+            return RedirectToAction("Account");
             }
-
-            return RedirectToAction("Account");//CHNAGE TO VIEW
+            else
+            {
+                return View("AddAccountDetails");
+            }
+ 
         }
-
-
         public IActionResult Admin()
         {
             List<AdminModel> admin = new List<AdminModel>();
@@ -669,12 +817,23 @@ namespace test_Data.Controllers
 
             return View();
         }
+        public IActionResult AdminsAddDetails(AccountModel account)
+        {
+            using (var db = new DemoContext())
+            {
+                var lastRecord2 = db.Account.OrderByDescending(x => x.acID).FirstOrDefault();
+                int numAdmin = lastRecord2.acID;
+                int numAdmin2 = numAdmin + 1;
 
+                ViewBag.file3 = numAdmin2.ToString();
+                
+            }
+
+            return View();
+        }
         [HttpPost]
         public IActionResult Admin(AdminModel admin)
         {
-
-
 
             if (ModelState.IsValid)
             {
@@ -683,20 +842,62 @@ namespace test_Data.Controllers
                     db.Add(admin);
                     db.SaveChanges();
                 }
-
-
+                string admin2 = "Admin";
+                ViewBag.position = admin2;
+                return View("AddAccountDetails");
+            }
+            else
+            {
+                return View("AdminsAddDetails");
             }
 
-            return View();
+            
         }
-
-
+        public IActionResult ViewChildDetails() 
+        { 
+            return View(); 
+        }
         public IActionResult ParentView()
         {
+            string fileContent3 = string.Empty;
+            string filePath3 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\userid.txt";
+            fileContent3 = System.IO.File.ReadAllText(filePath3);
+            ViewBag.FileContent3 = fileContent3;
+
+            string fileContent5 = string.Empty;
+            string filePath5 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
+            fileContent5 = System.IO.File.ReadAllText(filePath5);
+            ViewBag.FileContent5 = fileContent5;
             return View();
         }
+        public IActionResult ParentView2(string id)
+        {
 
-       
+            List<ParentModel> parent4 = new List<ParentModel>();
+            using (var db = new DemoContext())
+            {
+                parent4 = db.Parents.Where(u => u.acID.Contains(id)).ToList();
+                ViewBag.parentid=parent4;
+            }
+            
+            return View("ViewParentDetails");
+        }
+        public IActionResult ParentView3(string sid) 
+        {
+            List<ChildModel> child1 = new List<ChildModel>();
+            int child2 = Int32.Parse(sid);
+            using (var db = new DemoContext())
+            {
+                child1 = db.Child.Where(u => u.sID==child2).ToList();
+                ViewBag.childID = child1;
+            }
+            return View("ViewChildDetails");
+        }
+        public IActionResult ViewParentDetails() 
+        { 
+            return View(); 
+        }
+
         public IActionResult TeacherView()
         {
             List<QRCodes> qr = new List<QRCodes>();
@@ -745,11 +946,22 @@ namespace test_Data.Controllers
 
 
 
-        public IActionResult Notification()
+            return View();
+        }
+        public IActionResult TeacherHelp()
         {
             return View();
         }
 
+        public IActionResult AdminHelp()
+        {
+            return View();
+        }
+
+        public IActionResult ParentHelp()
+        {
+            return View();
+        }
 
 
 
@@ -759,6 +971,6 @@ namespace test_Data.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-       
+
     }
 }

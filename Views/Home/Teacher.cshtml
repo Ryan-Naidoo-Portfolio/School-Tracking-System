@@ -5,24 +5,26 @@
 
 <style>
     body {
-        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+        background-color: white;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         height: 100vh;
         margin: 0;
+        padding: 0;
         font-family: Arial, sans-serif;
     }
 
     .form-container {
-        max-width: 600px;
+        max-width: 500px;
         width: 100%;
-        margin: 50px auto;
         padding: 30px;
-        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        background-color: rgba(255, 255, 255, 0.8);
         border-radius: 15px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
-        backdrop-filter: blur(10px); /* Frosted glass effect */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        margin-bottom: 30px;
+        margin-left: 200px;
     }
 
     .form-group {
@@ -31,7 +33,7 @@
 
     .form-control {
         width: 100%;
-        padding: 10px;
+        padding: 100px;
         border-radius: 10px;
         border: 1px solid #ccc;
         font-size: 1rem;
@@ -43,13 +45,16 @@
         }
 
     .btn-primary {
-        width: 100%;
+        width: 200px;
         border-radius: 10px;
         padding: 10px;
         font-size: 1rem;
+        margin-left: 100px;
         background-color: #007bff;
         border: none;
         color: #fff;
+        margin: 20px auto; /* Center the button and add vertical margin */
+        display: block; /* Ensure it takes the block level layout */
     }
 
         .btn-primary:hover {
@@ -86,6 +91,7 @@
     .table {
         background-color: rgba(0, 0, 0, 0.8); /* Dark background for table */
         color: #fff;
+        margin-top: 60px;
     }
 
         .table th,
@@ -97,39 +103,36 @@
         background-color: #343a40;
         color: #fff;
     }
+
+    .head-bar {
+        background-color: #2248F0;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold; /* Make text bold */
+        position: fixed; /* Fix the position */
+        top: 0; /* Position at the top */
+        left: 0; /* Align to the left */
+        right: 0; /* Align to the right */
+        z-index: 1000; /* Ensure it stays above other content */
+    }
 </style>
 
 <body>
-    <div class="form-container">
-        <form action="/home/teacher" method="post">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="tName">
-                <span asp-validation-for="tName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" asp-for="tSurname">
-                <span asp-validation-for="tSurname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="formClass">Form Class</label>
-                <input type="text" id="formClass" class="form-control" asp-for="tFormClass">
-                <span asp-validation-for="tFormClass" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <div class="head-bar">
+        Admin: Teacher Records
     </div>
-
     <div class="container">
         @if (ViewBag.users != null && ViewBag.users.Count >= 1)
         {
             <table class="table table-dark">
                 <thead>
                     <tr>
+                        <th scope="col">tID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Surname</th>
                         <th scope="col">Form Class</th>
+                        <th scope="col">acID</th>
                         <th scope="col">Update</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -138,9 +141,11 @@
                     @foreach (var teacher in ViewBag.users)
                     {
                         <tr>
+                            <td>@teacher.tID</td>
                             <td>@teacher.tName</td>
                             <td>@teacher.tSurname</td>
                             <td>@teacher.tFormClass</td>
+                            <td>@teacher.acID</td>
                             <td>
                                 <form asp-action="UpdateTeacher" asp-controller="Home" method="post" style="display:inline;">
                                     <input type="hidden" asp-for="tID" value="@teacher.tID" />
@@ -159,4 +164,7 @@
             </table>
         }
     </div>
+    <form asp-action="TeachersAddDetails" asp-controller="Home" method="post">
+        <button type="submit" class="btn btn-primary">Add Teacher Details</button>
+    </form>
 </body>

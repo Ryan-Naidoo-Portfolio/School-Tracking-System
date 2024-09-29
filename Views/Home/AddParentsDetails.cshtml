@@ -1,17 +1,12 @@
 ﻿@model test_Data.Models.ParentModel
 @{
-    ViewData["Title"] = "Update Parent";
-    ParentModel user = TempData["userTemp"] as ParentModel;
+    ViewData["Title"] = "AddParentsDetails";
 }
 
 <style>
     body {
-        background-color: white;
+        background-colour: white;
         background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-        margin: 0;
         font-family: Arial, sans-serif;
     }
 
@@ -19,9 +14,9 @@
         max-width: 600px;
         margin: 50px auto;
         padding: 30px;
-        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+        background-color: rgba(255, 255, 255, 0.9);
         border-radius: 15px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     }
 
     .form-group {
@@ -55,6 +50,27 @@
         background-color: #0056b3;
     }
 
+    .table-dark {
+        margin-top: 20px;
+        background-color: rgba(0, 0, 0, 0.75);
+        color: white;
+    }
+
+    .table-dark th,
+    .table-dark td {
+        text-align: center;
+    }
+
+    .btn-outline-danger {
+        border: 1px solid #dc3545;
+        color: #dc3545;
+    }
+
+    .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+
     label {
         font-weight: bold;
     }
@@ -75,48 +91,49 @@
 
 <body>
     <div class="head-bar">
-        Admin: Update Parents
+        Admin: Add Parent Account
     </div>
     <div class="form-container">
-        <h1>Update Parent</h1>
-        <form action="/home/UpdateParentFinal" method="post">
-            <input type="hidden" asp-for="pID" value="@user.pID" />
-
+        <form action="/home/parent" method="post">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="pName" value="@user.pName" />
+                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="pName">
+                <span asp-validation-for="pName" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="pSurname" value="@user.pSurname" />
+                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="pSurname">
+                <span asp-validation-for="pSurname" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label for="phoneNumber">Phone Number</label>
-                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter Phone Number" asp-for="pPhoneNumber" value="@user.pPhoneNumber" />
+                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter Phone Number" size="20" minlength="10" maxlength="10" asp-for="pPhoneNumber">
+                <span asp-validation-for="pPhoneNumber" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label for="spouseName">Spouse Name</label>
-                <input type="text" id="spouseName" class="form-control" placeholder="Enter Spouse Name" asp-for="pSpouseName" value="@user.pSpouseName" />
+                <input type="text" id="spouseName" class="form-control" placeholder="Enter Spouse Name" asp-for="pSpouseName">
             </div>
-
             <div class="form-group">
                 <label for="spousePhoneNumber">Spouse Phone Number</label>
-                <input type="tel" id="spousePhoneNumber" class="form-control" placeholder="Enter Spouse Phone Number" asp-for="pSpousePhoneNumber" value="@user.pSpousePhoneNumber" />
+                <input type="tel" id="spousePhoneNumber" class="form-control" placeholder="Enter Spouse Phone Number" asp-for="pSpousePhoneNumber">
             </div>
-
             <div class="form-group">
                 <label for="emergencyContactName">Emergency Contact Name</label>
-                <input type="text" id="emergencyContactName" class="form-control" placeholder="Enter Emergency Contact Name" asp-for="pEmergencyContactName" value="@user.pEmergencyContactName" />
+                <input type="text" id="emergencyContactName" class="form-control" placeholder="Enter Emergency Contact Name" asp-for="pEmergencyContactName">
+                <span asp-validation-for="pEmergencyContactName" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label for="emergencyContactPhoneNumber">Emergency Contact Phone Number</label>
-                <input type="tel" id="emergencyPhoneNumber" class="form-control" placeholder="Enter Emergency Phone Number" asp-for="pEmergencyPhoneNumber" value="@user.pEmergencyPhoneNumber" />
+                <input type="tel" id="emergencyContactPhoneNumber" class="form-control" placeholder="Enter Emergency Contact Phone Number" asp-for="pEmergencyPhoneNumber">
+                <span asp-validation-for="pEmergencyPhoneNumber" class="text-danger"></span>
             </div>
-
+            <div>
+                <input type="hidden" value=@ViewBag.file4 asp-for="acID"/>
+            </div>
+            <div>
+                <input type="hidden" value=@ViewBag.file5 asp-for="sID" />
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

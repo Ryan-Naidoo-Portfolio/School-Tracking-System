@@ -2,17 +2,16 @@
 @{
     ViewData["Title"] = "QRCodes";
 
-
 }
 <style>
     body {
-        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 100vh;
-        margin: 0;
-        font-family: Arial, sans-serif;
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
     }
 
     .Form {
@@ -79,11 +78,24 @@
             background-color: #dc3545;
             color: white;
         }
+
+    .head-bar {
+        background-color: #2248F0;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold;
+        left: 0; /* Align to the left */
+        margin-top: -17px;
+        right: 0; /* Align to the right */
+        z-index: 1000; /* Ensure it stays above other content */
+    }
 </style>
 
 <body>
-
-
+    <div class="head-bar">
+        Teacher: Search
+    </div>
     <div class="container">
 
         <form action="/Home/Scannerqr" method="post" class="SearchBox">

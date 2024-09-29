@@ -1,11 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model test_Data.Models.ParentModel
 @{
+    ViewData["Title"] = "ParentView2";
+    
+}
 
     <style>
         body {
-            background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+            background-color: white;
             background-size: cover;
             font-family: Arial, sans-serif;
         }
@@ -74,5 +75,25 @@
         label {
             font-weight: bold;
         }
+        #id{
+            width:0px;
+            height:0px;
+            padding:0px;
+        }
     </style>
-}
+
+<body>
+    <form action="/home/parentview2" method="post">
+        <div>
+            <input type="text" id="id" name="id" asp-for="acID" value="@ViewBag.FileContent3" readonly="readonly" />
+        </div>
+        <button type="submit" class="btn btn-primary">View Parent Record</button>
+
+	</form>
+    <form action="/home/parentview3" method="post">
+	    <div>
+            <input type="text" id="id" name="sid" asp-for="sID" value="@ViewBag.FileContent5" readonly="readonly" />
+	    </div>
+	    <button type="submit" class="btn btn-primary">View Child Record</button>
+    </form>
+</body>

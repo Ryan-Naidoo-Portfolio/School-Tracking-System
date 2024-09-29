@@ -5,18 +5,26 @@
 
 <style>
     body {
-        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+        background-color: white;
         background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
         font-family: Arial, sans-serif;
     }
 
     .form-container {
-        max-width: 600px;
-        margin: 50px auto;
+        max-width: 500px;
+        width: 100%;
         padding: 30px;
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(255, 255, 255, 0.8);
         border-radius: 15px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        margin-bottom: 30px;
+        margin-left: 200px;
     }
 
     .form-group {
@@ -25,33 +33,63 @@
 
     .form-control {
         width: 100%;
-        padding: 10px;
+        padding: 100px;
         border-radius: 10px;
         border: 1px solid #ccc;
         font-size: 1rem;
     }
 
-    .form-control:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
 
     .btn-primary {
-        width: 100%;
+        width: 200px;
         border-radius: 10px;
         padding: 10px;
         font-size: 1rem;
+        margin-left: 100px;
         background-color: #007bff;
+        border: none;
+        color: #fff;
+        margin: 20px auto; /* Center the button and add vertical margin */
+        display: block; /* Ensure it takes the block level layout */
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-success {
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1rem;
+        background-color: #28a745;
         border: none;
         color: #fff;
     }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+    .btn-outline-danger {
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #dc3545;
+        color: #dc3545;
+        background-color: transparent;
     }
 
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
     .table-dark {
-        margin-top: 20px;
+        margin-top: 50px;
         background-color: rgba(0, 0, 0, 0.75);
         color: white;
     }
@@ -74,46 +112,24 @@
     label {
         font-weight: bold;
     }
+
+    .head-bar {
+        background-color: #2248F0;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold; /* Make text bold */
+        position: fixed; /* Fix the position */
+        top: 0; /* Position at the top */
+        left: 0; /* Align to the left */
+        right: 0; /* Align to the right */
+        z-index: 1000; /* Ensure it stays above other content */
+    }
 </style>
 
 <body>
-    <div class="form-container">
-        <form action="/home/parent" method="post">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" placeholder="Enter Name" asp-for="pName">
-                <span asp-validation-for="pName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" class="form-control" placeholder="Enter Surname" asp-for="pSurname">
-                <span asp-validation-for="pSurname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="phoneNumber">Phone Number</label>
-                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter Phone Number" size="20" minlength="10" maxlength="10" asp-for="pPhoneNumber">
-                <span asp-validation-for="pPhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="spouseName">Spouse Name</label>
-                <input type="text" id="spouseName" class="form-control" placeholder="Enter Spouse Name" asp-for="pSpouseName">
-            </div>
-            <div class="form-group">
-                <label for="spousePhoneNumber">Spouse Phone Number</label>
-                <input type="tel" id="spousePhoneNumber" class="form-control" placeholder="Enter Spouse Phone Number" asp-for="pSpousePhoneNumber">
-            </div>
-            <div class="form-group">
-                <label for="emergencyContactName">Emergency Contact Name</label>
-                <input type="text" id="emergencyContactName" class="form-control" placeholder="Enter Emergency Contact Name" asp-for="pEmergencyContactName">
-                <span asp-validation-for="pEmergencyContactName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="emergencyContactPhoneNumber">Emergency Contact Phone Number</label>
-                <input type="tel" id="emergencyContactPhoneNumber" class="form-control" placeholder="Enter Emergency Contact Phone Number" asp-for="pEmergencyPhoneNumber">
-                <span asp-validation-for="pEmergencyPhoneNumber" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <div class="head-bar">
+        Admin: Parent Records
     </div>
 
     <div class="container">
@@ -121,7 +137,8 @@
         {
             <table class="table table-dark">
                 <thead>
-                    <tr>
+					<tr>
+						<th scope="col">pID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Surname</th>
                         <th scope="col">Phone Number</th>
@@ -129,6 +146,8 @@
                         <th scope="col">Spouse Phone Number</th>
                         <th scope="col">Emergency Contact name</th>
                         <th scope="col">Emergency Contact Phone Number</th>
+                        <th scope="col">acID</th>
+                        <th scope="col">sID</th>
                         <th scope="col">Update</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -137,6 +156,7 @@
                     @foreach (var parent in ViewBag.users)
                     {
                         <tr>
+                            <td>@parent.pID</td>
                             <td>@parent.pName</td>
                             <td>@parent.pSurname</td>
                             <td>@parent.pPhoneNumber</td>
@@ -144,6 +164,8 @@
                             <td>@parent.pSpousePhoneNumber</td>
                             <td>@parent.pEmergencyContactName</td>
                             <td>@parent.pEmergencyPhoneNumber</td>
+                            <td>@parent.acID</td>
+                            <td>@parent.sID</td>
                             <td>
                                 <form asp-action="UpdateParent" asp-controller="Home" method="post">
                                     <input type="hidden" asp-for="pID" value="@parent.pID" />
@@ -162,4 +184,7 @@
             </table>
         }
     </div>
+    <form asp-action="AddParentsDetails" asp-controller="Home" method="post">
+        <button type="submit" class="btn btn-primary">Add Parents Details</button>
+    </form>
 </body>

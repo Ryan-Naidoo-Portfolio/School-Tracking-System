@@ -5,7 +5,7 @@
 
 <style>
     body {
-        background-image: url('https://publichealthinsider.com/wp-content/uploads/2020/08/shutterstock_534419863-1555909105-1598646752360-1024x559.jpg');
+        background-color: white;
         background-size: cover;
         background-repeat: no-repeat;
         height: 100vh;
@@ -16,7 +16,7 @@
         max-width: 500px;
         width: 100%;
         padding: 30px;
-        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        background-color: #2189F0;
         border-radius: 15px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
         backdrop-filter: blur(10px); /* Frosted glass effect */
@@ -84,7 +84,7 @@
     .table-dark {
         background-color: rgba(0, 0, 0, 0.75); /* Dark background for table */
         color: white;
-        margin-top: 20px;
+        margin-top: 50px;
     }
 
         .table-dark th,
@@ -103,41 +103,33 @@
         margin-bottom: 5px;
         display: block;
     }
+
+    .head-bar {
+        background-color: #2248F0;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold; /* Make text bold */
+        position: fixed; /* Fix the position */
+        top: 0; /* Position at the top */
+        left: 0; /* Align to the left */
+        right: 0; /* Align to the right */
+        z-index: 1000; /* Ensure it stays above other content */
+    }
 </style>
 
 <body>
-    <div class="form-container">
-        <form action="Account" method="post">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="acusername" class="form-control" placeholder="Enter Username" asp-for="acUsername">
-                <span asp-validation-for="acUsername" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="acpassword" class="form-control" placeholder="Enter Password" asp-for="acPassword">
-                <span asp-validation-for="acPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="position">Position</label>
-                <select id="acposition" class="form-control" asp-for="acPosition">
-                    <option value="" disabled selected>Select your position</option>
-                    <option value="Parent">Parent</option>
-                    <option value="Teacher">Teacher</option>
-                    <option value="Admin">Admin</option>
-                </select>
-                <span asp-validation-for="acPosition" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <div class="head-bar">
+        Admin: All Accounts
     </div>
-
+    
     <div class="container">
         @if (ViewBag.users != null && ViewBag.users.Count >= 1)
         {
             <table class="table table-dark">
                 <thead>
                     <tr>
+                        <th scope="col">ID</th>
                         <th scope="col">Username</th>
                         <th scope="col">Password</th>
                         <th scope="col">Position</th>
@@ -149,6 +141,7 @@
                     @foreach (var account in ViewBag.users)
                     {
                         <tr>
+                            <td>@account.acID</td>
                             <td>@account.acUsername</td>
                             <td>@account.acPassword</td>
                             <td>@account.acPosition</td>
@@ -170,4 +163,6 @@
             </table>
         }
     </div>
+    
+
 </body>
