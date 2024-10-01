@@ -25,7 +25,18 @@ namespace test_Data.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         
-          =>options.UseSqlite(@"Data Source=C:\Users\naido\Desktop\asssssssssssssss\baba yaga\Demo.db");
+          =>options.UseSqlite(@"Data Source=C:\Users\User\source\repos\sliding\Demo.db");
 
     }
 }
+//Admin
+//Username: Bull
+//Password: Shit
+
+//Parent
+//Username: Niel
+//Password: 0000
+
+//Teacher
+//Username: Veg
+//Password: table
