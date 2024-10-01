@@ -92,7 +92,7 @@
     <div class="form-container">
         <h1>Update Attendance</h1>
         <form action="/home/UpdateAttendanceFinal" method="post">
-            <input type="hidden" asp-for="atID" value="@user.atID" />
+            <input type="hidden" asp-for="ID" value="@user.ID" />
             <div class="form-group">
                 <label for="timeIn">TimeIn</label>
                 <input type="text" id="timeIn" class="form-control" placeholder="Enter TimeIn" asp-for="atTimeIn" value="@user.atTimeIn">

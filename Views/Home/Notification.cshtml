@@ -1,0 +1,101 @@
+﻿@model test_Data.Models.ParentModel
+@{
+    ViewData["Title"] = "Parent";
+
+}
+<html>
+<head>
+</head>
+<style>
+    * {
+        font-family: Arial, sans-serif;
+    }
+
+    form {
+        margin: 15px 5px;
+        width: 500px;
+        font-size: 16px;
+    }
+
+        form h1 {
+            text-align: center;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        form button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin-top: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+            form button:hover {
+                background: green;
+            }
+</style>
+<body>
+    <form>
+        <h1>Send Data To WhatsApp</h1>
+
+        <label for="pid">PID</label>
+        <input type="text" id="pid" readonly>
+       
+        <label for="">PhoneNumber</label>
+        <input type="text" id="phoneNumber" class="num">
+
+        <label for="">Message</label>
+        <textarea class="message"></textarea>
+        <button type="button" onclick="sendwhatsapp();">Send Via WhatsApp</button>
+    </form>
+
+    <script>
+        // Function to get the query parameter 'pid' from the URL
+        function getQueryParam(param) {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Retrieve the pID from the query string
+        var pid = getQueryParam("pid");
+        document.querySelector("#pid").value = pid;
+
+        // AJAX call to fetch the phone number using pID
+        if (pid) {
+            fetch('/Home/GetParentByPID?pid=' + pid)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Prepend '+27' to the phone number and display it
+                        document.querySelector("#phoneNumber").value = '+27' + data.phoneNumber;
+                    } else {
+                        alert("Parent data not found for this PID.");
+                    }
+                })
+                .catch(error => console.error('Error fetching parent data:', error));
+        }
+
+        // WhatsApp function
+        function sendwhatsapp() {
+            var phonenumber = document.querySelector(".num").value;
+            var message = document.querySelector(".message").value;
+
+            var url = "https://wa.me/" + phonenumber + "?text=" + message + "%0a%0a";
+            window.open(url, '_blank').focus();
+        }
+    </script>
+</body>
+</html>

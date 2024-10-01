@@ -2,15 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO.Enumeration;
 using test_Data.Helper.QRCodeGeneratorHelper;
 using test_Data.Models;
 using static System.Net.Mime.MediaTypeNames;
 using System;
 using System.ComponentModel.DataAnnotations;
+using com.google.zxing.qrcode.encoder;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Hosting.Server;
 using System.IO;
+using QRCoder;
 using System.Text;
 using System.Security.Cryptography;
 
@@ -22,17 +26,21 @@ namespace test_Data.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IQRCodeGeneratorHelper qRCodeGeneratorHelper;
+        private readonly DemoContext _context;
 
         public HomeController(ILogger<HomeController> logger, IQRCodeGeneratorHelper qRCodeGeneratorHelper)
         {
+
             _logger = logger;
             this.qRCodeGeneratorHelper = qRCodeGeneratorHelper;
+           
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        [HttpGet]
+    public IActionResult Index()
+    {
+        return View();
+    }
 
         public IActionResult TeacherHome()
         {
@@ -71,7 +79,7 @@ namespace test_Data.Controllers
             }
             //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
             string fileContent = string.Empty;
-            string filePath = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\currentuser.txt";
+            string filePath = "C:\\Users\\naido\\Desktop\\asssssssssssssss\\baba yaga\\currentuser.txt";
             fileContent = System.IO.File.ReadAllText(filePath);
             ViewBag.FileContent = fileContent;
 
@@ -129,19 +137,7 @@ namespace test_Data.Controllers
         }
 
         //search user in teacher
-        public IActionResult SearchAttendance(string searchattendance)
-        {
-            List<AttendanceModel> attendance = new List<AttendanceModel>();
-
-            using (var db = new DemoContext())
-            {
-                attendance = db.Attendance.Where(u => u.atTimeIn.ToLower().Contains(searchattendance.ToLower())).ToList();
-            }
-
-            TempData["attendance"] = attendance;
-
-            return View("TeacherView");
-        }
+       
 
         //Login
         public IActionResult Login(string username, string password, string position, AccountModel account)
@@ -162,19 +158,19 @@ namespace test_Data.Controllers
                 ViewBag.userid = userId;
                
                 TextWriter txt = null;
-                string filePath = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\currentuser.txt";
+                string filePath = "C:\\Users\\naido\\Desktop\\asssssssssssssss\\baba yaga\\currentuser.txt";
                 txt = new StreamWriter(filePath);
                 txt.WriteLine(ViewBag.currentuser);
                 txt.Close();
                 
                 TextWriter txt2 = null;
-                string filePath2 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\userid.txt";
+                string filePath2 = "C:\\Users\\naido\\Desktop\\asssssssssssssss\\baba yaga\\userid.txt";
                 txt2 = new StreamWriter(filePath2);
                 txt2.WriteLine(ViewBag.userid);
                 txt2.Close();
 
                 string fileContent3 = string.Empty;
-                string filePath3 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\userid.txt";
+                string filePath3 = "C:\\Users\\naido\\Desktop\\asssssssssssssss\\baba yaga\\userid.txt";
                 fileContent3 = System.IO.File.ReadAllText(filePath3);
                 ViewBag.FileContent3 = fileContent3;
 
@@ -183,13 +179,13 @@ namespace test_Data.Controllers
                 ViewBag.childID = parent2;
                 //writing to child
 			    TextWriter txt4 = null;
-			    string filePath4 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
+			    string filePath4 = "C:\\Users\\naido\\Desktop\\asssssssssssssss\\baba yaga\\childID.txt";
 			    txt4 = new StreamWriter(filePath4);
 			    txt4.WriteLine(parent2);
 			    txt4.Close();
 			    //reading form child
 			    string fileContent5 = string.Empty;
-			    string filePath5 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
+			    string filePath5 = "C:\\Users\\naido\\Desktop\\asssssssssssssss\\baba yaga\\childID.txt";
 			    fileContent5 = System.IO.File.ReadAllText(filePath5);
 			    ViewBag.FileContent5 = fileContent5;
                 
@@ -396,7 +392,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var userTemp = db.Attendance.Where(u => u.atID == attendance.atID).FirstOrDefault();
+                var userTemp = db.Attendance.Where(u => u.ID == attendance.ID).FirstOrDefault();
                 TempData["userTemp"] = userTemp;
             }
 
@@ -410,7 +406,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var UpdateTeacher = db.Attendance.Where(u => u.atID == attendance.atID).FirstOrDefault();
+                var UpdateTeacher = db.Attendance.Where(u => u.ID == attendance.ID).FirstOrDefault();
 
                 UpdateTeacher.atTimeIn = attendance.atTimeIn;
                 UpdateTeacher.atTimeOut = attendance.atTimeOut;
@@ -537,7 +533,7 @@ namespace test_Data.Controllers
         {
             using (var db = new DemoContext())
             {
-                var DeleteUser = db.Attendance.Where(u => u.atID == attendance.atID).FirstOrDefault();
+                var DeleteUser = db.Attendance.Where(u => u.ID == attendance.ID).FirstOrDefault();
                 db.Attach(DeleteUser);
                 db.Remove(DeleteUser);
                 db.SaveChanges();
@@ -883,12 +879,12 @@ namespace test_Data.Controllers
         public IActionResult ParentView()
         {
             string fileContent3 = string.Empty;
-            string filePath3 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\userid.txt";
+            string filePath3 = "C:\\Users\\naido\\Desktop\\asssssssssssssss\\baba yaga\\userid.txt";
             fileContent3 = System.IO.File.ReadAllText(filePath3);
             ViewBag.FileContent3 = fileContent3;
 
             string fileContent5 = string.Empty;
-            string filePath5 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
+            string filePath5 = "C:\\Users\\naido\\Desktop\\asssssssssssssss\\baba yaga\\childID.txt";
             fileContent5 = System.IO.File.ReadAllText(filePath5);
             ViewBag.FileContent5 = fileContent5;
             return View();
@@ -923,17 +919,76 @@ namespace test_Data.Controllers
 
         public IActionResult TeacherView()
         {
-            List<AttendanceModel> attendance = new List<AttendanceModel>();
+            List<ChildModel> qr = new List<ChildModel>();
 
             using (var db = new DemoContext())
             {
-                attendance = db.Attendance.ToList();
+                qr = db.Child.ToList();
             }
 
-            ViewBag.users = attendance;
+            ViewBag.users = qr;
 
             return View();
         }
+
+
+
+        public IActionResult Scannerqr()
+        {
+           
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Scannerqr(string ScannedId, ChildModel model)
+        {
+            if (string.IsNullOrEmpty(ScannedId))
+            {
+                ModelState.AddModelError("", "No QR code scanned.");
+                return View(model);
+            }
+
+            using (var db = new DemoContext())
+            {
+                // Find the record by the scanned ID (assuming it's the primary key or unique identifier)
+               
+                var child = db.Child.FirstOrDefault(c => c.sID == Int32.Parse(ScannedId));
+                var childd = db.Child.Where(u => u.sID == Int32.Parse(ScannedId)).Select(u => u.TimeIn).FirstOrDefault();
+                if (child == null)
+                {
+                    ModelState.AddModelError("", "No matching record found.");
+                    return View(model);
+                }
+
+                // Update fields
+                if (childd == null)
+                {  
+                     child.DateScan = model.DateScan;
+                     child.TimeIn = model.TimeIn;
+                     child.Present = model.Present;
+
+                }
+                else
+                {
+                    child.TimeOut = model.TimeOut;
+                    child.Present = "No";
+                }
+              
+
+               
+
+                // Save changes to the database
+                db.SaveChanges();
+
+                return RedirectToAction("TeacherView"); // Redirect to a success page or another view
+            }
+        }
+
+
+
+
+
         public IActionResult TeacherHelp()
         {
             return View();
@@ -948,6 +1003,110 @@ namespace test_Data.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Search(string searchName)
+        {
+            using (var db = new DemoContext())
+            {
+                var users = string.IsNullOrEmpty(searchName)
+                ? db.Child.ToList()
+                : db.Child
+                          .Where(u => u.sName.Contains(searchName))
+                          .ToList();
+
+                ViewBag.users = users;
+                return View("TeacherView");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult FormClass(string searchformclass)
+        {
+            using (var db = new DemoContext())
+            {
+                var users = string.IsNullOrEmpty(searchformclass)
+                ? db.Child.ToList()
+                : db.Child
+                          .Where(u => u.sFormClass.Contains(searchformclass))
+                          .ToList();
+
+                ViewBag.users = users;
+                return View("TeacherView");
+            }
+        }
+
+
+
+        public ActionResult filter(string presentFilter)
+        {
+
+            using (var db = new DemoContext())
+            {
+                var users = from u in db.Child select u; // Assuming db is your data context
+
+              
+                // Filter by present status - Only show records where Present is "No"
+                if (!String.IsNullOrEmpty(presentFilter) && presentFilter == "No")
+                {
+                    users = users.Where(u => u.Present == "No");
+                }
+               if (!String.IsNullOrEmpty(presentFilter) && presentFilter == "Yes")
+                {
+                    users = users.Where(u => u.Present == "Yes");
+                }
+
+                ViewBag.users = users.ToList();
+                return View("TeacherView");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult ClearRecords()
+        {
+
+            using (var db = new DemoContext())
+            {
+                // Assuming you have a DbContext named DemoContext
+                var allRecords = db.Child.ToList();
+
+                foreach (var record in allRecords)
+                {
+                    record.TimeIn = null;
+                    record.TimeOut = null;
+                    record.DateScan = null;
+                    record.Present = "No"; // Assuming 'IsPresent' is the field that tracks presence
+                }
+
+                db.SaveChanges();
+
+                return RedirectToAction("Child");
+            }
+        }
+
+
+        public IActionResult Notification()
+        {
+            return View();
+        }
+
+
+
+        [HttpGet]
+        public JsonResult GetParentByPID(int pid)
+        {
+
+            using (var db = new DemoContext())
+            {
+                var parent = db.Parents.FirstOrDefault(p => p.pID == pid);
+                if (parent != null)
+                {
+                    return Json(new { success = true, phoneNumber = parent.pPhoneNumber });
+                }
+                return Json(new { success = false });
+            }
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

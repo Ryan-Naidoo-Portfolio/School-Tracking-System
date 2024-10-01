@@ -98,6 +98,11 @@
                 <input type="text" id="formClass" class="form-control" placeholder="Enter Form Class" asp-for="sFormClass">
                 <span asp-validation-for="sFormClass" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label for="present">Present</label>
+                <input type="hidden" id="present" name="Present" class="form-control" asp-for="Present" value="No">
+            </div>
             <div>
                 <input type="hidden" value=@ViewBag.file5 asp-for="pID" />
             </div>
