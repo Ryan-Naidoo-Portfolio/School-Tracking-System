@@ -11,12 +11,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Hosting.Server;
 using System.IO;
-
+using System.Text;
+using System.Security.Cryptography;
 
 
 namespace test_Data.Controllers
 {
-    
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -73,7 +74,7 @@ namespace test_Data.Controllers
             string filePath = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\currentuser.txt";
             fileContent = System.IO.File.ReadAllText(filePath);
             ViewBag.FileContent = fileContent;
-            
+
             return View();
         }
 
@@ -82,8 +83,19 @@ namespace test_Data.Controllers
             using (var db = new DemoContext())
             {
                 var UpdatePassword = db.Account.Where(u => u.acUsername == account.acUsername).FirstOrDefault();
+				
+                string password = account.acPassword;
+				string hashedPassword;
+				using (var sha256 = SHA256.Create())
+				{
+					byte[] passwordBytes = Encoding.UTF8.GetBytes(account.acPassword);
+					byte[] hashBytes = sha256.ComputeHash(passwordBytes);
 
-                UpdatePassword.acPassword = account.acPassword;
+					hashedPassword = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+					account.acPassword = hashedPassword;
+				}
+				
+                UpdatePassword.acPassword = hashedPassword;
 
                 db.SaveChanges();
             }
@@ -134,15 +146,21 @@ namespace test_Data.Controllers
         //Login
         public IActionResult Login(string username, string password, string position, AccountModel account)
         {
-            List<AccountModel> users = new List<AccountModel>();
-            
+            //List<AccountModel> users = new List<AccountModel>();
+
+
             using (var db = new DemoContext())
             {
-                users = db.Account.Where(u => u.acUsername.Contains(username) && u.acPassword.Contains(password) && u.acPosition.Contains(position)).ToList();
+				var users = db.Account.SingleOrDefault(u => u.acUsername == username && u.acPosition == position);
+				if (users == null)
+                {
+                    ViewBag.ErrorMessage = "User not found";
+                
+                }
                 ViewBag.currentuser = username;
                 var userId = db.Account.Where(u => u.acUsername == username).Select(u => u.acID).FirstOrDefault();
                 ViewBag.userid = userId;
-
+               
                 TextWriter txt = null;
                 string filePath = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\currentuser.txt";
                 txt = new StreamWriter(filePath);
@@ -174,48 +192,46 @@ namespace test_Data.Controllers
 			    string filePath5 = "C:\\Users\\Caldon\\Desktop\\NewNewFile\\childID.txt";
 			    fileContent5 = System.IO.File.ReadAllText(filePath5);
 			    ViewBag.FileContent5 = fileContent5;
-			}
-			
-
-			if (users.Count == 0)
-            {
-                return View("Authenticate");
-            }
-            else 
-            {
-                if (position == "Teacher")
+                
+                string hashedPassword;
+                using (var sha256 = SHA256.Create())
                 {
-                    return RedirectToAction("TeacherView");
+                    byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                    byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+                    hashedPassword = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
                 }
-                else if (position == "Admin")
-                {
-                    return RedirectToAction("Admin");
-                    //return View("Admin");
-                }
-                else if (position=="Parent")
-                {
-                    List<ParentModel> parent = new List<ParentModel>();
 
-                    using (var db = new DemoContext())
+                // Compare the hashed password with the one stored in the database
+                if (users.acPassword.Equals(hashedPassword))
+                {
+                    if (position == "Teacher")
                     {
-                        parent = db.Parents.ToList();
+                        return RedirectToAction("TeacherView");
                     }
-                    ViewBag.parent1 = parent;
-
-                    return View("ParentView");
+                    else if (position == "Admin")
+                    {
+                        return RedirectToAction("Admin");
+                    }
+                    else if (position == "Parent")
+                    {
+                        return View("ParentView");
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "Invalid position";
+                        return View("Authenticate");
+                    }
                 }
                 else
                 {
-                    return View("Index");
+                    ViewBag.ErrorMessage = "Incorrect password.";
+                    return View("Authenticate");
                 }
-                
             }
+	    }
 
-            
-        }
-
-        //Update user 1
-        [HttpPost]
+		//Update user 1
+		[HttpPost]
         public IActionResult UpdateUser(UserModel user)
         {
             using (var db = new DemoContext())
@@ -781,24 +797,37 @@ namespace test_Data.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Account(AccountModel account)
-        {      
-            if (ModelState.IsValid)
-            {
-                using (var db = new DemoContext())
-                {
-                    db.Add(account);
-                    db.SaveChanges();                 
-                }         
-            return RedirectToAction("Account");
-            }
-            else
-            {
-                return View("AddAccountDetails");
-            }
- 
-        }
-        public IActionResult Admin()
+		public IActionResult Account(AccountModel account)
+		{
+			if (ModelState.IsValid)
+			{
+
+				string password = account.acPassword;
+				string hashedPassword;
+				using (var sha256 = SHA256.Create())
+				{
+					byte[] passwordBytes = Encoding.UTF8.GetBytes(account.acPassword);
+					byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+
+					hashedPassword = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+					account.acPassword = hashedPassword;
+				}
+
+				using (var db = new DemoContext())
+				{
+					db.Add(account);
+					db.SaveChanges();
+				}
+				return RedirectToAction("Account");
+			}
+			else
+			{
+				return View("AddAccountDetails");
+			}
+
+		}
+
+		public IActionResult Admin()
         {
             List<AdminModel> admin = new List<AdminModel>();
 
