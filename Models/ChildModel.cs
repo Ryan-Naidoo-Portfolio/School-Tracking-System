@@ -21,6 +21,11 @@ namespace test_Data.Models
 
         public string? pID { get; set; }
 
+        public string? TimeIn { get; set; }
+        public string? TimeOut { get; set; }
+        public string? DateScan { get; set; }
+        public string? Present { get; set; }
+
     }
 
 
