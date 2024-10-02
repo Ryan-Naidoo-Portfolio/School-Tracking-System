@@ -8,6 +8,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width-device-width, initial scale=1.0">
     <title>QR Code scanner</title>
+        <style>
+        body {
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        /* Container styling */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 10px;
+            margin-left: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Button styling */
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background-color: #007bff;
+            transition: background-color 0.3s ease; /* Smooth hover transition */
+        }
+
+            button:hover {
+                background-color: #0056b3; /* Darker shade on hover */
+            }
+
+        /* Form container */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px; /* Spacing between elements */
+        }
+
+        /* Input field styling */
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+            input:focus {
+                border-color: #007bff;
+                outline: none;
+                box-shadow: 0 0 8px rgba(0, 123, 255, 0.2); /* Subtle glow on focus */
+            }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -44,45 +112,7 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            box-sizing: border-box;
-            text-align: center;
-            background: #1d9bf0;
-        }
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            margin: 5px;
-        }
-
-        .section {
-            background-color: #fff;
-            padding: 50px 30px;
-            border-radius: 0.25cm;
-            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
-        }
-
-        button {
-            padding: 10px 20px;
-            border: 1px solid #b2b2b2;
-            outline: none;
-            border-radius: 0.25cm;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            margin-top: 15px;
-            margin-bottom: 10px;
-            background-color: #83cce1;
-            transition: 0.3s background-color;
-        }
-    </style>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

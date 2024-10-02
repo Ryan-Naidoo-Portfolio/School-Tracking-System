@@ -87,16 +87,6 @@
                 background-color: #0056b3;
             }
 
-        footer {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-
         .feature {
             text-align: center;
             margin: 20px 0;
@@ -143,26 +133,22 @@
         </div>
     </div>
 
-    <div class="container">
-        <h1>SCAN QR-Code to record Attendance</h1>
-
-        <form asp-action="Index" method="post">
-            <div class="form-group">
-                <textarea name="text" class="form-control mb-3" rows="5" placeholder="Enter text here"></textarea>
-                <button type="submit" class="btn btn-primary">Generate QR Code</button>
-            </div>
-        </form>
-
-        @if (!string.IsNullOrEmpty(QRCodeImageUrl))
-        {
-            <div class="text-center">
-                <img src="@QRCodeImageUrl" class="img-fluid mb-3" alt="Generated QR Code" />
-                <a href="@QRCodeImageUrl" class="download-btn" download="QRCode.png">Download QR Code</a>
-            </div>
-        }
-    </div>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the sID from localStorage
+            var selectedSID = localStorage.getItem('selectedSID');
+
+            // Set the sID into the textarea if it exists
+            if (selectedSID) {
+                document.getElementById('sidTextArea').value = selectedSID;
+
+                // Optionally, clear the stored value
+                localStorage.removeItem('selectedSID');
+            }
+        });
+    </script>
+
 </body>
 </html>

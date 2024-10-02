@@ -133,26 +133,6 @@
         </div>
     </div>
 
-    <div class="container">
-        <h1>SCAN QR-Code to record Attendance</h1>
-
-        <form asp-action="Index" method="post">
-            <div class="form-group">
-                <textarea id="sidTextArea" name="text" class="form-control mb-3" rows="5" placeholder="Enter text here"></textarea>
-
-                <button type="submit" class="btn btn-primary">Generate QR Code</button>
-            </div>
-        </form>
-
-        @if (!string.IsNullOrEmpty(QRCodeImageUrl))
-        {
-            <div class="text-center">
-                <img src="@QRCodeImageUrl" class="img-fluid mb-3" alt="Generated QR Code" />
-                <a href="@QRCodeImageUrl" class="download-btn" download="QRCode.png">Download QR Code</a>
-            </div>
-        }
-    </div>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
