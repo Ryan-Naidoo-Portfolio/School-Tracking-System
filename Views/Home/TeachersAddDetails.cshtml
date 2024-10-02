@@ -114,7 +114,7 @@
 
 <body>
     <div class="head-bar">
-        Admin: Add Teacher Account
+        Add Teacher Account
     </div>
     <div class="form-container">
         <form action="/home/teacher" method="post">
@@ -130,7 +130,29 @@
             </div>
             <div class="form-group">
                 <label for="formClass">Form Class</label>
-                <input type="text" id="formClass" class="form-control" placeholder="Enter Form Class" asp-for="tFormClass">
+                <select name="searchFormClass" class="form-control" id="formClass">
+                    <option value="">-- Select Form Class --</option>
+                    <option value="8A">8A</option>
+                    <option value="8B">8B</option>
+                    <option value="8C">8C</option>
+                    <option value="8D">8D</option>
+                    <option value="9A">9A</option>
+                    <option value="9B">9B</option>
+                    <option value="9C">9C</option>
+                    <option value="9D">9D</option>
+                    <option value="10A">10A</option>
+                    <option value="10B">10B</option>
+                    <option value="10C">10C</option>
+                    <option value="10D">10D</option>
+                    <option value="11A">11A</option>
+                    <option value="11B">11B</option>
+                    <option value="11C">11C</option>
+                    <option value="11D">11D</option>
+                    <option value="12A">12A</option>
+                    <option value="12B">12B</option>
+                    <option value="12C">12C</option>
+                    <option value="12D">12D</option>
+                </select>
                 <span asp-validation-for="tFormClass" class="text-danger"></span>
             </div>
             <div>

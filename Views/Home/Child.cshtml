@@ -95,7 +95,7 @@
 
 <body>
     <div class="head-bar">
-        Admin: View Student Records
+        View Student Records
     </div>
     <div class="container">
      
@@ -110,8 +110,7 @@
                         <th scope="col">Surname</th>
                         <th scope="col">Form Class</th>
                         <th scope="col">pID</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
+                       
                         <th scope="col">Generate</th>
                     </tr>
                 </thead>
@@ -124,18 +123,7 @@
                             <td>@child.sSurname</td>
                             <td>@child.sFormClass</td>
                             <td>@child.pID</td>
-                            <td>
-                                <form asp-action="UpdateChild" asp-controller="Home" method="post">
-                                    <input type="hidden" asp-for="sID" value="@child.sID" />
-                                    <button type="submit" class="btn btn-success">Update</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form asp-action="DeleteChild" asp-controller="Home" method="post" class="mt-2">
-                                    <input type="hidden" asp-for="sID" value="@child.sID" />
-                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                </form>
-                            </td>
+                           
                             <td>
                                 <button type="button" class="btn btn-outline-danger" onclick="pushSIDToTextArea('@child.sID')">Generate</button>
                             </td>
@@ -145,11 +133,7 @@
                 </tbody>
             </table>
 
-            <div class="container mt-3">
-                <form asp-action="ClearRecords" asp-controller="Home" method="post">
-                    <button type="submit" class="btn btn-danger">Clear All Records</button>
-                </form>
-            </div>
+          
         }
     </div>
     <script>
@@ -158,7 +142,7 @@
             localStorage.setItem('selectedSID', sID);
 
             // Redirect to the page where you have the QR code form
-            window.location.href = '@Url.Action("Index", "Home")';
+            window.location.href = '@Url.Action("qrgen", "Home")';
         }
     </script>
 </body>

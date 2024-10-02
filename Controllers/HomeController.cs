@@ -52,8 +52,15 @@ namespace test_Data.Controllers
             return View();
         }
 
+       public IActionResult qrgen()
+        {
+            return View();
+        }
+
+
+
         [HttpPost]
-        public IActionResult Index(string text)
+        public IActionResult qrgen(string text)
         {
             if (string.IsNullOrEmpty(text))
                 return BadRequest();
@@ -724,11 +731,11 @@ namespace test_Data.Controllers
 
         public IActionResult Attendance()
         {
-            List<AttendanceModel> attendance = new List<AttendanceModel>();
+            List<ChildModel> attendance = new List<ChildModel>();
 
             using (var db = new DemoContext())
             {
-                attendance = db.Attendance.ToList();
+                attendance = db.Child.ToList();
             }
 
             ViewBag.users = attendance;
@@ -1112,7 +1119,9 @@ namespace test_Data.Controllers
 
                 db.SaveChanges();
 
-                return RedirectToAction("Child");
+
+
+                return RedirectToAction("Attendance");
             }
         }
 
