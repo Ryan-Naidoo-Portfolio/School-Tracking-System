@@ -146,7 +146,7 @@
 </head>
 
 <body>
-    @if (ViewContext.RouteData.Values["action"].ToString() == "Admin" || ViewContext.RouteData.Values["action"].ToString() == "AddAccountDetails" || ViewContext.RouteData.Values["action"].ToString() == "AdminsAddDetails" || ViewContext.RouteData.Values["action"].ToString() == "AddParentsDetails" || ViewContext.RouteData.Values["action"].ToString() == "AddChildDetails" || ViewContext.RouteData.Values["action"].ToString() == "TeachersAddDetails" || ViewContext.RouteData.Values["action"].ToString() == "AdminHelp" || ViewContext.RouteData.Values["action"].ToString() == "Parent" || ViewContext.RouteData.Values["action"].ToString() == "Account" || ViewContext.RouteData.Values["action"].ToString() == "Teacher" || ViewContext.RouteData.Values["action"].ToString() == "Child" || ViewContext.RouteData.Values["action"].ToString() == "Attendance" || ViewContext.RouteData.Values["action"].ToString() == "UpdateAccount" || ViewContext.RouteData.Values["action"].ToString() == "UpdateAdmin" || ViewContext.RouteData.Values["action"].ToString() == "UpdateChild" || ViewContext.RouteData.Values["action"].ToString() == "UpdateAttendance" || ViewContext.RouteData.Values["action"].ToString() == "UpdateTeacher" || ViewContext.RouteData.Values["action"].ToString() == "UpdateParent")
+    @if (ViewContext.RouteData.Values["action"].ToString() == "Admin" || ViewContext.RouteData.Values["action"].ToString() == "Scannerqr" || ViewContext.RouteData.Values["action"].ToString() == "AddAccountDetails" || ViewContext.RouteData.Values["action"].ToString() == "AdminsAddDetails" || ViewContext.RouteData.Values["action"].ToString() == "AddParentsDetails" || ViewContext.RouteData.Values["action"].ToString() == "AddChildDetails" || ViewContext.RouteData.Values["action"].ToString() == "TeachersAddDetails" || ViewContext.RouteData.Values["action"].ToString() == "AdminHelp" || ViewContext.RouteData.Values["action"].ToString() == "Parent" || ViewContext.RouteData.Values["action"].ToString() == "Account" || ViewContext.RouteData.Values["action"].ToString() == "Teacher" || ViewContext.RouteData.Values["action"].ToString() == "Child" || ViewContext.RouteData.Values["action"].ToString() == "Attendance" || ViewContext.RouteData.Values["action"].ToString() == "UpdateAccount" || ViewContext.RouteData.Values["action"].ToString() == "UpdateAdmin" || ViewContext.RouteData.Values["action"].ToString() == "UpdateChild" || ViewContext.RouteData.Values["action"].ToString() == "UpdateAttendance" || ViewContext.RouteData.Values["action"].ToString() == "UpdateTeacher" || ViewContext.RouteData.Values["action"].ToString() == "UpdateParent")
     {
         <!-- Sidebar Navbar for Admin -->
         <header>
@@ -172,6 +172,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-black" style="font-weight:bold" asp-area="" asp-controller="Home" asp-action="AdminHelp">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" style="font-weight:bold" asp-area="" asp-controller="Home" asp-action="Scannerqr">Scan</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-black" style="font-weight:bold" asp-area="" asp-controller="Home" asp-action="Authenticate">Log-Out</a>
@@ -287,10 +290,10 @@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Scannerqr">Scan</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="List">List</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Authenticate">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Authenticate">Login</a>
+                                <a class="nav-link text-black" style="font-weight:bold" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
                             </li>
                         </ul>
                     </div>
