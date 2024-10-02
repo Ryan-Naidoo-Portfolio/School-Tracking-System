@@ -105,16 +105,19 @@
             }
 
         .nav-bar-custom {
-            background-color: #2248F0; /* Changed navbar color */
+            background-color: #177AFC; /* Change navbar color */
         }
 
-            /* Optional: Change text color in the navbar for visibility */
             .nav-bar-custom .nav-link {
-                color: #fff; /* Ensure text is visible */
+                box-shadow: 0 2px 0 transparent; /* No line by default */
+                transition: all 0.3s ease; /* Smooth transition */
             }
 
                 .nav-bar-custom .nav-link:hover {
-                    color: #ddd; /* Lighter hover effect */
+                    color: #253AD9; /* Hover text color */
+                    padding-bottom: 8px;
+                    box-shadow: 0 2px 0 #253AD9; /* Line appears with color shift */
+                    transition: color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for color and shadow */
                 }
 
         html, body {
@@ -173,9 +176,6 @@
                     <li class="nav-item">
                         <a class="nav-link text-black" style="font-weight:bold" asp-area="" asp-controller="Home" asp-action="Authenticate">Log-Out</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Scannerqr">Scan</a>
-                    </li>
                 </ul>
             </nav>
             <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
@@ -186,7 +186,7 @@
             </main>
         </div>
     }
-    else if (ViewContext.RouteData.Values["action"].ToString() == "ParentView" || ViewContext.RouteData.Values["action"].ToString() == "ParentHome" || ViewContext.RouteData.Values["action"].ToString() == "ParentHelp")
+    else if (ViewContext.RouteData.Values["action"].ToString() == "ParentView" || ViewContext.RouteData.Values["action"].ToString() == "ParentHome" || ViewContext.RouteData.Values["action"].ToString() == "ParentHelp" || ViewContext.RouteData.Values["action"].ToString() == "ParentView3" || ViewContext.RouteData.Values["action"].ToString() == "ParentView2" || ViewContext.RouteData.Values["action"].ToString() == "ForgotPassword")
     {
         <!-- Standard Navbar -->
         <header>
@@ -205,31 +205,16 @@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ParentHome">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ParentView">ParentView</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ParentView">Parent View</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ForgotPassword">Update Password</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ParentHelp">Help</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Authenticate">Log-Out</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Account">Account</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Admin">Admin</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Authenticate">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ParentView">ParentView</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="TeacherView">TeacherView</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ForgotPassword">Update Password</a>
                             </li>
                         </ul>
                     </div>
@@ -261,7 +246,7 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="TeacherHome">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="TeacherView">TeacherView</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="TeacherView">Teacher View</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="TeacherHelp">Help</a>
@@ -299,21 +284,14 @@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Authenticate">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ParentView">ParentView</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="TeacherView">TeacherView</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Scannerqr">Scan</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="List">List</a>
                             </li>
-                          
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Authenticate">Login</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
