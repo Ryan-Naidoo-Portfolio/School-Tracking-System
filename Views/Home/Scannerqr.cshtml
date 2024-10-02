@@ -117,6 +117,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             function onScanSuccess(decodedText, decodedResult) {
+                alert('Successfully Scanned');
                 // Assume decodedText contains the ID from the QR code
                 let now = new Date();
                 let formattedTime = now.toLocaleString('en-US', { timeStyle: 'short' });

@@ -1,6 +1,6 @@
-﻿@model test_Data.Models.AttendanceModel
+﻿@model test_Data.Models.ChildModel
 @{
-    ViewData["Title"] = "Attendance";
+    ViewData["Title"] = "Child";
 }
 <style>
     body {
@@ -92,35 +92,7 @@
     <div class="head-bar">
         Admin: Attendance Records
     </div>
-    <div class="Form">
-        <form action="/home/attendance" method="post">
-            <div class="form-group">                             
-                <label for="timeIn">TimeIn</label>
-                <input type="text" id="timeIn" class="form-control" placeholder="Enter TimeIn" asp-for="atTimeIn">
-                <span asp-validation-for="atTimeIn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="timeOut">TimeOut</label>
-                <input type="text" id="timeOut" class="form-control" placeholder="Enter TimeOut" asp-for="atTimeOut">
-                <span asp-validation-for="atTimeOut" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="date" id="date" class="form-control" asp-for="atDate">
-                <span asp-validation-for="atDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label for="present">Present</label>
-                <select id="present" class="form-control" asp-for="atPresent">
-                    <option value="" disabled selected>Select status</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-                <span asp-validation-for="atPresent" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
+   
 
     <div class="container">
         @if (ViewBag.users != null && ViewBag.users.Count >= 1)
@@ -128,47 +100,44 @@
             <table class="table table-dark">
                 <thead>
                     <tr>
+                      
+                        <th scope="col">Name</th>
+                        <th scope="col">Surname</th>
                         <th scope="col">TimeIn</th>
                         <th scope="col">TimeOut</th>
-                        <th scope="col">Date</th>
+                        <th scope="col">DateScan</th>
+                        <th scope="col">FormClass</th>
                         <th scope="col">Present</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Delete</th>
-                        <th scope="col">Contact</th>
                       
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var attendance in ViewBag.users)
+                    @foreach (var kinders in ViewBag.users)
                     {
                         <tr>
-                            <td>@attendance.atTimeIn</td>
-                            <td>@attendance.atTimeOut</td>
-                            <td>@attendance.atDate</td>
-                            <td>@attendance.atPresent</td>
-                            <td>
-                                <form asp-action="UpdateAttendance" asp-controller="Home" method="post style="display:inline;">
-                                    <input type="hidden" asp-for="ID" value="@attendance.ID" />
-                                    <button type="submit" class="btn btn-success">Update</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form asp-action="DeleteAttendance" asp-controller="Home" method="post style="display:inline;">
-                                    <input type="hidden" asp-for="ID" value="@attendance.ID" />
-                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form asp-action="Notification" asp-controller="Home" method="post style="display:inline;">
-                                    <input type="hidden" asp-for="ID" value="@attendance.ID" />
-                                    <button type="submit" class="btn btn-outline-danger">submit</button>
-                                </form>
-                            </td>
+                            <td>@kinders.sName</td>
+                            <td>@kinders.sSurname</td>
+                            <td>@kinders.TimeIn</td>
+                            <td>@kinders.TimeOut</td>
+                            <td>@kinders.DateScan</td>
+                            <td>@kinders.sFormClass</td>
+                            <td>@kinders.Present</td>
+                            
                           
                         </tr>
                     }
                 </tbody>
             </table>
         }
+          <div class="container mt-3">
+                <form asp-action="ClearRecords" asp-controller="Home" method="post">
+                    <button type="submit" onclick="onsuccess()" class="btn btn-danger">Clear All Records</button>
+                </form>
+            </div>
     </div>
+    <script>
+        function onsuccess() { 
+            alert('Records Have Been Cleared');
+        }
+    </script>
 </body>
