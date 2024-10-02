@@ -79,7 +79,7 @@ namespace test_Data.Controllers
             }
             //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
             string fileContent = string.Empty;
-            string filePath = "C:\\Users\\User\\source\\repos\\sliding\\currentuser.txt";
+            string filePath = "C:\\Users\\dylan\\Desktop\\SFEN\\currentuser.txt";
             fileContent = System.IO.File.ReadAllText(filePath);
             ViewBag.FileContent = fileContent;
 
@@ -158,19 +158,19 @@ namespace test_Data.Controllers
                 ViewBag.userid = userId;
                
                 TextWriter txt = null;
-                string filePath = "C:\\Users\\User\\source\\repos\\sliding\\currentuser.txt";
+                string filePath = "C:\\Users\\dylan\\Desktop\\SFEN\\currentuser.txt";
                 txt = new StreamWriter(filePath);
                 txt.WriteLine(ViewBag.currentuser);
                 txt.Close();
                 
                 TextWriter txt2 = null;
-                string filePath2 = "C:\\Users\\User\\source\\repos\\sliding\\userid.txt";
+                string filePath2 = "C:\\Users\\dylan\\Desktop\\SFEN\\userid.txt";
                 txt2 = new StreamWriter(filePath2);
                 txt2.WriteLine(ViewBag.userid);
                 txt2.Close();
 
                 string fileContent3 = string.Empty;
-                string filePath3 = "C:\\Users\\User\\source\\repos\\sliding\\userid.txt";
+                string filePath3 = "C:\\Users\\dylan\\Desktop\\SFEN\\userid.txt";
                 fileContent3 = System.IO.File.ReadAllText(filePath3);
                 ViewBag.FileContent3 = fileContent3;
 
@@ -179,13 +179,13 @@ namespace test_Data.Controllers
                 ViewBag.childID = parent2;
                 //writing to child
 			    TextWriter txt4 = null;
-			    string filePath4 = "C:\\Users\\User\\source\\repos\\sliding\\childID.txt";
+			    string filePath4 = "C:\\Users\\dylan\\Desktop\\SFEN\\childID.txt";
 			    txt4 = new StreamWriter(filePath4);
 			    txt4.WriteLine(parent2);
 			    txt4.Close();
 			    //reading form child
 			    string fileContent5 = string.Empty;
-			    string filePath5 = "C:\\Users\\User\\source\\repos\\sliding\\childID.txt";
+			    string filePath5 = "C:\\Users\\dylan\\Desktop\\SFEN\\childID.txt";
 			    fileContent5 = System.IO.File.ReadAllText(filePath5);
 			    ViewBag.FileContent5 = fileContent5;
                 
@@ -210,7 +210,7 @@ namespace test_Data.Controllers
                     }
                     else if (position == "Parent")
                     {
-                        return View("ParentView");
+                        return RedirectToAction("ParentView");
                     }
                     else
                     {
@@ -879,12 +879,12 @@ namespace test_Data.Controllers
         public IActionResult ParentView()
         {
             string fileContent3 = string.Empty;
-            string filePath3 = "C:\\Users\\User\\source\\repos\\sliding\\userid.txt";
+            string filePath3 = "C:\\Users\\dylan\\Desktop\\SFEN\\userid.txt";
             fileContent3 = System.IO.File.ReadAllText(filePath3);
             ViewBag.FileContent3 = fileContent3;
 
             string fileContent5 = string.Empty;
-            string filePath5 = "C:\\Users\\User\\source\\repos\\sliding\\childID.txt";
+            string filePath5 = "C:\\Users\\dylan\\Desktop\\SFEN\\childID.txt";
             fileContent5 = System.IO.File.ReadAllText(filePath5);
             ViewBag.FileContent5 = fileContent5;
             return View();
