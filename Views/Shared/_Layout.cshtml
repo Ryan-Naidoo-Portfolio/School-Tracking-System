@@ -165,7 +165,7 @@
                         <a class="nav-link text-black" style="font-weight:bold" asp-area="" asp-controller="Home" asp-action="Parent">Parent</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-black" style="font-weight:bold" asp-area="" asp-controller="Home" asp-action="Child">Child</a>
+                        <a class="nav-link text-black" style="font-weight:bold" asp-area="" asp-controller="Home" asp-action="Child">Student</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-black" style="font-weight:bold" asp-area="" asp-controller="Home" asp-action="Attendance">Attendance</a>
@@ -227,7 +227,7 @@
             </main>
         </div>
     }
-    else if (ViewContext.RouteData.Values["action"].ToString() == "TeacherView" || ViewContext.RouteData.Values["action"].ToString() == "TeacherHome" || ViewContext.RouteData.Values["action"].ToString() == "TeacherHelp")
+    else if (ViewContext.RouteData.Values["action"].ToString() == "TeacherView" || ViewContext.RouteData.Values["action"].ToString() == "TeacherHome" || ViewContext.RouteData.Values["action"].ToString() == "TeacherHelp" || ViewContext.RouteData.Values["action"].ToString() == "ForgotPassword2")
     {
         <!-- Standard Navbar -->
         <header>
@@ -249,11 +249,15 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="TeacherView">Teacher View</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ForgotPassword2">Update Password</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="TeacherHelp">Help</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Authenticate">Log-Out</a>
                             </li>
+
                         </ul>
                     </div>
                 </div>

@@ -79,7 +79,21 @@ namespace test_Data.Controllers
             }
             //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
             string fileContent = string.Empty;
-            string filePath = "C:\\Users\\dylan\\Desktop\\SFEN\\currentuser.txt";
+            string filePath = "C:\\Users\\Caldon\\Desktop\\noriFolder\\currentuser.txt";
+            fileContent = System.IO.File.ReadAllText(filePath);
+            ViewBag.FileContent = fileContent;
+
+            return View();
+        }
+        public IActionResult ForgotPassword2(AccountModel account)
+        {
+            using (var db = new DemoContext())
+            {
+                var userTemp = db.Account.Where(u => u.acUsername == account.acUsername).FirstOrDefault();
+            }
+            //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
+            string fileContent = string.Empty;
+            string filePath = "C:\\Users\\Caldon\\Desktop\\noriFolder\\currentuser.txt";
             fileContent = System.IO.File.ReadAllText(filePath);
             ViewBag.FileContent = fileContent;
 
@@ -107,7 +121,7 @@ namespace test_Data.Controllers
 
                 db.SaveChanges();
             }
-            return View("Authenticate");
+            return View("Index");
         }
 
         public IActionResult Privacy()
@@ -148,80 +162,91 @@ namespace test_Data.Controllers
             using (var db = new DemoContext())
             {
 				var users = db.Account.SingleOrDefault(u => u.acUsername == username && u.acPosition == position);
-				if (users == null)
+                if (users == null)
                 {
                     ViewBag.ErrorMessage = "User not found";
-                
-                }
-                ViewBag.currentuser = username;
-                var userId = db.Account.Where(u => u.acUsername == username).Select(u => u.acID).FirstOrDefault();
-                ViewBag.userid = userId;
-               
-                TextWriter txt = null;
-                string filePath = "C:\\Users\\dylan\\Desktop\\SFEN\\currentuser.txt";
-                txt = new StreamWriter(filePath);
-                txt.WriteLine(ViewBag.currentuser);
-                txt.Close();
-                
-                TextWriter txt2 = null;
-                string filePath2 = "C:\\Users\\dylan\\Desktop\\SFEN\\userid.txt";
-                txt2 = new StreamWriter(filePath2);
-                txt2.WriteLine(ViewBag.userid);
-                txt2.Close();
+                    return View("Authenticate");
 
-                string fileContent3 = string.Empty;
-                string filePath3 = "C:\\Users\\dylan\\Desktop\\SFEN\\userid.txt";
-                fileContent3 = System.IO.File.ReadAllText(filePath3);
-                ViewBag.FileContent3 = fileContent3;
-
-                List<ParentModel> parents = new List<ParentModel>();  
-                var parent2 = db.Parents.Where(u => u.acID == userId.ToString()).Select(u => u.sID).FirstOrDefault();
-                ViewBag.childID = parent2;
-                //writing to child
-			    TextWriter txt4 = null;
-			    string filePath4 = "C:\\Users\\dylan\\Desktop\\SFEN\\childID.txt";
-			    txt4 = new StreamWriter(filePath4);
-			    txt4.WriteLine(parent2);
-			    txt4.Close();
-			    //reading form child
-			    string fileContent5 = string.Empty;
-			    string filePath5 = "C:\\Users\\dylan\\Desktop\\SFEN\\childID.txt";
-			    fileContent5 = System.IO.File.ReadAllText(filePath5);
-			    ViewBag.FileContent5 = fileContent5;
-                
-                string hashedPassword;
-                using (var sha256 = SHA256.Create())
-                {
-                    byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-                    byte[] hashBytes = sha256.ComputeHash(passwordBytes);
-                    hashedPassword = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
-                }
-
-                // Compare the hashed password with the one stored in the database
-                if (users.acPassword.Equals(hashedPassword))
-                {
-                    if (position == "Teacher")
-                    {
-                        return RedirectToAction("TeacherView");
-                    }
-                    else if (position == "Admin")
-                    {
-                        return RedirectToAction("Admin");
-                    }
-                    else if (position == "Parent")
-                    {
-                        return RedirectToAction("ParentView");
-                    }
-                    else
-                    {
-                        ViewBag.ErrorMessage = "Invalid position";
-                        return View("Authenticate");
-                    }
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "Incorrect password.";
-                    return View("Authenticate");
+                    ViewBag.currentuser = username;
+                    var userId = db.Account.Where(u => u.acUsername == username).Select(u => u.acID).FirstOrDefault();
+                    ViewBag.userid = userId;
+                    if (username != null || password != null)
+                    {
+                        TextWriter txt = null;
+                        string filePath = "C:\\Users\\Caldon\\Desktop\\noriFolder\\currentuser.txt";
+                        txt = new StreamWriter(filePath);
+                        txt.WriteLine(ViewBag.currentuser);
+                        txt.Close();
+
+                        TextWriter txt2 = null;
+                        string filePath2 = "C:\\Users\\Caldon\\Desktop\\noriFolder\\userid.txt";
+                        txt2 = new StreamWriter(filePath2);
+                        txt2.WriteLine(ViewBag.userid);
+                        txt2.Close();
+
+                        string fileContent3 = string.Empty;
+                        string filePath3 = "C:\\Users\\Caldon\\Desktop\\noriFolder\\userid.txt";
+                        fileContent3 = System.IO.File.ReadAllText(filePath3);
+                        ViewBag.FileContent3 = fileContent3;
+
+                        List<ParentModel> parents = new List<ParentModel>();
+                        var parent2 = db.Parents.Where(u => u.acID == userId.ToString()).Select(u => u.sID).FirstOrDefault();
+                        ViewBag.childID = parent2;
+                        //writing to child
+                        TextWriter txt4 = null;
+                        string filePath4 = "C:\\Users\\Caldon\\Desktop\\noriFolder\\childID.txt";
+                        txt4 = new StreamWriter(filePath4);
+                        txt4.WriteLine(parent2);
+                        txt4.Close();
+                        //reading form child
+                        string fileContent5 = string.Empty;
+                        string filePath5 = "C:\\Users\\Caldon\\Desktop\\noriFolder\\childID.txt";
+                        fileContent5 = System.IO.File.ReadAllText(filePath5);
+                        ViewBag.FileContent5 = fileContent5;
+                        string hashedPassword;
+                        using (var sha256 = SHA256.Create())
+                        {
+                            byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                            byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+                            hashedPassword = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                        }
+
+                        // Compare the hashed password with the one stored in the database
+                        if (users.acPassword.Equals(hashedPassword))
+                        {
+                            if (position == "Teacher")
+                            {
+                                return RedirectToAction("TeacherView");
+                            }
+                            else if (position == "Admin")
+                            {
+                                return RedirectToAction("Admin");
+                            }
+                            else if (position == "Parent")
+                            {
+                                return RedirectToAction("ParentView");
+                            }
+                            else
+                            {
+                                ViewBag.ErrorMessage = "Invalid position";
+                                return View("Authenticate");
+                            }
+                        }
+                        else
+                        {
+                            ViewBag.ErrorMessage = "Incorrect password.";
+                            return View("Authenticate");
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "Please Enter A Correct Username And Password.";
+                        return View("Authenticate");
+
+                    }
                 }
             }
 	    }
@@ -380,11 +405,22 @@ namespace test_Data.Controllers
                 UpdateTeacher.acUsername = account.acUsername;
                 UpdateTeacher.acPassword = account.acPassword;
                 UpdateTeacher.acPosition = account.acPosition;
+                string hashedPassword;
+                using (var sha256 = SHA256.Create())
+                {
+                    byte[] passwordBytes = Encoding.UTF8.GetBytes(account.acPassword);
+                    byte[] hashBytes = sha256.ComputeHash(passwordBytes);
 
+                    hashedPassword = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                    account.acPassword = hashedPassword;
+                }
+
+                UpdateTeacher.acPassword = hashedPassword;
                 db.SaveChanges();
             }
             return View("Account");
         }
+
 
         //Update Attendance 1
         [HttpPost]
@@ -786,10 +822,6 @@ namespace test_Data.Controllers
         }
         public IActionResult AddAccountDetails()
         {   
-            
-            
-            
-
             return View();
         }
         [HttpPost]
@@ -879,12 +911,12 @@ namespace test_Data.Controllers
         public IActionResult ParentView()
         {
             string fileContent3 = string.Empty;
-            string filePath3 = "C:\\Users\\dylan\\Desktop\\SFEN\\userid.txt";
+            string filePath3 = "C:\\Users\\Caldon\\Desktop\\noriFolder\\userid.txt";
             fileContent3 = System.IO.File.ReadAllText(filePath3);
             ViewBag.FileContent3 = fileContent3;
 
             string fileContent5 = string.Empty;
-            string filePath5 = "C:\\Users\\dylan\\Desktop\\SFEN\\childID.txt";
+            string filePath5 = "C:\\Users\\Caldon\\Desktop\\noriFolder\\childID.txt";
             fileContent5 = System.IO.File.ReadAllText(filePath5);
             ViewBag.FileContent5 = fileContent5;
             return View();
