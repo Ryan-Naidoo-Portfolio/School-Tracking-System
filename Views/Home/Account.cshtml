@@ -3,6 +3,14 @@
     ViewData["Title"] = "Account";
 }
 
+@if (TempData["AlertMessage"] != null)
+{
+    <br />
+    <br />
+    <div class="alert alert-success">
+        <strong>Success!</strong> @TempData["AlertMessage"]
+    </div>
+}
 <style>
     body {
         background-color: white;

@@ -3,6 +3,12 @@
     ViewData["Title"] = "Child";
 
 }
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success">
+        <strong>Success!</strong> @TempData["AlertMessage"]
+    </div>
+}
 <style>
     body {
     background-color: white;
@@ -93,9 +99,6 @@
 </style>
 
 <body>
-    <div class="head-bar">
-        Search
-    </div>
     <div class="container">
         <div class="Form">
             <form method="get" action="@Url.Action("Search", "Home")">
@@ -183,7 +186,7 @@
                         <td>@qr.Present</td>
                       
                         <td>
-                            <button type="button" class="btn btn-outline-danger" onclick="redirectToNotificationPage('@qr.pID')">Message</button>
+                            <button type="button" class="btn btn-info" onclick="redirectToNotificationPage('@qr.pID')">Message</button>
 
                            
                         </td>

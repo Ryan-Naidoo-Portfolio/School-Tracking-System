@@ -3,6 +3,14 @@
     ViewData["Title"] = "Child";
 }
 
+@if (TempData["AlertMessage"] != null)
+{
+    <br />
+    <br />
+    <div class="alert alert-success">
+        <strong>Success!</strong> @TempData["AlertMessage"]
+    </div>
+}
 <style>
     body {
         background-color: white;
@@ -110,8 +118,9 @@
                         <th scope="col">Surname</th>
                         <th scope="col">Form Class</th>
                         <th scope="col">pID</th>
-                       
+            
                         <th scope="col">Generate</th>
+                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,9 +134,14 @@
                             <td>@child.pID</td>
                            
                             <td>
-                                <button type="button" class="btn btn-outline-danger" onclick="pushSIDToTextArea('@child.sID')">Generate</button>
+                                <button type="button" class="btn btn-info" onclick="pushSIDToTextArea('@child.sID')">Generate</button>
                             </td>
-
+                            <td>
+                                <form asp-action="DeleteChild" asp-controller="Home" method="post" style="display:inline;">
+                                    <input type="hidden" asp-for="sID" value="@child.sID" />
+                                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>

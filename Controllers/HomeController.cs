@@ -86,7 +86,7 @@ namespace test_Data.Controllers
             }
             //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
             string fileContent = string.Empty;
-            string filePath = "C:\\Users\\Caldon\\Desktop\\COHANSFAULT\\currentuser.txt";
+            string filePath = "C:\\Users\\User\\source\\repos\\The-End-pt1\\currentuser.txt";
             fileContent = System.IO.File.ReadAllText(filePath);
             ViewBag.FileContent = fileContent;
 
@@ -100,7 +100,7 @@ namespace test_Data.Controllers
             }
             //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
             string fileContent = string.Empty;
-            string filePath = "C:\\Users\\Caldon\\Desktop\\COHANSFAULT\\currentuser.txt";
+            string filePath = "C:\\Users\\User\\source\\repos\\The-End-pt1\\currentuser.txt";
             fileContent = System.IO.File.ReadAllText(filePath);
             ViewBag.FileContent = fileContent;
 
@@ -183,19 +183,19 @@ namespace test_Data.Controllers
                     if (username != null || password != null)
                     {
                         TextWriter txt = null;
-                        string filePath = "C:\\Users\\Caldon\\Desktop\\COHANSFAULT\\currentuser.txt";
+                        string filePath = "C:\\Users\\User\\source\\repos\\The-End-pt1\\currentuser.txt";
                         txt = new StreamWriter(filePath);
                         txt.WriteLine(ViewBag.currentuser);
                         txt.Close();
 
                         TextWriter txt2 = null;
-                        string filePath2 = "C:\\Users\\Caldon\\Desktop\\COHANSFAULT\\userid.txt";
+                        string filePath2 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\userid.txt";
                         txt2 = new StreamWriter(filePath2);
                         txt2.WriteLine(ViewBag.userid);
                         txt2.Close();
 
                         string fileContent3 = string.Empty;
-                        string filePath3 = "C:\\Users\\Caldon\\Desktop\\COHANSFAULT\\userid.txt";
+                        string filePath3 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\userid.txt";
                         fileContent3 = System.IO.File.ReadAllText(filePath3);
                         ViewBag.FileContent3 = fileContent3;
 
@@ -204,13 +204,13 @@ namespace test_Data.Controllers
                         ViewBag.childID = parent2;
                         //writing to child
                         TextWriter txt4 = null;
-                        string filePath4 = "C:\\Users\\Caldon\\Desktop\\COHANSFAULT\\childID.txt";
+                        string filePath4 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\childID.txt";
                         txt4 = new StreamWriter(filePath4);
                         txt4.WriteLine(parent2);
                         txt4.Close();
                         //reading form child
                         string fileContent5 = string.Empty;
-                        string filePath5 = "C:\\Users\\Caldon\\Desktop\\COHANSFAULT\\childID.txt";
+                        string filePath5 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\childID.txt";
                         fileContent5 = System.IO.File.ReadAllText(filePath5);
                         ViewBag.FileContent5 = fileContent5;
                         string hashedPassword;
@@ -226,14 +226,17 @@ namespace test_Data.Controllers
                         {
                             if (position == "Teacher")
                             {
+                                TempData["AlertMessage"] = "Login Successful";
                                 return RedirectToAction("TeacherView");
                             }
                             else if (position == "Admin")
                             {
+                                TempData["AlertMessage"] = "Login Successful";
                                 return RedirectToAction("Admin");
                             }
                             else if (position == "Parent")
                             {
+                                TempData["AlertMessage"] = "Login Successful";
                                 return RedirectToAction("ParentView");
                             }
                             else
@@ -317,7 +320,8 @@ namespace test_Data.Controllers
 
                 db.SaveChanges();
             }
-            return View("Teacher");
+            TempData["AlertMessage"] = "Teacher Updated Successful";
+            return RedirectToAction("Teacher");
         }
 
         //Update Parent 1
@@ -351,7 +355,8 @@ namespace test_Data.Controllers
                 UpdateTeacher.pEmergencyPhoneNumber = parent.pEmergencyPhoneNumber;
                 db.SaveChanges();
             }
-            return View("Parent");
+            TempData["AlertMessage"] = "Parent Updated Successful";
+            return RedirectToAction("Parent");
         }
 
 
@@ -383,7 +388,8 @@ namespace test_Data.Controllers
 
                 db.SaveChanges();
             }
-            return View("Child");
+            TempData["AlertMessage"] = "Student Updated Successful";
+            return RedirectToAction("Child");
         }
 
 
@@ -425,7 +431,8 @@ namespace test_Data.Controllers
                 UpdateTeacher.acPassword = hashedPassword;
                 db.SaveChanges();
             }
-            return View("Account");
+            TempData["AlertMessage"] = "Account Updated Successful";
+            return RedirectToAction("Account");
         }
 
 
@@ -490,7 +497,8 @@ namespace test_Data.Controllers
 
                 db.SaveChanges();
             }
-            return View("Admin");
+            TempData["AlertMessage"] = "Admin Updated Successful";
+            return RedirectToAction("Admin");
         }
 
         //Delete User
@@ -516,6 +524,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
+            TempData["AlertMessage"] = "Account Deleted Successfully";
             return RedirectToAction("Account");
         }
 
@@ -529,6 +538,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
+            TempData["AlertMessage"] = "Admin Deleted Successfully";
             return RedirectToAction("Admin");
         }
 
@@ -542,6 +552,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
+            TempData["AlertMessage"] = "Child Deleted Successfully";
             return RedirectToAction("Child");
         }
 
@@ -555,6 +566,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
+            TempData["AlertMessage"] = "Teacher Deleted Successfully";
             return RedirectToAction("Teacher");
         }
 
@@ -568,6 +580,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
+            TempData["AlertMessage"] = "Parent Deleted Successfully";
             return RedirectToAction("Parent");
         }
 
@@ -581,6 +594,7 @@ namespace test_Data.Controllers
                 db.Remove(DeleteUser);
                 db.SaveChanges();
             }
+
             return RedirectToAction("Attendance");
         }
 
@@ -853,7 +867,8 @@ namespace test_Data.Controllers
 					db.Add(account);
 					db.SaveChanges();
 				}
-				return RedirectToAction("Account");
+                TempData["AlertMessage"] = "Account Created Successfully";
+                return RedirectToAction("Account");
 			}
 			else
 			{
@@ -918,12 +933,12 @@ namespace test_Data.Controllers
         public IActionResult ParentView()
         {
             string fileContent3 = string.Empty;
-            string filePath3 = "C:\\Users\\Caldon\\Desktop\\COHANSFAULT\\userid.txt";
+            string filePath3 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\userid.txt";
             fileContent3 = System.IO.File.ReadAllText(filePath3);
             ViewBag.FileContent3 = fileContent3;
 
             string fileContent5 = string.Empty;
-            string filePath5 = "C:\\Users\\Caldon\\Desktop\\COHANSFAULT\\childID.txt";
+            string filePath5 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\childID.txt";
             fileContent5 = System.IO.File.ReadAllText(filePath5);
             ViewBag.FileContent5 = fileContent5;
             return View();
