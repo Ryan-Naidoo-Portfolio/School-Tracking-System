@@ -86,7 +86,7 @@ namespace test_Data.Controllers
             }
             //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
             string fileContent = string.Empty;
-            string filePath = "C:\\Users\\User\\source\\repos\\The-End-pt1\\currentuser.txt";
+            string filePath = "C:\\Users\\naido\\Desktop\\teli project\\currentuser.txt";
             fileContent = System.IO.File.ReadAllText(filePath);
             ViewBag.FileContent = fileContent;
 
@@ -100,7 +100,7 @@ namespace test_Data.Controllers
             }
             //USES A TEXT FILE ALSO IN LOGIN CALLED currentuser
             string fileContent = string.Empty;
-            string filePath = "C:\\Users\\User\\source\\repos\\The-End-pt1\\currentuser.txt";
+            string filePath = "C:\\Users\\naido\\Desktop\\teli project\\currentuser.txt";
             fileContent = System.IO.File.ReadAllText(filePath);
             ViewBag.FileContent = fileContent;
 
@@ -183,19 +183,19 @@ namespace test_Data.Controllers
                     if (username != null || password != null)
                     {
                         TextWriter txt = null;
-                        string filePath = "C:\\Users\\User\\source\\repos\\The-End-pt1\\currentuser.txt";
+                        string filePath = "C:\\Users\\naido\\Desktop\\teli project\\currentuser.txt";
                         txt = new StreamWriter(filePath);
                         txt.WriteLine(ViewBag.currentuser);
                         txt.Close();
 
                         TextWriter txt2 = null;
-                        string filePath2 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\userid.txt";
+                        string filePath2 = "C:\\Users\\naido\\Desktop\\teli project\\userid.txt";
                         txt2 = new StreamWriter(filePath2);
                         txt2.WriteLine(ViewBag.userid);
                         txt2.Close();
 
                         string fileContent3 = string.Empty;
-                        string filePath3 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\userid.txt";
+                        string filePath3 = "C:\\Users\\naido\\Desktop\\teli project\\userid.txt";
                         fileContent3 = System.IO.File.ReadAllText(filePath3);
                         ViewBag.FileContent3 = fileContent3;
 
@@ -204,13 +204,13 @@ namespace test_Data.Controllers
                         ViewBag.childID = parent2;
                         //writing to child
                         TextWriter txt4 = null;
-                        string filePath4 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\childID.txt";
+                        string filePath4 = "C:\\Users\\naido\\Desktop\\teli project\\childID.txt";
                         txt4 = new StreamWriter(filePath4);
                         txt4.WriteLine(parent2);
                         txt4.Close();
                         //reading form child
                         string fileContent5 = string.Empty;
-                        string filePath5 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\childID.txt";
+                        string filePath5 = "C:\\Users\\naido\\Desktop\\teli project\\childID.txt";
                         fileContent5 = System.IO.File.ReadAllText(filePath5);
                         ViewBag.FileContent5 = fileContent5;
                         string hashedPassword;
@@ -872,6 +872,7 @@ namespace test_Data.Controllers
 			}
 			else
 			{
+               
 				return View("AddAccountDetails");
 			}
 
@@ -933,12 +934,12 @@ namespace test_Data.Controllers
         public IActionResult ParentView()
         {
             string fileContent3 = string.Empty;
-            string filePath3 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\userid.txt";
+            string filePath3 = "C:\\Users\\naido\\Desktop\\teli project\\userid.txt";
             fileContent3 = System.IO.File.ReadAllText(filePath3);
             ViewBag.FileContent3 = fileContent3;
 
             string fileContent5 = string.Empty;
-            string filePath5 = "C:\\Users\\User\\source\\repos\\The-End-pt1\\childID.txt";
+            string filePath5 = "C:\\Users\\naido\\Desktop\\teli project\\childID.txt";
             fileContent5 = System.IO.File.ReadAllText(filePath5);
             ViewBag.FileContent5 = fileContent5;
             return View();
@@ -1032,7 +1033,7 @@ namespace test_Data.Controllers
                 // Save changes to the database
                 db.SaveChanges();
 
-                return RedirectToAction("TeacherView"); // Redirect to a success page or another view
+                return RedirectToAction("Scannerqr"); // Redirect to a success page or another view
             }
         }
 
@@ -1067,7 +1068,7 @@ namespace test_Data.Controllers
                           .ToList();
 
                 ViewBag.users = users;
-                return View("TeacherView");
+                return RedirectToAction("TeacherView");
             }
         }
 
@@ -1083,7 +1084,7 @@ namespace test_Data.Controllers
                           .ToList();
 
                 ViewBag.users = users;
-                return View("TeacherView");
+                return RedirectToAction("TeacherView");
             }
         }
 
@@ -1108,7 +1109,7 @@ namespace test_Data.Controllers
                 }
 
                 ViewBag.users = users.ToList();
-                return View("TeacherView");
+                return RedirectToAction("TeacherView");
             }
         }
 

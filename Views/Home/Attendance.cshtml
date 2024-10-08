@@ -92,7 +92,10 @@
     <div class="head-bar">
         Attendance Records
     </div>
-   
+   <br />
+   <br />
+    <br />
+
 
     <div class="container">
         @if (ViewBag.users != null && ViewBag.users.Count >= 1)
@@ -131,7 +134,7 @@
         }
           <div class="container mt-3">
                 <form asp-action="ClearRecords" asp-controller="Home" method="post">
-                    <button type="submit" onclick="onsuccess()" class="btn btn-danger">Clear All Records</button>
+                    <button type="submit" onclick="onsuccess()" class="btn btn-danger">Clear Attendance Records</button>
                 </form>
             </div>
     </div>
