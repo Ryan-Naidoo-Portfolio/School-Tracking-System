@@ -732,6 +732,14 @@ namespace test_Data.Controllers
                     db.SaveChanges();
                 }
                 string parent2 = "Parent";
+
+
+                TextWriter txt = null;
+                string filePath = "C:\\Users\\naido\\Desktop\\teli project\\position.txt";
+                txt = new StreamWriter(filePath);
+                txt.WriteLine(parent2);
+                txt.Close();
+
                 ViewBag.position=parent2;
             return View("AddAccountDetails");
             }
@@ -818,6 +826,13 @@ namespace test_Data.Controllers
                     db.SaveChanges();
                 }
                 string teacher2 = "Teacher";
+
+                TextWriter txt = null;
+                string filePath = "C:\\Users\\naido\\Desktop\\teli project\\position.txt";
+                txt = new StreamWriter(filePath);
+                txt.WriteLine(teacher2);
+                txt.Close();
+
                 ViewBag.position = teacher2;
                 return View("AddAccountDetails");
             }
@@ -917,6 +932,14 @@ namespace test_Data.Controllers
                     db.SaveChanges();
                 }
                 string admin2 = "Admin";
+
+
+                TextWriter txt = null;
+                string filePath = "C:\\Users\\naido\\Desktop\\teli project\\position.txt";
+                txt = new StreamWriter(filePath);
+                txt.WriteLine(admin2);
+                txt.Close();
+
                 ViewBag.position = admin2;
                 return View("AddAccountDetails");
             }

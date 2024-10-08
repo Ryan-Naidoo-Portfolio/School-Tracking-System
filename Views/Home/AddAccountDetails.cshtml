@@ -3,6 +3,11 @@
     ViewData["Title"] = "AddAccountDetails";
 }
 
+@{
+    string filePath = @"C:\Users\naido\Desktop\teli project\position.txt";
+    string acPosition = System.IO.File.ReadAllText(filePath);
+}
+
 <style>
     body {
         background-color: white;
@@ -107,7 +112,7 @@
                 <span asp-validation-for="acPassword" class="text-danger"></span>
             </div>
             <div>
-                <input type="hidden" value=@ViewBag.position asp-for="acPosition" />
+                <input type="hidden" value="@acPosition" asp-for="acPosition" />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
