@@ -1091,7 +1091,7 @@ namespace test_Data.Controllers
                           .ToList();
 
                 ViewBag.users = users;
-                return RedirectToAction("TeacherView");
+                return View("TeacherView");
             }
         }
 
@@ -1107,7 +1107,7 @@ namespace test_Data.Controllers
                           .ToList();
 
                 ViewBag.users = users;
-                return RedirectToAction("TeacherView");
+                return View("TeacherView");
             }
         }
 
@@ -1132,7 +1132,7 @@ namespace test_Data.Controllers
                 }
 
                 ViewBag.users = users.ToList();
-                return RedirectToAction("TeacherView");
+                return View("TeacherView");
             }
         }
 
